@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
+Route::get('/',HomeController::class)->name('home');
+Route::get('/categories',[CategoryController::class,'create'])->name('create');
+Route::post('categories',[CategoryController::class,'store'])->name('store');
+Route::get('subcategories/create',[SubcategoryController::class,'create'])->name('create');
 require __DIR__.'/auth.php';
+
