@@ -2,35 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subcategory;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\SubCategory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SubcategoryController extends Controller
 {
-    public function index()
+    /**
+     * show a create subcategory form
+     *
+     * @return View
+     */
+    public function create(): View
     {
-        return view('',compact());
+        return view('subcategory.create', [
+            'categories' => Category::all(),
+        ]);
     }
 
-    public function create()
+    public function show(SubCategory $subCategory)
     {
-        return view('subcategory.create');
+        return view('subcategory.show', [
+            'products' => $subCategory->products,
+        ]);
     }
 
-    public function store( Request $request)
+    /**
+     * validate and store subcategories
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store( Request $request): RedirectResponse
     {
         $request->validate([
+            'category' => 'required|exists:categories,id',
             'name' => 'required',
             'file' => 'required|mimes:jpg,png,jpeg'
         ]);
 
         $newImageName = time() . '-' .$request->name . '.' . $request->file->extension();
-        $request->file->move(public_path('images/subC'),$newImageName);
+        $request->file->move(public_path('images/subcategoriesImgs'),$newImageName);
 
-        Subcategory::create([
-            'category_name' => $request['name'],
-            'file_path' => $newImageName
+        SubCategory::create([
+            'category_id' => $request['category'],
+            'name' => $request['name'],
+            'file_path' => $newImageName,
         ]);
+
+        return redirect()->route('category.show',$request['category']);
 
     }
 

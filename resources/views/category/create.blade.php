@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-<form method="post" action="{{route('store')}}" enctype="multipart/form-data">
+<form method="post" action="{{route('category.store')}}" enctype="multipart/form-data">
     @csrf
     <div>
         <label>Category Name</label>

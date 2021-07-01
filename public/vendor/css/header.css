@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+.header{
+    min-height: 60px;
+    background: #000000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+a{
+    display: inline-block;
+    text-decoration: none;
+}
+#search-bar{
+    position: relative;
+    width: 50%;
+}
+input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid white;
+
+}
+
+

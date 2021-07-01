@@ -7,11 +7,23 @@
     <title>Document</title>
 </head>
 <body>
-<form method="post" action="{{route('store')}}" enctype="multipart/form-data">
+<form method="post" action="{{route('subcategory.store')}}" enctype="multipart/form-data">
     @csrf
     <div>
-        <label>Category Name</label>
-        <input type="text" name="name" required>
+        <label for="category">Category</label>
+
+        <select id="category" name="category">
+            <option value="">select a category</option>
+
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div>
+        <label for="sub">sub-category Name</label>
+        <input id="sub" type="text" name="name" required>
     </div>
     <div class="form-group">
         <input type="file" name="file" required>
