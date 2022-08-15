@@ -54,7 +54,6 @@ class SubcategoryController extends Controller
         ]);
 
         return redirect()->route('category.show',$request['category']);
-
     }
 
 }

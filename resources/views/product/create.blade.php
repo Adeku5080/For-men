@@ -32,7 +32,7 @@
         <input id="sub" type="text" name="name" required>
         @if ($errors->has('name'))
             <small>{{$errors->first('name')}}</small>
-            @endif
+        @endif
     </div>
 
     <div class="form-group">
@@ -65,7 +65,7 @@
 
     <div>
         <label>Description</label>
-        <textarea name="description" >
+        <textarea name="description">
 
         </textarea>
         @if ($errors->has('description'))
@@ -79,17 +79,18 @@
     const subCategoryField = document.querySelector('#subcategory');
     const defaultSubCategoryOption = '<option value="">select a subcategory</option>';
 
-    document.querySelector('#category').addEventListener('change', async function() {
-       const category = this.value;
+    document.querySelector('#category').addEventListener('change', async function () {
+        const category = this.value;
 
-       if (category === "") {
-           return;
-       }
+        if (category === "") {
+            return;
+        }
 
-       // Fetch the sub-categories.
-        const subCategories = await fetchCategories(category);
+        // Fetch the sub-categories.
+        const {data} = await fetchCategories(category);
+        const subCategories = data;
 
-       fillSubCategoryField(subCategories);
+        fillSubCategoryField(subCategories);
     });
 
     /**
@@ -112,9 +113,8 @@
 
     function fillSubCategoryField(subCategories) {
         let options = defaultSubCategoryOption;
-
-        for (const subCategory of subCategories) {
-           options += `<option value="${subCategory.id}">${subCategory.name}</option>`;
+        for(const subCategory of subCategories) {
+            options += `<option value="${subCategory.id}">${subCategory.name}</option>`;
         }
 
         subCategoryField.innerHTML = options;

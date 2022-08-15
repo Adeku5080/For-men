@@ -1,0 +1,123 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.New-in_section{
+    height: 90vh;
+    width: 93%;
+    margin: 10px auto;
+    background: url("backgroundimg.jpg")center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.New-in_container{
+    width: 60%;
+    margin-top: 300px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.New-in_header{
+    margin-bottom: 25px;
+    padding: 10px 8px ;
+    background: #f7fafc;
+}
+.New-in_header_text{
+    font-size: 50px;
+}
+.New-in_link{
+    background: #f7fafc;
+    padding: 10px 25px;
+}
+.New-in_link a{
+    display: inline-block;
+    color: black;
+    font-family: SansSerif;
+    font-weight: bold;
+}
+.brand-edit_section{
+    height: 80vh;
+    width: 93%;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.puma{
+    height:70vh ;
+}
+.puma-img{
+    max-height:90% ;
+    max-width: 94%;
+}
+
+.swim-short{
+    height: 70vh;
+}
+.swimWins-img{
+    max-height: 90%;
+    max-width: 94%;
+}
+
+.statement-shirt{
+    height: 70vh;
+}
+.statementShirt-img{
+    max-height: 90%;
+    max-width: 94%;
+}
+
+.accessory{
+    height: 70vh;
+}
+.accessory-img{
+    max-height: 90%;
+    max-width: 94%;
+}
+
+.brand-edit_image:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.brand-edit_heading{
+    text-align: center;
+    margin-top: 15px;
+}
+.brand-edit_paragraph{
+    text-align: center;
+    font-family: sans-serif;
+    margin-top: 18px;
+}
+
+.trending-brands_imgs{
+    height: 40vh;
+    margin-top: 30px;
+}
+
+.trending-brand_img{
+    max-height: 80%;
+}
+
+.trending-brands{
+    width: 93%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.trending-brands-header{
+    width: 93%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.trending-brands-header h4{
+    font-size: 20px;
+}

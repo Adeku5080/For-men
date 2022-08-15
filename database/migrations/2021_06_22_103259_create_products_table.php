@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->longText('description');
             $table->string('file_path');
             $table->unsignedBigInteger('subcategory_id');
-            $table->foreign('subcategory_id')->references('id')->on('sub_categories');
+            $table->foreign('subcategory_id')->references('id')->on('sub_categories')->cascadeOnDelete();
             $table->timestamps();
         });
     }

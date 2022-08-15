@@ -28,6 +28,15 @@ class ProductController extends Controller
     }
 
     /**
+     * Show a product
+     *
+     */
+    public function show( Product $product )
+    {
+       return view('product.show' ,compact('product'));
+    }
+
+    /**
      * validate and store products
      *
      * @param Request $request
@@ -48,6 +57,7 @@ class ProductController extends Controller
         $request->file->move(public_path('images/productImgs'),$newImageName);
 
         Product::create([
+            'category_id' => $request['category'],
             'sub_category_id' => $request['subcategory'],
             'name' => $request['name'],
             "brand_id" => $request['brand'],

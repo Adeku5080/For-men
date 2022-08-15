@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductApiController;
+use App\Http\Controllers\Api\SubCategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +24,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/categories/{category}/sub-categories', [CategoryController::class, 'subCategories'])
     ->name('api.category.sub-categories');
+
+Route::get('/products',[ProductApiController::class,'index']);
+Route::get('/products/{product}',[ProductApiController::class,'show']);
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{category}',[CategoryController::class,'show']);
+
+Route::get('/sub-categories',[SubCategoryController::class,'index']);
+Route::get('/sub-categories/{subCategory}',[SubCategoryController::class,'show']);
+Route::get('/sub-categories/{subCategory}/products', [SubCategoryController::class, 'products']);
+
+Route::post('/add-to-cart',[CartController::class,'addToCart'])
+    ->name('api.add-to-cart');
+

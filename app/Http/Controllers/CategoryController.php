@@ -53,8 +53,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-     // $test = $request->file('file')->isValid();
-     // dd($test);
 
         $request->validate([
             'name' => 'required',
