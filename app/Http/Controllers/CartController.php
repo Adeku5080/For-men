@@ -24,42 +24,14 @@ class CartController extends Controller
     }
 
     /**
-     * Add a product to cart
-     *
-     */
-//    public function addToCart(Request $request, Product $product)
-//    {
-//        if (!Auth::user()) {
-//            return redirect('/login');
-//        };
-//
-//        $cart = Cart::firstOrCreate([
-//            'user_id' => Auth::id(),
-//            'checked_out_at' => null,
-//        ]);
-//
-//        CartItem::updateOrCreate(
-//            [
-//                'product_id' => $product->id,
-//                'size' => $request->size,
-//                'cart_id' => $cart->id,
-//            ],
-//            [
-//                'quantity' => $request->quantity,
-//            ]
-//        );
-//
-//        return redirect()->route('cart.show');
-//    }
-
-    /**
      * @return View
      *
      */
-    public function getItemsFromCart()
+    public function getItemsFromCart(): View
     {
         $cartItems = CartItem::all();
         return view('cart.cart',compact('cartItems'));
 
     }
+
 }

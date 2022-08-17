@@ -98,14 +98,16 @@ Route::get('/show/{product}',[ProductController::class,'show'])
 
 //Route::post('/{product}/add-to-cart',[CartController::class,'store'])
 //    ->name('cart.store');
-
-Route::post('add-to-cart/{product}',[CartController::class,'addToCart'])
-    ->name('cart.add');
+//
+//Route::post('add-to-cart/{product}',[CartController::class,'addToCart'])
+//    ->name('cart.add');
 
 
 Route::get('/cart',[CartController::class,'getItemsFromCart'])
     ->name('cart.show');
 
+Route::post('/api/add-to-cart',[\App\Http\Controllers\Api\CartController::class,'addToCart'])
+    ->name('api.add-to-cart')->middleware('auth');
 
 require __DIR__.'/auth.php';
 

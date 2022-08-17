@@ -6,26 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+
     /**
      * add item to cart
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return JsonResponse
      */
-    public function addToCart(Request $request)
+    public function addToCart(Request $request): JsonResponse
     {
-        dd($request->all());
-       // todo: authenticate the API.
+        $request->validate([
+                  'size' => 'required',
+                   'quantity' => 'required'
+            ]);
 
-        // todo: validate the request.
-
-        // fetch the product
-
+        $id = $request->productId;
+        $product = Product::find($id);
 
         $cart = Cart::firstOrCreate([
             'user_id' => Auth::id(),
@@ -42,7 +45,17 @@ class CartController extends Controller
                 'quantity' => $request->quantity,
             ]
         );
+       return new JsonResponse(null,200);
+    }
 
-        return redirect()->route('cart.show');
+    /**
+     * get cart Items count
+     *
+     */
+    public function getCartItems()
+    {
+        $cartItems = CartItem::all();
+
+        return new JsonResponse(['data'=> $cartItems],200);
     }
 }

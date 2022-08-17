@@ -4,6 +4,9 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\SubCategoryController;
+use App\Http\Middleware\Auth;
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\RedirectIfNotLoggedIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +38,4 @@ Route::get('/sub-categories',[SubCategoryController::class,'index']);
 Route::get('/sub-categories/{subCategory}',[SubCategoryController::class,'show']);
 Route::get('/sub-categories/{subCategory}/products', [SubCategoryController::class, 'products']);
 
-Route::post('/add-to-cart',[CartController::class,'addToCart'])
-    ->name('api.add-to-cart');
-
+Route::get('/cartitems',[CartController::class,'cartItemCount']);
