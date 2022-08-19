@@ -16,22 +16,7 @@
           crossorigin="anonymous"/>
 </head>
 <body>
-<header class="header">
-    <a href="#" class="brand-name">For-men</a>
-
-    <div id="search-bar">
-        <form action="{{route('search')}}" method="GET">
-                <input type="search" name="search" placeholder="Search" >
-        </form>
-    </div>
-
-    <a href="#">
-        <i class="far fa-user"></i>
-    </a>
-    <a href="#">
-        <i class="fas fa-shopping-cart">Cart</i>
-    </a>
-</header>
+<x-header/>
 <nav>
     <ul class="second-nav">
         <li class="second-nav_links"><a href="#" class="drop-down_header">New in</a>
@@ -261,6 +246,40 @@
     }
 
 </script>
+
+<script>
+
+    destructureResponse();
+
+    const cartItemCount = document.querySelector(".cart-item-count")
+    addToCart.addEventListener('click',async function(){
+        destructureResponse();
+    })
+
+    /**
+     * get all cartItems
+     *
+     */
+
+    async function getCount(){
+        const url = `{{route('api.cart-items-count')}}`
+
+        const response = await fetch(url);
+
+        return response.json();
+    }
+
+    /**
+     * destructures response and pass data into html
+     *
+     * @returns {Promise<void>}
+     */
+    async function destructureResponse () {
+        const {data} = await getCount()
+        cartItemCount.innerText = data;
+    }
+</script>
+
 </html>
 
 

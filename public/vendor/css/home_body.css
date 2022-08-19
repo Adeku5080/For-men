@@ -121,3 +121,8 @@
 .trending-brands-header h4{
     font-size: 20px;
 }
+.cart-item-count{
+    color:#ffffff;
+    font-size: 13px;
+    font-weight:bold;
+}

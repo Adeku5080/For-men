@@ -88,7 +88,7 @@
 
         // Fetch the sub-categories.
         const {data} = await fetchCategories(category);
-        const subCategori   es = data;
+        const subCategories = data;
 
         fillSubCategoryField(subCategories);
     });

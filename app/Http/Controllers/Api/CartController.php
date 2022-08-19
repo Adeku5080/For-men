@@ -52,10 +52,11 @@ class CartController extends Controller
      * get cart Items count
      *
      */
-    public function getCartItems()
+    public function getCartItemsCount(): JsonResponse
     {
-        $cartItems = CartItem::all();
+        $user = Auth::user();
+        $count = $user->activeCart->cartItems()->count();
 
-        return new JsonResponse(['data'=> $cartItems],200);
+        return new JsonResponse(['data'=> $count],200);
     }
 }

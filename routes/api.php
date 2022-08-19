@@ -38,4 +38,3 @@ Route::get('/sub-categories',[SubCategoryController::class,'index']);
 Route::get('/sub-categories/{subCategory}',[SubCategoryController::class,'show']);
 Route::get('/sub-categories/{subCategory}/products', [SubCategoryController::class, 'products']);
 
-Route::get('/cartitems',[CartController::class,'cartItemCount']);

@@ -134,6 +134,11 @@ input:focus{
     position: absolute;
 
 }
+.cart-item-count{
+    color:#ffffff;
+    font-size: 10px;
+    font-weight:bold;
+}
 
 
 

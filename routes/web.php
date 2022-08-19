@@ -109,5 +109,8 @@ Route::get('/cart',[CartController::class,'getItemsFromCart'])
 Route::post('/api/add-to-cart',[\App\Http\Controllers\Api\CartController::class,'addToCart'])
     ->name('api.add-to-cart')->middleware('auth');
 
+Route::get('/cart-items-count',[\App\Http\Controllers\Api\CartController::class,'getCartItemsCount'])
+    ->name('api.cart-items-count');
+
 require __DIR__.'/auth.php';
 

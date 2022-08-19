@@ -10,7 +10,11 @@
 
   <h2>Cart Page</h2>
 
-  <P>{{Auth::user()->name}}</P>
+  <div>
+      @foreach($cartItems as $cartItem)
+         <p>$cartItem->name</p>
+          @endforeach
+  </div>
 
 
 {{--@foreach($cartItems as $cartItem)--}}
