@@ -14,6 +14,9 @@ class CartItem extends Model
         'quantity',
         'cart_id',
         'size',
+        'item_name',
+        'item_file_path',
+        'item_price',
     ];
 
     /**

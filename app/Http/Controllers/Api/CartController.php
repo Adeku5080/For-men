@@ -35,17 +35,22 @@ class CartController extends Controller
             'checked_out_at' => null,
         ]);
 
-        CartItem::updateOrCreate(
+
+
+        $cartItems = CartItem::updateOrCreate(
             [
                 'product_id' => $product->id,
                 'size' => $request->size,
                 'cart_id' => $cart->id,
+                'item_file_path' => $product->file_path,
+                'item_name' => $product->name,
+                'item_price' => $product->price
             ],
             [
                 'quantity' => $request->quantity,
             ]
         );
-       return new JsonResponse(null,200);
+       return new JsonResponse( ['data'=> $cartItems],200);
     }
 
     /**

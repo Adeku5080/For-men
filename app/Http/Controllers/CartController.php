@@ -30,7 +30,7 @@ class CartController extends Controller
     public function getItemsFromCart(): View
     {
         $cartItems = CartItem::all();
-        dd($cartItems);
+
         return view('cart.cart',compact('cartItems'));
 
     }
