@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClothingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewinController;
@@ -106,10 +107,14 @@ Route::get('/show/{product}',[ProductController::class,'show'])
 Route::get('/cart',[CartController::class,'getItemsFromCart'])
     ->name('cart.show');
 
+Route::get('/checkout',[CheckoutController::class,'index'])
+    ->name('checkout');
+
+
 Route::post('/api/add-to-cart',[\App\Http\Controllers\Api\CartController::class,'addToCart'])
     ->name('api.add-to-cart')->middleware('auth');
 
-Route::get('/cart-items-count',[\App\Http\Controllers\Api\CartController::class,'getCartItemsCount'])
+Route::get('api/cart-items-count',[\App\Http\Controllers\Api\CartController::class,'getCartItemsCount'])
     ->name('api.cart-items-count');
 
 require __DIR__.'/auth.php';

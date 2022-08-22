@@ -30,7 +30,8 @@
 .size_and_quantity{
     display: flex;
     /*border:1px solid green;*/
-    justify-content: center;
+    justify-content: space-evenly;
+    /*border: 1px solid red;*/
 
 }
 
@@ -38,6 +39,20 @@
     /*border:1px solid blue;*/
     width: 50%;
     text-align: center;
+}
+
+.quantity-bar{
+    border: 1px solid black;
+
+}
+
+.style-button{
+    border: none;
+    background: white;
+    font-size: 18px;
+    padding: 0 8px;
+    outline: none;
+
 }
 
 .price{
@@ -91,3 +106,19 @@
     background: #146214;
     cursor: pointer;
 }
+
+#size{
+// A reset of styles, including removing the default dropdown arrow
+appearance: none;
+// Additional resets for further consistency
+background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 30%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+}
+

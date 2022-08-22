@@ -30,15 +30,15 @@
                         </select>
 
                         <div class="quantity-bar">
-                            <button type="button" class="decrement">
+                            <button type="button" class="decrement style-button">
                                 -
                             </button>
 
-                            <button class="count">
+                            <button class="count style-button">
                                 {{$cartItem->quantity}}
                             </button>
 
-                            <button type="button" class="increment">
+                            <button type="button" class="increment style-button">
                                 +
                             </button>
 
@@ -67,7 +67,8 @@
             <p>$total</p>
         </div>
         <div class="button-div">
-        <button class="checkout" type="button">CHECKOUT</button>
+            <a href={{route('checkout')}}> <button class="checkout" type="button">CHECKOUT</button></a>
+
         </div>
     </div>
 </main>
