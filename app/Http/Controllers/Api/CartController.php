@@ -64,4 +64,14 @@ class CartController extends Controller
 
         return new JsonResponse(['data'=> $count],200);
     }
+
+    /**
+     * delete an item from cart
+     *
+     */
+    public function deleteCartItem(CartItem $cartItem): JsonResponse
+    {
+          $cartItem->delete();
+          return new JsonResponse(['message'=>'cartItem removed from cart'],200);
+    }
 }

@@ -206,20 +206,7 @@
 </footer>
 </body>
 <script>
-    // const dropDownHeader = document.querySelectorAll('.drop-down_header');
-    // const overlay = document.querySelector('.overlay');
 
-    // for (let i = 0; i < dropDownHeader.length; i++) {
-    //     dropDownHeader[i].addEventListener('mouseover', function () {
-    //         overlay.classList.remove('hidden');
-    //     });
-    // }
-
-    // for(const dropDown of document.querySelectorAll('.drop-down')) {
-    //     dropDown.addEventListener('', function () {
-    //
-    //     });
-    // }
 
     window.addEventListener('scroll', function () {
         const scrollPos = window.pageYOffset;
@@ -253,7 +240,7 @@
 
     const cartItemCount = document.querySelector(".cart-item-count")
     addToCart.addEventListener('click',async function(){
-        destructureResponse();
+        await destructureResponse();
     })
 
     /**
@@ -280,6 +267,17 @@
     }
 </script>
 
-</html>
 
+<script>
+    const dropdown = document.querySelector('.cart-dropdown');
+    const cartIcon = document.querySelector('.cart-icon')
+    cartIcon.addEventListener('mouseover', function(){
+        dropdown.classList.add('.cart-dropdown');
+    });
+    cartIcon.addEventListener('mouseout', function(){
+        dropdown.classList.remove('.cart-dropdown');
+    });
+</script>
+
+</html>
 

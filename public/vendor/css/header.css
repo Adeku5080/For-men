@@ -140,6 +140,31 @@ input:focus{
     font-weight:bold;
 }
 
+.cart-dropdown{
+    position: absolute;
+    height:4rem;
+    width: 24vw;
+    border: 1px solid red;
+    top:58px;
+    right:60px;
+    background: #ffffff;
+}
+
+.cart-dropdown-header{
+    border: 1px solid red;
+    width:90%;
+    margin: 0 auto;
+    /*font-size: ;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-header-title{
+    font-weight: bold;
+    font-size: 18px;
+}
+
 
 
 

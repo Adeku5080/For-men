@@ -4,6 +4,7 @@
     <title>
 
     </title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href={{asset('vendor/css/cart.css')}}>
 </head>
 
@@ -38,7 +39,7 @@
                                 {{$cartItem->quantity}}
                             </button>
 
-                            <button type="button" class="increment style-button">
+                            <button  type="button" class="increment style-button">
                                 +
                             </button>
 
@@ -50,6 +51,7 @@
 
                 <div class="price">
                     ${{$cartItem->item_price}}
+                    <button type="button" value=" {{ $cartItem->id }} " id="delete-btn"  >delete</button>
                 </div>
 
 
@@ -73,6 +75,7 @@
     </div>
 </main>
 
+
 <script>
     const increase = document.querySelector('.increment');
     const decrease = document.querySelector('.decrement');
@@ -93,5 +96,34 @@
     })
 
 </script>
+
+{{--delete cartItem --}}
+<script>
+    const deleteBtn = document.querySelector("#delete-btn")
+    deleteBtn.addEventListener('click' ,async function(e){
+        e.preventDefault();
+
+        const cartItemId = e.target.value
+        await deleteProduct(cartItemId)
+
+    });
+
+    async function deleteProduct(cartItemId) {
+         try{
+               const response = await fetch(`api/delete-cart-item/${cartItemId}`,{
+                   method:"DELETE",
+                   headers: {
+                       'Content-Type': 'application/json',
+                       'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                   },
+               })
+             return response.text()
+         }catch(error){
+              console.log(error)
+         }
+    }
+</script>
+
+
 </body>
 </html>
