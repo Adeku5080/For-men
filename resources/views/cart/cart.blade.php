@@ -116,7 +116,10 @@
                        'Content-Type': 'application/json',
                        'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
                    },
-               })
+               });
+               if(response.ok) {
+                   window.location.href = '{{route('cart.show')}}'
+               }
              return response.text()
          }catch(error){
               console.log(error)
