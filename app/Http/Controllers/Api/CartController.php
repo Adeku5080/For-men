@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    /**
+     * gwt all cartItems
+     *
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        $cartItems = CartItem::all();
+
+        return new JsonResponse(['data'=>$cartItems],200);
+    }
 
     /**
      * add item to cart

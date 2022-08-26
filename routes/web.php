@@ -118,7 +118,8 @@ Route::get('api/cart-items-count',[\App\Http\Controllers\Api\CartController::cla
     ->name('api.cart-items-count');
 
 Route::delete('api/delete-cart-item/{cartItem}',[\App\Http\Controllers\Api\CartController::class,'deleteCartItem']);
-//    ->name('api.product.delete');
+
+Route::get('api/cart-items',[\App\Http\Controllers\Api\CartController::class,'index']);
 
 require __DIR__.'/auth.php';
 

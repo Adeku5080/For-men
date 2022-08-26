@@ -234,12 +234,13 @@
 
 </script>
 
+{{--get cartCount--}}
 <script>
 
     destructureResponse();
 
     const cartItemCount = document.querySelector(".cart-item-count")
-    addToCart.addEventListener('click',async function(){
+    addToCart.addEventListener('click', async function () {
         await destructureResponse();
     })
 
@@ -248,7 +249,7 @@
      *
      */
 
-    async function getCount(){
+    async function getCount() {
         const url = `{{route('api.cart-items-count')}}`
 
         const response = await fetch(url);
@@ -261,23 +262,74 @@
      *
      * @returns {Promise<void>}
      */
-    async function destructureResponse () {
+    async function destructureResponse() {
         const {data} = await getCount()
         cartItemCount.innerText = data;
     }
 </script>
 
-
+{{--toggle cart dropdown--}}
 <script>
     const dropdown = document.querySelector('.cart-dropdown');
     const cartIcon = document.querySelector('.cart-icon')
-    cartIcon.addEventListener('mouseover', function(){
-        dropdown.classList.add('.cart-dropdown');
+    const cartIconDiv = document.querySelector('.cartIcon_div')
+    cartIconDiv.addEventListener('mouseover', function () {
+        dropdown.style.display = "block";
     });
-    cartIcon.addEventListener('mouseout', function(){
-        dropdown.classList.remove('.cart-dropdown');
+    cartIconDiv.addEventListener('mouseout', function () {
+        dropdown.style.display = "none";
     });
+    dropdown.addEventListener('mouseover', function () {
+        dropdown.style.display = 'block';
+    })
+
+    dropdown.addEventListener('mouseout', function () {
+        dropdown.style.display = 'none';
+    })
+
+
 </script>
 
+{{--get cartItems --}}
+
+<script>
+
+      fillCartDropDown();
+
+      const itemsSection = document.querySelector(".dropdown-cartItems");
+
+
+    async function getCartItems() {
+        const response = await fetch('api/cart-items');
+        return response.json()
+    }
+
+//    add cartItems to cartDropdown
+
+ async function fillCartDropDown() {
+     const {data} = await getCartItems();
+     console.log(data);
+      let displayItems = data.map((item) => {
+          return `
+              <div class="dropdown-image">
+                  <img src=${item.item_file_path} alt="image">
+              </div>
+
+                <div>
+                    <div>
+                        ${item.item_name}
+                    </div>
+                     <div>
+                         <span>${item.size}</span>
+                         <span>${item.quantity} </span>
+                     </div>
+                </div>
+            `
+     })
+   displayItems = displayItems.join("");
+      // console.log(displayItems);
+   itemsSection.innerHTML = displayItems
+ }
+</script>
 </html>
 
