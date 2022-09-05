@@ -294,9 +294,9 @@
 
 <script>
 
-      fillCartDropDown();
+    fillCartDropDown();
 
-      const itemsSection = document.querySelector(".dropdown-cartItems");
+    const itemsSection = document.querySelector(".dropdown-cartItems");
 
 
     async function getCartItems() {
@@ -304,32 +304,40 @@
         return response.json()
     }
 
-//    add cartItems to cartDropdown
+    //    add cartItems to cartDropdown
 
- async function fillCartDropDown() {
-     const {data} = await getCartItems();
-     console.log(data);
-      let displayItems = data.map((item) => {
-          return `
+    async function fillCartDropDown() {
+        const {data} = await getCartItems();
+        console.log(data);
+
+        {{--     {{ asset('images/productImgs/'.$cartItem->item_file_path)}}--}}
+        let displayItems = data.map((item) => {
+            return `
               <div class="dropdown-image">
-                  <img src=${item.item_file_path} alt="image">
+                  <img class="image" src="/images/productImgs/${item.item_file_path}" alt="image"/>
               </div>
 
                 <div>
+                    <div>
+
+                       $ ${item.item_price}
+                    </div>
                     <div>
                         ${item.item_name}
                     </div>
                      <div>
                          <span>${item.size}</span>
-                         <span>${item.quantity} </span>
-                     </div>
+
+                         <span> qty: ${item.quantity} </span>
+
+                  </div>
                 </div>
             `
-     })
-   displayItems = displayItems.join("");
-      // console.log(displayItems);
-   itemsSection.innerHTML = displayItems
- }
+        })
+        displayItems = displayItems.join("");
+        console.log(displayItems);
+        itemsSection.innerHTML = displayItems
+    }
 </script>
 </html>
 

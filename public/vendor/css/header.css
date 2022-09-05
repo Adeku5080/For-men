@@ -183,7 +183,23 @@ input:focus{
 .drop-down-header-title-container{
     /*border: 1px solid yellow;*/
 }
+.dropdown-cartItems{
+    display: flex;
+    border: 1px solid yellow;
+    width: 100%;
+    height:50%;
+}
+.dropdown-image{
+    border: 1px solid green;
+    height:80%;
+    width: 40%;
 
+}
+
+.image{
+    width:100%;
+    height:100%;//
+}
 
 
 /**.second-nav_btn{
