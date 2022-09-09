@@ -1,0 +1,67 @@
+*{
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    border: 1px solid red;
+     min-height: 100vh;
+    width: 100vw;
+}
+.checkout-section{
+    border: 1px solid green;
+    margin: 3rem auto;
+    width:60%;
+
+
+}
+
+.checkout-form-section{
+    display: grid;
+    grid-template-columns: repeat(2);
+    width: 90%;
+    border: 1px solid red;
+    gap:40px;
+}
+
+input{
+    width:300px;
+    height: 2.4rem;
+    margin: 10px;
+}
+
+#country{
+// A reset of styles, including removing the default dropdown arrow
+appearance: none;
+// Additional resets for further consistency
+background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 30%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+}
+
+.checkout-btn{
+    width:18rem;
+    height: 2.3rem;
+    background: #000000;
+    color: white;
+    border-radius:6px;
+    margin-left:10rem;
+    margin-top:1.5rem ;
+    border: 1px solid black;
+}
+
+.checkout-btn:hover{
+    cursor:pointer;
+}
+
+.section-title{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
