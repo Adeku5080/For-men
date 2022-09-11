@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClothingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewinController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ShoesController;
@@ -109,6 +110,9 @@ Route::get('/cart',[CartController::class,'getItemsFromCart'])
 
 Route::get('/checkout',[CheckoutController::class,'index'])
     ->name('checkout');
+
+Route::get('/payment',[PaymentController::class,'index'])
+     ->name('payment');
 
 
 Route::post('/api/add-to-cart',[\App\Http\Controllers\Api\CartController::class,'addToCart'])

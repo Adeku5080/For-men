@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.payment-container{
+    /*border-top: 1px solid red;*/
+    margin: 4rem auto;
+    width: 65%;
+    /*border-bottom:1px solid red ;*/
+}
+
+.address-container{
+    /*border: 1px solid green;*/
+     width: 70%;
+    margin: 3rem auto;
+}
+
+.header-title{
+    font-size: 23px;
+    font-family: 'Nunito', sans-serif;
+    margin-bottom:8px;
+    /*line-height: 16px;*/
+}
+
+.contact-details{
+    /*border: 1px solid blue;*/
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.contact-details>p{
+    line-height: 25px;
+}
+
+.edit-btn{
+    text-decoration: none;
+    color: #2563eb;
+}
+
+.card-section{
+    /*border: 1px solid yellow;*/
+    width: 70%;
+    margin: 0 auto;
+}
+
+.card{
+    width: 90%;
+    /*border: 1px solid red;*/
+    margin: 0 auto;
+    grid-template-rows:repeat(2,1fr);
+    display: grid;
+    gap:40px;
+}
+
+input{
+    width:250px;
+    height: 2.4rem;
+    margin: 10px;
+}
+#card-number-form{
+    width: 540px;
+}
+
+.payment-btn{
+    width:18rem;
+    height: 2.3rem;
+    background: #000000;
+    color: white;
+    border-radius:6px;
+    margin-left:10rem;
+    margin-top:1.5rem ;
+    border: 1px solid black;
+}
+
+.payment-btn:hover{
+    cursor: pointer;
+}

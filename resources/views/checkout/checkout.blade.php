@@ -24,8 +24,10 @@
 
             </select>
 
+            <a href="{{route('payment')}}">
+                <button class="checkout-btn" type="button">continue checkout</button>
+            </a>
 
-            <button class="checkout-btn" type="button">continue checkout</button>
         </form>
     </div>
 
