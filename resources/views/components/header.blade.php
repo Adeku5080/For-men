@@ -29,22 +29,37 @@
             </div>
 
             <section class="dropdown-cartItems">
-{{--              <div class="dropdown-image">--}}
-{{--                  <img src="" alt="image">--}}
-{{--              </div>--}}
+                {{--              <div class="dropdown-image">--}}
+                {{--                  <img src="" alt="image">--}}
+                {{--              </div>--}}
 
-{{--                <div>--}}
-{{--                    <div>--}}
-{{--                    </div>--}}
-{{--                     <div>--}}
-{{--                         <span></span>--}}
-{{--                         <span> </span>--}}
-{{--                     </div>--}}
-{{--                </div>--}}
+                {{--                <div>--}}
+                {{--                    <div>--}}
+                {{--                    </div>--}}
+                {{--                     <div>--}}
+                {{--                         <span></span>--}}
+                {{--                         <span> </span>--}}
+                {{--                     </div>--}}
+                {{--                </div>--}}
+
             </section>
+            <div class="sub-total-section">
+                <p>Total</p>
+                <p>$ 2500 </p>
+
+            </div>
+            <div class="cart-and-checkout-section">
+
+                <a href="" id="view-cart">VIEW CART</a>
+               <a href="" id="check-out">CHECKOUT</a>
+
+            </div>
+            <div class="delivery">
+                <p>Free Delivery Worldwide</p>
+            </div>
+
         </div>
     </header>
-
 
 
 </div>

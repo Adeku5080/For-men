@@ -144,16 +144,19 @@ input:focus{
     position: absolute;
     height:25rem;
     width: 24vw;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     top:60px;
+    font-family: 'Nunito', sans-serif;
     display:none;
     right:60px;
     background: #ffffff;
+
 }
 
 .cart-dropdown-header{
-    border: 1px solid blue;
+    /*background: #d4d4d7;*/
     width:100%;
+    background: #e3e2e2;
     height:3rem;
     margin: 0 auto;
     /*font-size: ;*/
@@ -185,12 +188,16 @@ input:focus{
 }
 .dropdown-cartItems{
     display: flex;
-    border: 1px solid yellow;
+    /*border: 1px solid yellow;*/
     width: 100%;
     height:50%;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /*overflow: auto;*/
 }
 .dropdown-image{
-    border: 1px solid green;
+    /*border: 1px solid green;*/
     height:80%;
     width: 40%;
 
@@ -201,7 +208,77 @@ input:focus{
     height:100%;//
 }
 
+.main-content{
+    display: flex;
+    /*border-bottom: 1px solid blue;*/
+    /*width: 95%;*/
+    margin-bottom:10px;
+}
 
+.item-description{
+    /*border: 1px solid red;*/
+    margin-left:10px;
+    font-size: 13px;
+}
+
+.sub-total-section{
+    /*border: 1px solid red;*/
+    display: flex;
+    padding:15px 4px ;
+    background: #f1f0f0;
+    justify-content: space-between;
+}
+
+.cart-and-checkout-section{
+    height:10vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin: 0 auto;
+    /*background: #d4d4d7;*/
+    /*color: black;*/
+    background: #e3e2e2;
+}
+
+.cart-and-checkout-section>a{
+    /*border: 1px solid #000000;*/
+    padding:10px 30px;
+
+    /*width: 90%;*/
+}
+
+#view-cart{
+    color: #000000;
+    font-weight: bold;
+    font-size: 14px;
+    background: #ffffff;
+    margin-left:5px ;
+}
+
+#check-out{
+    background: #4a984a;
+    color: white;
+    font-weight:bold ;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#check-out:hover{
+    background: #418841;
+}
+
+.delivery{
+    background: #e3e2e2;
+    color: black;
+    /*border: 1px solid red;*/
+    height: 7vh;
+    /*text-align: center;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
 /**.second-nav_btn{
     color: #ffffff;
     font-family: SansSerif;

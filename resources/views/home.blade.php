@@ -313,11 +313,12 @@
         {{--     {{ asset('images/productImgs/'.$cartItem->item_file_path)}}--}}
         let displayItems = data.map((item) => {
             return `
+            <div class="main-content">
               <div class="dropdown-image">
                   <img class="image" src="/images/productImgs/${item.item_file_path}" alt="image"/>
               </div>
 
-                <div>
+                <div class="item-description">
                     <div>
 
                        $ ${item.item_price}
@@ -332,6 +333,8 @@
 
                   </div>
                 </div>
+          </div>
+
             `
         })
         displayItems = displayItems.join("");
