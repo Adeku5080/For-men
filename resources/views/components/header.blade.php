@@ -13,7 +13,7 @@
             <i class="far fa-user"></i>
         </a>
         <div class="cartIcon_div">
-            <a href="{{route('cart.show')}}">
+            <a href="#">
                 <i class="fas fa-shopping-cart cart-icon"></i><span class="cart-item-count"></span>
             </a>
         </div>
@@ -50,8 +50,8 @@
             </div>
             <div class="cart-and-checkout-section">
 
-                <a href="" id="view-cart">VIEW CART</a>
-               <a href="" id="check-out">CHECKOUT</a>
+                <a href="{{route('cart.show')}}" id="view-cart">VIEW CART</a>
+               <a href="{{route('checkout')}}" id="check-out">CHECKOUT</a>
 
             </div>
             <div class="delivery">

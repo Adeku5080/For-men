@@ -12,7 +12,8 @@
 <Section class="checkout-section">
     <h4 class="section-title">shipping address</h4>
     <div class="checkout-form-section">
-        <form>
+        <form method="Post" action="{{route('checkout.store')}}">
+            @csrf
             <input name="firstname" type="text" placeholder="firstname"/>
             <input name="lastname" type="text" placeholder="lastname"/>
             <input name="email" type="email" placeholder="Email"/>
@@ -24,13 +25,30 @@
 
             </select>
 
-            <a href="{{route('payment')}}">
-                <button class="checkout-btn" type="button">continue checkout</button>
-            </a>
+            <button class="checkout-btn" type="submit">continue checkout</button>
 
         </form>
     </div>
 
 </Section>
 </body>
+
+<script>
+    //get countries list
+    getCountries();
+
+    async function getCountries() {
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '62d08bd2ddmsh5bfb8d4d2b25300p151d32jsna5a89e927061',
+                'X-RapidAPI-Host': 'countries-cities.p.rapidapi.com'
+            }
+        };
+
+        const response = await fetch('https://countries-cities.p.rapidapi.com/location/country/list', options)
+        return response.json()
+    }
+
+</script>
 </html>

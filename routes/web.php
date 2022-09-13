@@ -111,6 +111,10 @@ Route::get('/cart',[CartController::class,'getItemsFromCart'])
 Route::get('/checkout',[CheckoutController::class,'index'])
     ->name('checkout');
 
+Route::post('/checkout',[CheckoutController::class,'store'])
+    ->name('checkout.store');
+
+
 Route::get('/payment',[PaymentController::class,'index'])
      ->name('payment');
 

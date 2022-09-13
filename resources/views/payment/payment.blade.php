@@ -22,10 +22,10 @@
         <h4 class="header-title">Payment</h4>
         <div class="card">
             <form>
-                <input id="card-number-form" type="text" name="card_number" placeholder="Card Number">
-                <input type="text" name="expiration_month" placeholder="Expiration Month">
-                <input type="text" name="expiration_year" placeholder="Expiration Year">
-                <input type="text" name="security_number" placeholder="Security Code">
+                <input id="card-number-form" type="text" name="card_number" placeholder="Card Number" required>
+                <input type="text" name="expiration_month" placeholder="Expiration Month" required>
+                <input type="text" name="expiration_year" placeholder="Expiration Year" required>
+                <input type="text" name="security_number" placeholder="Security Code" required>
                 <div>
                     <button class="payment-btn" type="button"> Place order</button>
                 </div>

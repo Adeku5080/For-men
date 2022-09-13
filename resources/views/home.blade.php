@@ -287,6 +287,20 @@
         dropdown.style.display = 'none';
     })
 
+    cartIconDiv.addEventListener('mouseover',async function(){
+         const {data} = await getCartItems()
+        if(data.length === 0){
+            dropdown.style.display = "none";
+        }
+    })
+
+    cartIconDiv.addEventListener('mouseout',async function(){
+        const {data} = await getCartItems()
+        if(data.length === 0){
+            dropdown.style.display = "none";
+        }
+    })
+
 
 </script>
 
@@ -308,9 +322,7 @@
 
     async function fillCartDropDown() {
         const {data} = await getCartItems();
-        console.log(data);
 
-        {{--     {{ asset('images/productImgs/'.$cartItem->item_file_path)}}--}}
         let displayItems = data.map((item) => {
             return `
             <div class="main-content">
@@ -338,7 +350,6 @@
             `
         })
         displayItems = displayItems.join("");
-        console.log(displayItems);
         itemsSection.innerHTML = displayItems
     }
 </script>
