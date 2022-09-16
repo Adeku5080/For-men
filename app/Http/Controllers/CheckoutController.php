@@ -14,24 +14,24 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request);
-      $request->validate([
-        'firstname' => 'required',
-          'lastname' => 'required',
-          'email' => 'required',
-          'address' => 'required',
-          'phone_no' => 'required'
-      ]);
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'phone_no' => 'required'
+        ]);
+        dd($request['firstname']);
 
-      Checkout::create([
-         'firstname' => $request['firstname'],
-         'lastname' => $request['lastname'],
-          'email' => $request['email'],
-          'address' => $request['address'],
-          'phone_no' => $request['phone']
-      ]);
+        Checkout::create([
+            'firstname' => $request['firstname'],
+            'lastname' => $request['lastname'],
+            'email' => $request['email'],
+            'address' => $request['address'],
+            'phone_no' => $request['phone']
+        ]);
 
-      return redirect()->route('payment');
+        return redirect()->route('payment');
     }
 }
 

@@ -21,8 +21,18 @@
             <input name="phone" placeholder="Phone"/>
 
             <select name="country" id="country">
-
-
+              <option value="nigeria">
+                  Nigeria
+              </option>
+                <option value="ghana">
+                    Ghana
+                </option>
+                <option value="togo">
+                    Togo
+                </option>
+                <option value="cameroon">
+                    Cameroon
+                </option>
             </select>
 
             <button class="checkout-btn" type="submit">continue checkout</button>

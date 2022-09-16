@@ -273,12 +273,10 @@
     const dropdown = document.querySelector('.cart-dropdown');
     const cartIcon = document.querySelector('.cart-icon')
     const cartIconDiv = document.querySelector('.cartIcon_div')
-    cartIconDiv.addEventListener('mouseover', function () {
-        dropdown.style.display = "block";
-    });
     cartIconDiv.addEventListener('mouseout', function () {
         dropdown.style.display = "none";
     });
+
     dropdown.addEventListener('mouseover', function () {
         dropdown.style.display = 'block';
     })
@@ -287,18 +285,15 @@
         dropdown.style.display = 'none';
     })
 
-    cartIconDiv.addEventListener('mouseover',async function(){
-         const {data} = await getCartItems()
-        if(data.length === 0){
-            dropdown.style.display = "none";
-        }
-    })
-
-    cartIconDiv.addEventListener('mouseout',async function(){
+    cartIconDiv.addEventListener('mouseover', async function () {
         const {data} = await getCartItems()
-        if(data.length === 0){
+
+        if (data.length === 0) {
             dropdown.style.display = "none";
+            return;
         }
+
+        dropdown.style.display = 'block';
     })
 
 
@@ -352,6 +347,35 @@
         displayItems = displayItems.join("");
         itemsSection.innerHTML = displayItems
     }
+</script>
+
+{{--Get total price of cart items--}}
+<script>
+    addTotalToHtml();
+
+    const totalValue = document.querySelector('.total_value');
+
+    //calculate total price for cart items
+    async function total() {
+        const {data} = await getCartItems();
+
+        let sum = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            let item_total = data[i].item_price * data[i].quantity
+            sum += item_total;
+            console.log(sum)
+            return sum;
+        }
+    }
+
+    //Add the total value to html
+    async function addTotalToHtml(){
+            const value = await total()
+        totalValue.innerText = value;
+    }
+
+
 </script>
 </html>
 

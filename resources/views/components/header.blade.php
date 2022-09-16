@@ -45,7 +45,7 @@
             </section>
             <div class="sub-total-section">
                 <p>Total</p>
-                <p>$ 2500 </p>
+                <p class="total_value"></p>
 
             </div>
             <div class="cart-and-checkout-section">
