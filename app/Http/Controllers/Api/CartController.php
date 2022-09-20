@@ -33,9 +33,10 @@ class CartController extends Controller
      */
     public function addToCart(Request $request): JsonResponse
     {
+
         $request->validate([
                   'size' => 'required',
-                   'quantity' => 'required'
+//                   'quantity' => 'required'
             ]);
 
         $id = $request->productId;
@@ -46,6 +47,27 @@ class CartController extends Controller
             'checked_out_at' => null,
         ]);
 
+        $cartId = $cart->id;
+          $cartItem = CartItem::find($cartId);
+//        $quantity = $cartItem->quantity;
+//           if(!$cartItem){
+//               $quantity = 1;
+//           }else{
+//               $quantity = $quantity + 1;
+//           }
+         if(!$cartItem) {
+             CartItem::create([
+                 'product_id' => $product->id,
+                 'size' => $request->size,
+                 'cart_id' => $cart->id,
+                 'item_file_path' => $product->file_path,
+                 'item_name' => $product->name,
+                 'item_price' => $product->price,
+                 'quantity' => 1
+             ]);
+         }else{
+
+         }
 
 
         $cartItems = CartItem::updateOrCreate(
@@ -55,10 +77,10 @@ class CartController extends Controller
                 'cart_id' => $cart->id,
                 'item_file_path' => $product->file_path,
                 'item_name' => $product->name,
-                'item_price' => $product->price
+                'item_price' => $product->price,
             ],
             [
-                'quantity' => $request->quantity,
+                'quantity' => $quantity,
             ]
         );
        return new JsonResponse( ['data'=> $cartItems],200);

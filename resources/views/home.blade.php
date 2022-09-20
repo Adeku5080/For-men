@@ -364,14 +364,13 @@
         for (let i = 0; i < data.length; i++) {
             let item_total = data[i].item_price * data[i].quantity
             sum += item_total;
-            console.log(sum)
-            return sum;
         }
+        return sum;
     }
 
     //Add the total value to html
-    async function addTotalToHtml(){
-            const value = await total()
+    async function addTotalToHtml() {
+        const value = await total()
         totalValue.innerText = value;
     }
 

@@ -9,9 +9,17 @@
             </form>
         </div>
 
-        <a href="#">
+        <div class="user-icon-container">
             <i class="far fa-user"></i>
-        </a>
+        </div>
+        <div class="auth-dropdown">
+          <div class="auth-dropdown-header">
+             Sign In | Join
+          </div>
+            <div class="account-info">
+
+            </div>
+        </div>
         <div class="cartIcon_div">
             <a href="#">
                 <i class="fas fa-shopping-cart cart-icon"></i><span class="cart-item-count"></span>

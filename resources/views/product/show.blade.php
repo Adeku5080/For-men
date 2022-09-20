@@ -46,21 +46,21 @@
                         </select>
                     </div>
 
-                    <h2>quantity</h2>
-                    <div class="quantity-bar">
-                        <button type="button" class="decrement">
-                            -
-                        </button>
+{{--                    <h2>quantity</h2>--}}
+{{--                    <div class="quantity-bar">--}}
+{{--                        <button type="button" class="decrement">--}}
+{{--                            ---}}
+{{--                        </button>--}}
 
-                        <button class="count">
-                            0
-                        </button>
+{{--                        <button class="count">--}}
+{{--                            0--}}
+{{--                        </button>--}}
 
-                        <button type="button" class="increment">
-                            +
-                        </button>
+{{--                        <button type="button" class="increment">--}}
+{{--                            +--}}
+{{--                        </button>--}}
 
-                    </div>
+{{--                    </div>--}}
                     <button type="submit" id="btn" value="{{ $product->id }}" class="button"> ADD ITEM TO CART</button>
                 </form>
             </div>
@@ -74,7 +74,7 @@
 
                 const data = {
                     size: document.querySelector("[name='size']").value,
-                    quantity: document.querySelector('.count').innerText,
+                    // quantity: document.querySelector('.count').innerText,
                     productId: e.target.value,
                     _token: '{{ csrf_token() }}',
                 };

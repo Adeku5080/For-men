@@ -3,17 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Checkout;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\throwException;
 
 class CheckoutController extends Controller
 {
+    /**
+     * show checkout page
+     *
+     * @return View0
+     */
     public function index()
     {
         return view('checkout.checkout');
     }
 
-    public function store(Request $request)
+    /**
+     * validate and store details
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
+
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
@@ -21,7 +36,10 @@ class CheckoutController extends Controller
             'address' => 'required',
             'phone_no' => 'required'
         ]);
-        dd($request['firstname']);
+
+
+        dd('ali');
+
 
         Checkout::create([
             'firstname' => $request['firstname'],
@@ -31,7 +49,7 @@ class CheckoutController extends Controller
             'phone_no' => $request['phone']
         ]);
 
-        return redirect()->route('payment');
+//        return redirect()->route('payment');
     }
 }
 
