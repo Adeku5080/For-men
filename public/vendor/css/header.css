@@ -332,6 +332,11 @@ input:focus {
 .close-dropdown-icon {
     /*border: 1px solid red;*/
     margin-right: 8px;
+    font-size: 20px;
+}
+
+.close-dropdown-icon:hover{
+    cursor: pointer;
 }
 
 .account-info {

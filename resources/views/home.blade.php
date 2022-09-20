@@ -382,6 +382,7 @@
 <script>
     const authDropdownDiv = document.querySelector('.auth-dropdown');
     const userIconDiv = document.querySelector('.user-icon-container');
+    const close = document.querySelector('.close-dropdown-icon');
 
     userIconDiv.addEventListener('mouseover',function(){
         authDropdownDiv.style.display = 'block';
@@ -397,6 +398,11 @@
     authDropdownDiv.addEventListener('mouseout',function(){
         authDropdownDiv.style.display = 'none';
     })
+
+    close.addEventListener('click',function (){
+        authDropdownDiv.style.display = 'none';
+    })
+
 </script>
 </html>
 
