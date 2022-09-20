@@ -12,11 +12,19 @@
         <div class="user-icon-container">
             <i class="far fa-user"></i>
         </div>
+
+      {{-- authentication dropdown       --}}
         <div class="auth-dropdown">
           <div class="auth-dropdown-header">
-             Sign In | Join
+              <div class="auth-links">Sign In | Join</div>
+              <div class="close-dropdown-icon">X</div>
           </div>
+
             <div class="account-info">
+                <li>My Account</li>
+                <li>My Orders</li>
+                <li> Returns Information</li>
+                <li>Contact Preferences</li>
 
             </div>
         </div>

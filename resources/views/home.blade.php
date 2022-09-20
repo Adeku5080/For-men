@@ -376,5 +376,27 @@
 
 
 </script>
+
+{{--toggle authentication dropdown--}}
+
+<script>
+    const authDropdownDiv = document.querySelector('.auth-dropdown');
+    const userIconDiv = document.querySelector('.user-icon-container');
+
+    userIconDiv.addEventListener('mouseover',function(){
+        authDropdownDiv.style.display = 'block';
+    });
+    userIconDiv.addEventListener('mouseout',function(){
+        authDropdownDiv.style.display = 'none';
+    });
+
+    authDropdownDiv.addEventListener('mouseover',function(){
+        authDropdownDiv.style.display = 'block';
+    })
+
+    authDropdownDiv.addEventListener('mouseout',function(){
+        authDropdownDiv.style.display = 'none';
+    })
+</script>
 </html>
 
