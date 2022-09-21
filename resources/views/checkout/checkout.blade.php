@@ -12,6 +12,15 @@
 <Section class="checkout-section">
     <h4 class="section-title">shipping address</h4>
     <div class="checkout-form-section">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="Post" action="{{route('checkout.store')}}">
             @csrf
             <input name="firstname" type="text" placeholder="firstname"/>
@@ -35,7 +44,7 @@
                 </option>
             </select>
 
-            <button class="checkout-btn" type="button">continue checkout</button>
+            <button class="checkout-btn" type="submit">continue checkout</button>
 
         </form>
     </div>

@@ -299,17 +299,16 @@
 
 </script>
 
-{{--get cartItems --}}
+{{--get cartItems and fill cart-dropdown--}}
 
 <script>
-
     fillCartDropDown();
-
     const itemsSection = document.querySelector(".dropdown-cartItems");
 
 
     async function getCartItems() {
         const response = await fetch('api/cart-items');
+
         return response.json()
     }
 
@@ -384,22 +383,22 @@
     const userIconDiv = document.querySelector('.user-icon-container');
     const close = document.querySelector('.close-dropdown-icon');
 
-    userIconDiv.addEventListener('mouseover',function(){
+    userIconDiv.addEventListener('mouseover', function () {
         authDropdownDiv.style.display = 'block';
     });
-    userIconDiv.addEventListener('mouseout',function(){
+    userIconDiv.addEventListener('mouseout', function () {
         authDropdownDiv.style.display = 'none';
     });
 
-    authDropdownDiv.addEventListener('mouseover',function(){
+    authDropdownDiv.addEventListener('mouseover', function () {
         authDropdownDiv.style.display = 'block';
     })
 
-    authDropdownDiv.addEventListener('mouseout',function(){
+    authDropdownDiv.addEventListener('mouseout', function () {
         authDropdownDiv.style.display = 'none';
     })
 
-    close.addEventListener('click',function (){
+    close.addEventListener('click', function () {
         authDropdownDiv.style.display = 'none';
     })
 

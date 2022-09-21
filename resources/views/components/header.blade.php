@@ -13,12 +13,12 @@
             <i class="far fa-user"></i>
         </div>
 
-      {{-- authentication dropdown       --}}
+        {{-- authentication dropdown       --}}
         <div class="auth-dropdown">
-          <div class="auth-dropdown-header">
-              <div class="auth-links">Sign In | Join</div>
-              <div class="close-dropdown-icon">X</div>
-          </div>
+            <div class="auth-dropdown-header">
+                <div class="auth-links">Sign In | Join</div>
+                <div class="close-dropdown-icon">X</div>
+            </div>
 
             <div class="account-info">
                 <li>My Account</li>
@@ -28,13 +28,15 @@
 
             </div>
         </div>
+
+
         <div class="cartIcon_div">
             <a href="#">
                 <i class="fas fa-shopping-cart cart-icon"></i><span class="cart-item-count"></span>
             </a>
         </div>
 
-
+        {{--   cart-dropdown-section  --}}
         <div class="cart-dropdown">
             <div class="cart-dropdown-header">
                 <div class="drop-down-header-title-container">
@@ -67,7 +69,7 @@
             <div class="cart-and-checkout-section">
 
                 <a href="{{route('cart.show')}}" id="view-cart">VIEW CART</a>
-               <a href="{{route('checkout')}}" id="check-out">CHECKOUT</a>
+                <a href="{{route('checkout')}}" id="check-out">CHECKOUT</a>
 
             </div>
             <div class="delivery">

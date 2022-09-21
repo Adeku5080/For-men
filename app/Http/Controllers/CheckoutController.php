@@ -34,11 +34,9 @@ class CheckoutController extends Controller
             'lastname' => 'required',
             'email' => 'required',
             'address' => 'required',
-            'phone_no' => 'required'
+            'phone' => 'required',
+            'country' => 'required',
         ]);
-
-
-        dd('ali');
 
 
         Checkout::create([
@@ -46,10 +44,11 @@ class CheckoutController extends Controller
             'lastname' => $request['lastname'],
             'email' => $request['email'],
             'address' => $request['address'],
-            'phone_no' => $request['phone']
+            'phone_no' => $request['phone'],
+            'country' => $request['country']
         ]);
 
-//        return redirect()->route('payment');
+       return redirect()->route('payment');
     }
 }
 

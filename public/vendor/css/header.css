@@ -176,8 +176,12 @@ input:focus {
 
 }
 
+.cart-icon{
+    font-size: 1.5rem;
+}
+
 .cartIcon_div {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     padding: 20px 10px;
 }
 
@@ -298,7 +302,7 @@ input:focus {
 }
 
 .user-icon-container {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     padding: 15px;
 }
 

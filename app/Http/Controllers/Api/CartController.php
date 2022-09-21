@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     /**
-     * gwt all cartItems
+     * get all cartItems
      *
      * @return JsonResponse
      */
@@ -22,7 +22,7 @@ class CartController extends Controller
     {
         $cartItems = CartItem::all();
 
-        return new JsonResponse(['data'=>$cartItems],200);
+        return new JsonResponse(['data' => $cartItems], 200);
     }
 
     /**
@@ -35,9 +35,9 @@ class CartController extends Controller
     {
 
         $request->validate([
-                  'size' => 'required',
-//                   'quantity' => 'required'
-            ]);
+            'size' => 'required',
+            'quantity' => 'required'
+        ]);
 
         $id = $request->productId;
         $product = Product::find($id);
@@ -46,28 +46,6 @@ class CartController extends Controller
             'user_id' => Auth::id(),
             'checked_out_at' => null,
         ]);
-
-        $cartId = $cart->id;
-          $cartItem = CartItem::find($cartId);
-//        $quantity = $cartItem->quantity;
-//           if(!$cartItem){
-//               $quantity = 1;
-//           }else{
-//               $quantity = $quantity + 1;
-//           }
-         if(!$cartItem) {
-             CartItem::create([
-                 'product_id' => $product->id,
-                 'size' => $request->size,
-                 'cart_id' => $cart->id,
-                 'item_file_path' => $product->file_path,
-                 'item_name' => $product->name,
-                 'item_price' => $product->price,
-                 'quantity' => 1
-             ]);
-         }else{
-
-         }
 
 
         $cartItems = CartItem::updateOrCreate(
@@ -80,10 +58,10 @@ class CartController extends Controller
                 'item_price' => $product->price,
             ],
             [
-                'quantity' => $quantity,
+                'quantity' => $request->quantity,
             ]
         );
-       return new JsonResponse( ['data'=> $cartItems],200);
+        return new JsonResponse(['data' => $cartItems], 200);
     }
 
     /**
@@ -95,7 +73,7 @@ class CartController extends Controller
         $user = Auth::user();
         $count = $user->activeCart->cartItems()->count();
 
-        return new JsonResponse(['data'=> $count],200);
+        return new JsonResponse(['data' => $count], 200);
     }
 
     /**
@@ -104,7 +82,7 @@ class CartController extends Controller
      */
     public function deleteCartItem(CartItem $cartItem): JsonResponse
     {
-          $cartItem->delete();
-          return new JsonResponse(['message'=>'cartItem removed from cart'],200);
+        $cartItem->delete();
+        return new JsonResponse(['message' => 'cartItem removed from cart'], 200);
     }
 }

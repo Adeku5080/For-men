@@ -160,3 +160,7 @@ button:focus{
     font-size: 13px;
     font-weight:bold;
 }
+
+.error-msg{
+    color: red;
+}
