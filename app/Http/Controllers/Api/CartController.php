@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use function Sodium\increment;
 
 class CartController extends Controller
@@ -37,7 +38,6 @@ class CartController extends Controller
 
         $request->validate([
             'size' => 'required',
-//            'quantity' => 'required'
         ]);
 
         $id = $request->productId;
@@ -49,12 +49,9 @@ class CartController extends Controller
         ]);
 
         $cartItemAvailable = CartItem::where('product_id', $id)->first();
-        if ($cartItemAvailable) {
-            $availableQuantity = $cartItemAvailable->quantity;
-            $cartItems = CartItem::update([
-                'quantity' => $availableQuantity + 1,
-            ]);
-
+        $cartItemSize = CartItem::where('size', $request->size)->first();
+        if ($cartItemAvailable && $cartItemSize) {
+            DB::table('cart_items')->where('product_id', $id)->increment('quantity');
         } else {
             $cartItems = CartItem::create([
                 'product_id' => $product->id,
@@ -67,25 +64,8 @@ class CartController extends Controller
             ]);
 
         }
-        return new JsonResponse(['data' => $cartItems], 200);
+        return new JsonResponse(['message' => 'cart item added'], 200);
     }
-
-
-//        $cartItems = CartItem::updateOrCreate(
-//            [
-//                'product_id' => $product->id,
-//                'size' => $request->size,
-//                'cart_id' => $cart->id,
-//                'item_file_path' => $product->file_path,
-//                'item_name' => $product->name,
-//                'item_price' => $product->price,
-//            ],
-//            [
-//                'quantity' => $request->quantity,
-//            ]
-//        );
-//        return new JsonResponse(['data' => $cartItems], 200);
-
 
     /**
      * get cart Items count
