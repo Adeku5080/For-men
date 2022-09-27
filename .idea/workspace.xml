@@ -4,6 +4,8 @@
     <list default="true" id="e783d954-d3fc-4aa2-991e-b879466a6245" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/CartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/CartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/cart/cart.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/cart/cart.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +236,9 @@
       <workItem from="1663450727258" duration="3342000" />
       <workItem from="1663569139497" duration="12245000" />
       <workItem from="1663657842158" duration="7032000" />
-      <workItem from="1663752055573" duration="23890000" />
+      <workItem from="1663752055573" duration="27500000" />
+      <workItem from="1663966576579" duration="14327000" />
+      <workItem from="1664264214683" duration="2545000" />
     </task>
     <servers />
   </component>

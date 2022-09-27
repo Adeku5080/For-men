@@ -31,17 +31,16 @@
                         </select>
 
                         <div class="quantity-bar">
-                            <button type="button" class="decrement style-button">
-                                -
-                            </button>
 
-                            <button class="count style-button">
-                                {{$cartItem->quantity}}
-                            </button>
-
-                            <button  type="button" class="increment style-button">
-                                +
-                            </button>
+                            Qty
+                            <select name="quantity" id="quantity">
+                                <option value="" selected>{{ $cartItem->quantity }}</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
 
                         </div>
 
@@ -75,25 +74,26 @@
     </div>
 </main>
 
-
+{{--update cart-item quantity on-change--}}
 <script>
-    const increase = document.querySelector('.increment');
-    const decrease = document.querySelector('.decrement');
+ const selectQuantity = document.querySelector('#quantity');
+ selectQuantity.addEventListener('change',function(){
+     await updateProduct()
+ })
 
-    decrease.addEventListener('click', function () {
-        let value = document.querySelector('.count').innerText;
-
-        if (value > 1) {
-            value--;
-            document.querySelector('.count').innerText = value;
-        }
-    });
-
-    increase.addEventListener('click', function () {
-        let value = document.querySelector('.count').innerText;
-        value++
-        document.querySelector('.count').innerText = value;
-    })
+ async function updateProduct(cartItemId) {
+     try{
+         const response = await fetch(`api/update-cart-item/${cartItemId}`,{
+             method:"PATCH",
+             headers: {
+                 'Content-Type': 'application/json',
+                 'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+             },
+         })
+     }catch(e){
+          console.log(e);
+     }
+ }
 
 </script>
 

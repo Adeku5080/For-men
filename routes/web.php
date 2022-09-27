@@ -125,6 +125,8 @@ Route::post('/api/add-to-cart',[\App\Http\Controllers\Api\CartController::class,
 Route::get('api/cart-items-count',[\App\Http\Controllers\Api\CartController::class,'getCartItemsCount'])
     ->name('api.cart-items-count');
 
+Route::patch('api/update-cart-item/{cartItem}',[\App\Http\Controllers\Api\CartController::class,'updateCartItem']);
+
 Route::delete('api/delete-cart-item/{cartItem}',[\App\Http\Controllers\Api\CartController::class,'deleteCartItem']);
 
 Route::get('api/cart-items',[\App\Http\Controllers\Api\CartController::class,'index']);

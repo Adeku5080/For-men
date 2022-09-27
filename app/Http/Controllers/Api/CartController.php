@@ -48,12 +48,16 @@ class CartController extends Controller
             'checked_out_at' => null,
         ]);
 
-        $cartItemAvailable = CartItem::where('product_id', $id)->first();
-        $cartItemSize = CartItem::where('size', $request->size)->first();
-        if ($cartItemAvailable && $cartItemSize) {
-            DB::table('cart_items')->where('product_id', $id)->increment('quantity');
+        $cartItem = CartItem::where('size', $request->size)
+            ->where('product_id', $id)->first();
+
+
+        if ($cartItem) {
+            $cartItem->update([
+                'quantity' => $cartItem->quantity + 1
+            ]);
         } else {
-            $cartItems = CartItem::create([
+            CartItem::create([
                 'product_id' => $product->id,
                 'size' => $request->size,
                 'cart_id' => $cart->id,
@@ -71,8 +75,8 @@ class CartController extends Controller
      * get cart Items count
      *
      */
-    public
-    function getCartItemsCount(): JsonResponse
+
+    public function getCartItemsCount(): JsonResponse
     {
         $user = Auth::user();
         $count = $user->activeCart->cartItems()->count();
@@ -81,11 +85,22 @@ class CartController extends Controller
     }
 
     /**
+     * update a cartitem
+     */
+    public function updateCartItem(CartItem $cartItem): JsonResponse
+    {
+        $cartItem->update([
+            'quantity' => 3
+        ]);
+
+        return new JsonResponse(['message' => 'quantity has been updated'],200);
+    }
+
+    /**
      * delete an item from cart
      *
      */
-    public
-    function deleteCartItem(CartItem $cartItem): JsonResponse
+    public function deleteCartItem(CartItem $cartItem): JsonResponse
     {
         $cartItem->delete();
         return new JsonResponse(['message' => 'cartItem removed from cart'], 200);
