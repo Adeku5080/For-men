@@ -34,7 +34,7 @@
 
                             Qty
                             <select name="quantity" id="quantity">
-                                <option value="" selected>{{ $cartItem->quantity }}</option>
+                                <option value=" " selected>{{ $cartItem->quantity }}</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -50,7 +50,7 @@
 
                 <div class="price">
                     ${{$cartItem->item_price}}
-                    <button type="button" value=" {{ $cartItem->id }} " id="delete-btn"  >delete</button>
+                    <button type="button" value=" {{ $cartItem->id }} " id="delete-btn">delete</button>
                 </div>
 
 
@@ -60,15 +60,17 @@
     </div>
 
     <div class="total-section">
-          <div class="header">
-              <h3>Total</h3>
-          </div>
+        <div class="header">
+            <h3>Total</h3>
+        </div>
         <div class="subtotal">
             <p>sub-total</p>
             <p>$total</p>
         </div>
         <div class="button-div">
-            <a href={{route('checkout')}}> <button class="checkout" type="button">CHECKOUT</button></a>
+            <a href={{route('checkout')}}>
+                <button class="checkout" type="button">CHECKOUT</button>
+            </a>
 
         </div>
     </div>
@@ -76,31 +78,42 @@
 
 {{--update cart-item quantity on-change--}}
 <script>
- const selectQuantity = document.querySelector('#quantity');
- selectQuantity.addEventListener('change',function(){
-     await updateProduct()
- })
+    const selectQuantity = document.querySelector('#quantity');
+    selectQuantity.addEventListener('change', async function (e) {
 
- async function updateProduct(cartItemId) {
-     try{
-         const response = await fetch(`api/update-cart-item/${cartItemId}`,{
-             method:"PATCH",
-             headers: {
-                 'Content-Type': 'application/json',
-                 'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
-             },
-         })
-     }catch(e){
-          console.log(e);
-     }
- }
+        const data = {
+            quantity: document.querySelector("[name = 'quantity']").value
+        }
+
+        const cartItemId = {{$cartItem->id}};
+        await updateProduct(data, cartItemId)
+    })
+
+    async function updateProduct(data, cartItemId) {
+        try {
+            const response = await fetch(`api/update-cart-item/${cartItemId}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                },
+                body: JSON.stringify(data)
+            })
+            if (response.ok) {
+                window.location.href = '{{route('cart.show')}}'
+            }
+            return response.text()
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 </script>
 
 {{--delete cartItem --}}
 <script>
     const deleteBtn = document.querySelector("#delete-btn")
-    deleteBtn.addEventListener('click' ,async function(e){
+    deleteBtn.addEventListener('click', async function (e) {
         e.preventDefault();
 
         const cartItemId = e.target.value
@@ -109,21 +122,21 @@
     });
 
     async function deleteProduct(cartItemId) {
-         try{
-               const response = await fetch(`api/delete-cart-item/${cartItemId}`,{
-                   method:"DELETE",
-                   headers: {
-                       'Content-Type': 'application/json',
-                       'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
-                   },
-               });
-               if(response.ok) {
-                   window.location.href = '{{route('cart.show')}}'
-               }
-             return response.text()
-         }catch(error){
-              console.log(error)
-         }
+        try {
+            const response = await fetch(`api/delete-cart-item/${cartItemId}`, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                },
+            });
+            if (response.ok) {
+                window.location.href = '{{route('cart.show')}}'
+            }
+            return response.text()
+        } catch (error) {
+            console.log(error)
+        }
     }
 </script>
 

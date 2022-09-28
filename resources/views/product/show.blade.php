@@ -47,21 +47,6 @@
                         </select>
                     </div>
 
-{{--                    <h2>quantity</h2>--}}
-{{--                    <div class="quantity-bar">--}}
-{{--                        <button type="button" class="decrement">--}}
-{{--                            ---}}
-{{--                        </button>--}}
-
-{{--                        <button class="count">--}}
-{{--                            0--}}
-{{--                        </button>--}}
-
-{{--                        <button type="button" class="increment">--}}
-{{--                            +--}}
-{{--                        </button>--}}
-
-{{--                    </div>--}}
                     <button type="submit" id="btn" value="{{ $product->id }}" class="button"> ADD ITEM TO CART</button>
                 </form>
             </div>

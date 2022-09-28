@@ -87,13 +87,14 @@ class CartController extends Controller
     /**
      * update a cartitem
      */
-    public function updateCartItem(CartItem $cartItem): JsonResponse
+    public function updateCartItem(CartItem $cartItem, Request $request): JsonResponse
     {
+        $quantity = $request->quantity;
         $cartItem->update([
-            'quantity' => 3
+            'quantity' => $quantity
         ]);
 
-        return new JsonResponse(['message' => 'quantity has been updated'],200);
+        return new JsonResponse(['message' => 'quantity has been updated'], 200);
     }
 
     /**
