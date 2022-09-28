@@ -65,7 +65,7 @@
         </div>
         <div class="subtotal">
             <p>sub-total</p>
-            <p>$total</p>
+            <p class="total"></p>
         </div>
         <div class="button-div">
             <a href={{route('checkout')}}>
@@ -138,6 +138,41 @@
             console.log(error)
         }
     }
+</script>
+
+
+{{--Get total price of cart items--}}
+<script>
+    addTotalToHtml();
+
+    const totalValue = document.querySelector('.total');
+
+    //get cartItems
+    async function getCartItems() {
+        const response = await fetch('api/cart-items');
+
+        return response.json()
+    }
+
+    //calculate total price for cart items
+    async function total() {
+        const {data} = await getCartItems();
+
+        let sum = 0;
+
+        for (let i = 0; i < data.length; i++) {
+            let item_total = data[i].item_price * data[i].quantity
+            sum += item_total;
+        }
+        return sum;
+    }
+
+    async function addTotalToHtml() {
+        const value = await total()
+        totalValue.innerText = value;
+    }
+
+
 </script>
 
 

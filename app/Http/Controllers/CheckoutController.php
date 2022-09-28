@@ -13,7 +13,7 @@ class CheckoutController extends Controller
     /**
      * show checkout page
      *
-     * @return View0
+     * @return View
      */
     public function index()
     {
