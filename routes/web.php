@@ -57,8 +57,12 @@ Route::post('/subcategories/store',[SubcategoryController::class,'store'])
     ->name('subcategory.store');
 Route::get('/products/create',[ProductController::class,'create'])
     ->name('product.create');
-Route::get('/subcategories/{subCategory}',[SubcategoryController::class,'show'])
-    ->name('subcategory.show');
+//Route::get('/subcategories/{subCategory}',[SubcategoryController::class,'show'])
+//    ->name('subcategory.show');
+
+Route::get('/subcategories/{subCategory}/products',[ProductController::class, 'getAllProductsForASubcategory'])
+    ->name('product.show');
+
 Route::post('/products/store',[ProductController::class,'store'])
     ->name('product.store');
 Route::get('/brands',[BrandController::class,'create'])
@@ -77,20 +81,7 @@ Route::get('new-in-Shoes',[NewinController::class,'newShoes'])
     ->name('newShoes');
 
 
-Route::get('/joggers',[ClothingController::class,'showAllJoggers'])
-    ->name('joggers');
-Route::get('/shirts',[ClothingController::class,'showAllShirts'])
-    ->name('shirts');
-Route::get('/shorts',[ClothingController::class,'showAllShorts'])
-    ->name('shorts');
-Route::get('/tshirts',[ClothingController::class,'showAllTshirts'])
-    ->name('tshirts');
-Route::get('/trainers',[ShoesController::class,'showAllTrainers'])
-    ->name('trainers');
-Route::get('/boots',[ShoesController::class,'showAllBoots'])
-    ->name('boots');
-Route::get('/shoes',[ShoesController::class,'showAllShoes'])
-    ->name('shoes');
+
 
 Route::get('/search',[SearchController::class,'search'])
     ->name('search');

@@ -14,7 +14,7 @@ class ClothingController extends Controller
      */
     public function showAllJoggers()
     {
-        $joggers = Product::where('sub_category_id', 4)
+        $joggers = Product::where('subcategory_id', 4)
             ->get();
         return view('product.joggers',compact('joggers'));
     }
@@ -26,7 +26,7 @@ class ClothingController extends Controller
      */
     public function showAllTshirts()
     {
-        $tshirts=Product::where('sub_category_id',1)
+        $tshirts=Product::where('subcategory_id',1)
             ->get();
         return view('product.t-shirts',compact('tshirts'));
     }
@@ -38,7 +38,7 @@ class ClothingController extends Controller
      */
     public function showAllShorts()
     {
-        $shorts = Product::where('sub_category_id',2)
+        $shorts = Product::where('subcategory_id',2)
             ->get();
         return view('product.shorts',compact('shorts'));
     }
@@ -50,7 +50,7 @@ class ClothingController extends Controller
      */
     public function showAllShirts()
     {
-        $shirts = Product::where('sub_category_id',3)
+        $shirts = Product::where('subcategory_id',3)
             ->get();
         return view('product.shirts',compact('shirts'));
     }

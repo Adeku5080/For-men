@@ -5,16 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e783d954-d3fc-4aa2-991e-b879466a6245" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/database/seeders/CategorySeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/SubcategorySeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/1680042687-Clothing.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680384597-Gadgets.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680384607-Gadgets.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680384706-Accessories.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680385559-Accessories.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680385560-Accessories.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680390352-Clothing.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680390670-Footwears.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680390686-Accessories.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/1680390704-Gadgers.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680091339-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680091848-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680091892-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680091950-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680092082-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680092463-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680092478-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680092535-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680092596-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/productImgs/1680094626-Topman tapered joggers in black.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/subcategoriesImgs/1680087333-Joggers.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/subcategoriesImgs/1680394518-Joggers.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/product/products.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_06_24_162522_rename_sub_category_id_in_products_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_06_26_141851_create_brands_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2023_03_28_232515_create_brands_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_06_26_232353_add_brand_id_to_products_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ClothingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ClothingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubcategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubcategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2023_03_28_235217_add_brand_id_to_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2023_04_24_220623_remove_file_path_from_categories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/CategorySeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CategorySeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/category/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/category/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/boots.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/joggers.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/laptops.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/phones.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/shirts.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/shoes.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/shorts.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/t-shirts.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/trainers.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/wallets.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/product/watches.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/subcategory/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/subcategory/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +82,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/facade/ignition-contracts" />
       <path value="$PROJECT_DIR$/vendor/facade/flare-client-php" />
@@ -167,6 +204,9 @@
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
     </include_path>
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="1wfaIFPUeMn3um1Qft0As2hAOH6" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -193,6 +233,13 @@
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-php-predefined-ba97393d7c68-b4dcf6bb9de9-com.jetbrains.php.sharedIndexes-PS-233.13135.108" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -260,7 +307,14 @@
       <workItem from="1677831977448" duration="10795000" />
       <workItem from="1678365693914" duration="1936000" />
       <workItem from="1679931589435" duration="1079000" />
-      <workItem from="1680039472945" duration="5306000" />
+      <workItem from="1680039472945" duration="49301000" />
+      <workItem from="1681912116993" duration="247000" />
+      <workItem from="1682344596298" duration="1237000" />
+      <workItem from="1682362810062" duration="8942000" />
+      <workItem from="1686513923691" duration="9754000" />
+      <workItem from="1686875722665" duration="1199000" />
+      <workItem from="1706098138131" duration="2337000" />
+      <workItem from="1706228102194" duration="5107000" />
     </task>
     <servers />
   </component>
@@ -289,13 +343,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/SubcategoryController.php</url>
-          <line>40</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/ProductController.php</url>
-          <line>36</line>
+          <line>48</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul class="list-unstyled">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form method="post" action="{{route('category.store')}}" enctype="multipart/form-data">
     @csrf
     <div>
@@ -14,7 +23,7 @@
         <input type="text" name="name" required>
     </div>
     <div class="form-group">
-        <input type="file" name="file" required>
+        <input type="file" name="file">
     </div>
     <button type="submit">Submit</button>
 </form>

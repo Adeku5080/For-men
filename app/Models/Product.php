@@ -17,8 +17,7 @@ class Product extends Model
         'brand_id',
         'description',
         'file_path',
-        'sub_category_id',
-        'category_id',
+        'subcategory_id',
     ];
 
     /**

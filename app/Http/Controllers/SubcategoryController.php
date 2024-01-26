@@ -38,22 +38,24 @@ class SubcategoryController extends Controller
      */
     public function store( Request $request): RedirectResponse
     {
+
         $request->validate([
             'category' => 'required|exists:categories,id',
             'name' => 'required',
-            'file' => 'required|mimes:jpg,png,jpeg'
+            'file' => 'required|mimes:jpg,png,jpeg,webp'
         ]);
+
 
         $newImageName = time() . '-' .$request->name . '.' . $request->file->extension();
         $request->file->move(public_path('images/subcategoriesImgs'),$newImageName);
 
-        SubCategory::create([
+      $subcategory =  SubCategory::create([
             'category_id' => $request['category'],
             'name' => $request['name'],
             'file_path' => $newImageName,
         ]);
 
-        return redirect()->route('category.show',$request['category']);
+        return redirect()->route('subcategory.create',$request['category']);
     }
 
 }

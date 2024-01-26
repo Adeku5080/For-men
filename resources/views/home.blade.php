@@ -19,63 +19,71 @@
 <x-header/>
 <nav>
     <ul class="second-nav">
-        <li class="second-nav_links"><a href="#" class="drop-down_header">New in</a>
-            <ul class="drop-down">
-                <li>NEW PRODUCTS</li>
-                <li><a href="{{ route('newin') }}">View all</a></li>
-                <li><a href="{{route('newCloths')}}">Clothing</a></li>
-                <li><a href="{{route('newAccessories')}}">Accessories</a></li>
-                <li><a href="{{route('newShoes')}}">Shoes</a></li>
-                <li><a href="#">Gadgets</a></li>
-            </ul>
+        @foreach($categories as $category)
+            <li class="second-nav_links">
+                        <a href="#" class="drop-down_header" data-id="{{$category->id}}">{{$category->name}}</a>
+                        <div class="overlay"></div>
+                  </li>
 
-            <div class="overlay"></div>
-        </li>
+        @endforeach
+{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">New in</a>--}}
+{{--            <ul class="drop-down">--}}
+{{--                <li>NEW PRODUCTS</li>--}}
+{{--                <li><a href="{{ route('newin') }}">View all</a></li>--}}
+{{--                <li><a href="{{route('newCloths')}}">Clothing</a></li>--}}
+{{--                <li><a href="{{route('newAccessories')}}">Accessories</a></li>--}}
+{{--                <li><a href="{{route('newShoes')}}">Shoes</a></li>--}}
+{{--                <li><a href="#">Gadgets</a></li>--}}
+{{--            </ul>--}}
 
-        <li class="second-nav_links">
-            <a href="#" class="drop-down_header">Clothing</a>
-            <ul class="drop-down">
-                <li><a href="{{route('newCloths')}}">New in</a></li>
-                <li><a href="{{route('joggers')}}">Joggers</a></li>
-                <li><a href="{{route('tshirts')}}">T-shirts</a></li>
-                <li><a href="{{route('shorts')}}">Shorts</a></li>
-                <li><a href="{{route('shirts')}}">Shirts</a></li>
-            </ul>
+{{--            <div class="overlay"></div>--}}
+{{--        </li>--}}
 
-            <div class="overlay"></div>
-        </li>
+{{--        <li class="second-nav_links">--}}
+{{--            <a href="#" class="drop-down_header">Clothing</a>--}}
+{{--            <ul class="drop-down">--}}
+{{--                <li><a href="">New in</a></li>--}}
+{{--                <li><a href="">Joggers</a></li>--}}
+{{--                <li><a href="">T-shirts</a></li>--}}
+{{--                <li><a href="">Shorts</a></li>--}}
+{{--                <li><a href="">Shirts</a></li>--}}
+{{--            </ul>--}}
 
-        <li class="second-nav_links"><a href="#" class="drop-down_header">Shoes</a>
-            <ul class="drop-down ">
-                <li><a href="#">View all</a></li>
-                <li><a href="{{route('newShoes')}}">New in</a></li>
-                <li><a href="{{route('trainers')}}"> Trainers</a></li>
-                <li><a href="{{route('boots')}}">Boots</a></li>
-                <li><a href="{{route('shoes')}}">Shoes</a></li>
-            </ul>
 
-            <div class="overlay"></div>
-        </li>
-        <li class="second-nav_links"><a href="#" class="drop-down_header">Accessories</a>
-            <ul class="drop-down">
-                <li><a href="#">View all</a></li>
-                <li><a href="{{route('newAccessories')}}">New in</a></li>
-                <li><a href="#">Wallets</a></li>
-                <li><a href="#">Watches</a></li>
-            </ul>
+{{--            <div class="overlay"></div>--}}
+{{--        </li>--}}
 
-            <div class="overlay"></div>
-        </li>
-        <li class="second-nav_links"><a href="#" class="drop-down_header">Gadgets</a>
-            <ul class="drop-down">
-                <li><a href="#">View all</a></li>
-                <li><a href="#">Phones</a></li>
-                <li><a href="#">Laptops</a></li>
-            </ul>
+{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">Shoes</a>--}}
+{{--            <ul class="drop-down ">--}}
+{{--                <li><a href="#">View all</a></li>--}}
+{{--                <li><a href="#">New in</a></li>--}}
+{{--                <li><a href=""> Trainers</a></li>--}}
+{{--                <li><a href="">Boots</a></li>--}}
+{{--                <li><a href="">Shoes</a></li>--}}
+{{--            </ul>--}}
 
-            <div class="overlay"></div>
-        </li>
-        <li class="second-nav_links"><a href="#">Brands</a></li>
+{{--            <div class="overlay"></div>--}}
+{{--        </li>--}}
+{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">Accessories</a>--}}
+{{--            <ul class="drop-down">--}}
+{{--                <li><a href="#">View all</a></li>--}}
+{{--                <li><a href="#">New in</a></li>--}}
+{{--                <li><a href="#">Wallets</a></li>--}}
+{{--                <li><a href="#">Watches</a></li>--}}
+{{--            </ul>--}}
+
+{{--            <div class="overlay"></div>--}}
+{{--        </li>--}}
+{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">Gadgets</a>--}}
+{{--            <ul class="drop-down">--}}
+{{--                <li><a href="#">View all</a></li>--}}
+{{--                <li><a href="#">Phones</a></li>--}}
+{{--                <li><a href="#">Laptops</a></li>--}}
+{{--            </ul>--}}
+
+{{--            <div class="overlay"></div>--}}
+{{--        </li>--}}
+{{--        <li class="second-nav_links"><a href="#">Brands</a></li>--}}
     </ul>
 </nav>
 
@@ -401,6 +409,24 @@
     close.addEventListener('click', function () {
         authDropdownDiv.style.display = 'none';
     })
+
+</script>
+
+
+{{--fetch all subCategories on hover on a category--}}
+
+<script>
+    const category = document.querySelectorAll(".drop-down_header")
+    for(let i = 0 ; i < category.length ; i++){
+        category[i].addEventListener('mouseover' ,()=>{
+            const categoryId = category[i].getAttribute('data-id')
+            console.log(categoryId)
+
+
+        })
+    }
+
+
 
 </script>
 </html>

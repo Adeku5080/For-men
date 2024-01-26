@@ -53,19 +53,24 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
-            'name' => 'required',
-            'file' => 'required|mimes:jpg,png,jpeg'
+        $validated = $request->validate([
+            'name' => "required|unique:categories",
+            "file" => "mimes:jpg,png,jpeg,webp"
         ]);
+//        dd($validated);
 
-        $newImageName = time() . '-' .$request->name . '.' . $request->file->extension();
-        $request->file->move(public_path('images'),$newImageName);
 
-        Category::create([
+
+//        $newImageName = time() . '-' .$request->name . '.' . $request->file->extension();
+//        $request->file->move(public_path('images'),$newImageName);
+
+        $category = Category::create([
             'name' => $request['name'],
-            'file_path' => $newImageName
+//            'file_path' => $newImageName
         ]);
+
+        return redirect()->route("category.create");
+
     }
 
     /**

@@ -28,6 +28,18 @@ class ProductController extends Controller
     }
 
     /**
+     * get all products belonging to a subcategory
+     *
+     * @return view
+     */
+    public function getAllProductsForASubcategory(SubCategory $subCategory): View
+    {
+        $products = $subCategory->products;
+        dd($products);
+     return view('product.products');
+    }
+
+    /**
      * Show a product
      *
      */
@@ -56,16 +68,16 @@ class ProductController extends Controller
         $newImageName = time() . '-' .$request->name . '.' . $request->file->extension();
         $request->file->move(public_path('images/productImgs'),$newImageName);
 
-        Product::create([
-            'category_id' => $request['category'],
-            'sub_category_id' => $request['subcategory'],
+      $product =  Product::create([
+//            'category_id' => $request['category'],
+            'subcategory_id' => $request['subcategory'],
             'name' => $request['name'],
             "brand_id" => $request['brand'],
             'price' =>$request['price'],
             'description' =>$request['description'],
             'file_path' => $newImageName,
         ]);
-
+  dd($product);
         return redirect()->route('subcategory.show',$request['subcategory']);
     }
 }
