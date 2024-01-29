@@ -22,68 +22,13 @@
         @foreach($categories as $category)
             <li class="second-nav_links">
                         <a href="#" class="drop-down_header" data-id="{{$category->id}}">{{$category->name}}</a>
-                        <div class="overlay"></div>
+                        <div class="drop-down">
+
+                        </div>
                   </li>
 
         @endforeach
-{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">New in</a>--}}
-{{--            <ul class="drop-down">--}}
-{{--                <li>NEW PRODUCTS</li>--}}
-{{--                <li><a href="{{ route('newin') }}">View all</a></li>--}}
-{{--                <li><a href="{{route('newCloths')}}">Clothing</a></li>--}}
-{{--                <li><a href="{{route('newAccessories')}}">Accessories</a></li>--}}
-{{--                <li><a href="{{route('newShoes')}}">Shoes</a></li>--}}
-{{--                <li><a href="#">Gadgets</a></li>--}}
-{{--            </ul>--}}
 
-{{--            <div class="overlay"></div>--}}
-{{--        </li>--}}
-
-{{--        <li class="second-nav_links">--}}
-{{--            <a href="#" class="drop-down_header">Clothing</a>--}}
-{{--            <ul class="drop-down">--}}
-{{--                <li><a href="">New in</a></li>--}}
-{{--                <li><a href="">Joggers</a></li>--}}
-{{--                <li><a href="">T-shirts</a></li>--}}
-{{--                <li><a href="">Shorts</a></li>--}}
-{{--                <li><a href="">Shirts</a></li>--}}
-{{--            </ul>--}}
-
-
-{{--            <div class="overlay"></div>--}}
-{{--        </li>--}}
-
-{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">Shoes</a>--}}
-{{--            <ul class="drop-down ">--}}
-{{--                <li><a href="#">View all</a></li>--}}
-{{--                <li><a href="#">New in</a></li>--}}
-{{--                <li><a href=""> Trainers</a></li>--}}
-{{--                <li><a href="">Boots</a></li>--}}
-{{--                <li><a href="">Shoes</a></li>--}}
-{{--            </ul>--}}
-
-{{--            <div class="overlay"></div>--}}
-{{--        </li>--}}
-{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">Accessories</a>--}}
-{{--            <ul class="drop-down">--}}
-{{--                <li><a href="#">View all</a></li>--}}
-{{--                <li><a href="#">New in</a></li>--}}
-{{--                <li><a href="#">Wallets</a></li>--}}
-{{--                <li><a href="#">Watches</a></li>--}}
-{{--            </ul>--}}
-
-{{--            <div class="overlay"></div>--}}
-{{--        </li>--}}
-{{--        <li class="second-nav_links"><a href="#" class="drop-down_header">Gadgets</a>--}}
-{{--            <ul class="drop-down">--}}
-{{--                <li><a href="#">View all</a></li>--}}
-{{--                <li><a href="#">Phones</a></li>--}}
-{{--                <li><a href="#">Laptops</a></li>--}}
-{{--            </ul>--}}
-
-{{--            <div class="overlay"></div>--}}
-{{--        </li>--}}
-{{--        <li class="second-nav_links"><a href="#">Brands</a></li>--}}
     </ul>
 </nav>
 
@@ -216,29 +161,29 @@
 <script>
 
 
-    window.addEventListener('scroll', function () {
-        const scrollPos = window.pageYOffset;
+   window.addEventListener('scroll', function () {
+       const scrollPos = window.pageYOffset;
 
-        toggleSticky(scrollY > 90);
-    });
+       toggleSticky(scrollY > 90);
+   });
 
-    function toggleSticky(activate = true) {
-        for (const dropDown of document.querySelectorAll('.drop-down')) {
-            if (activate) {
-                dropDown.classList.add('stick-dropDown')
-            } else {
-                dropDown.classList.remove('stick-dropDown')
-            }
-        }
+   function toggleSticky(activate = true) {
+       for (const dropDown of document.querySelectorAll('.drop-down')) {
+           if (activate) {
+               dropDown.classList.add('stick-dropDown')
+           } else {
+               dropDown.classList.remove('stick-dropDown')
+           }
+       }
 
-        for (const overlay of document.querySelectorAll('.second-nav_links .overlay')) {
-            if (activate) {
-                overlay.classList.add('stick-dropDown')
-            } else {
-                overlay.classList.remove('stick-dropDown')
-            }
-        }
-    }
+       for (const overlay of document.querySelectorAll('.second-nav_links .overlay')) {
+           if (activate) {
+               overlay.classList.add('stick-dropDown')
+           } else {
+               overlay.classList.remove('stick-dropDown')
+           }
+       }
+   }
 
 </script>
 
@@ -417,14 +362,35 @@
 
 <script>
     const category = document.querySelectorAll(".drop-down_header")
+    const dropDown = document.querySelector(".drop-down")
     for(let i = 0 ; i < category.length ; i++){
-        category[i].addEventListener('mouseover' ,()=>{
+        category[i].addEventListener('mouseover' ,async function(){
             const categoryId = category[i].getAttribute('data-id')
-            console.log(categoryId)
+          const {data} = await fetchSubCategories(categoryId)
+            console.log(data)
 
+            //fill overlay
+            let overlayItems = data.map((datum)=>{
+                console.log(datum.name,'item')
+                return `
+                <div class="drop-down_item"> ${datum.name}</div>
+
+
+                `
+            })
+            dropDown.innerHTML = overlayItems.join("")
 
         })
     }
+
+     async function fetchSubCategories(id){
+      console.log(id)
+         const response = await fetch(`/api/categories/${id}/sub-categories`)
+
+         return response.json()
+
+
+     }
 
 
 
