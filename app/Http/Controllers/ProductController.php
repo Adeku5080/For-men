@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\SubCategory;
+use App\Models\Subcategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -32,11 +32,10 @@ class ProductController extends Controller
      *
      * @return view
      */
-    public function getAllProductsForASubcategory(SubCategory $subCategory): View
+    public function getAllProductsForASubcategory(Subcategory $subCategory): View
     {
         $products = $subCategory->products;
-        dd($products);
-     return view('product.products');
+     return view('product.products' ,['products' => $products]);
     }
 
     /**

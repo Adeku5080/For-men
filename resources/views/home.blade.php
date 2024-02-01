@@ -365,31 +365,27 @@
     const dropDown = document.querySelector(".drop-down")
     for(let i = 0 ; i < category.length ; i++){
         category[i].addEventListener('mouseover' ,async function(){
-            const categoryId = category[i].getAttribute('data-id')
-          const {data} = await fetchSubCategories(categoryId)
-            console.log(data)
+                const categoryId = category[i].getAttribute('data-id')
+                const {data} = await fetchSubCategories(categoryId)
+                console.log(data)
 
-            //fill overlay
-            let overlayItems = data.map((datum)=>{
-                console.log(datum.name,'item')
-                return `
-                <div class="drop-down_item"> ${datum.name}</div>
-
-
+                //fill overlay
+                let overlayItems = data.map((datum)=>{
+                    console.log(datum.name,'item')
+                    return `
+                 <a  class=drop-down_item href='/subcategories/${datum.id}/products'>
+                  ${datum.name}
+                 </a>
                 `
-            })
-            dropDown.innerHTML = overlayItems.join("")
-
+                })
+                dropDown.innerHTML = overlayItems.join("")
         })
     }
 
      async function fetchSubCategories(id){
       console.log(id)
-         const response = await fetch(`/api/categories/${id}/sub-categories`)
-
+         const response = await fetch(`/api/categories/${id}/subcategories`)
          return response.json()
-
-
      }
 
 

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class Category.
  *
- * @property SubCategory[]|Collection $subCategories
+ * @property Subcategory[]|Collection $subCategories
  */
 class Category extends Model
 {
@@ -28,6 +28,6 @@ class Category extends Model
      */
     public function subCategories(): HasMany
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(Subcategory::class);
     }
 }

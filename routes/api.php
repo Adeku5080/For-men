@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/categories/{category}/sub-categories', [CategoryController::class, 'subCategories'])
+Route::get('/categories/{category}/subcategories', [CategoryController::class, 'subCategories'])
     ->name('api.category.sub-categories');
 
 Route::get('/products',[ProductApiController::class,'index']);
