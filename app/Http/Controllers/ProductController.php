@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
+use Cloudinary\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -64,8 +65,15 @@ class ProductController extends Controller
             'description' => 'required'
         ]);
 
-        $newImageName = time() . '-' .$request->name . '.' . $request->file->extension();
-        $request->file->move(public_path('images/productImgs'),$newImageName);
+        //upload image to cloudinary
+        $uploadedFile = $request->file('file')->getRealPath();
+        $cloudinaryResponse = Cloudinary::upload($uploadedFile);
+
+        // Get the public ID and URL of the uploaded image
+        $publicId = $cloudinaryResponse->getPublicId();
+        $imageUrl = $cloudinaryResponse->getSecurePath();
+
+
 
       $product =  Product::create([
 //            'category_id' => $request['category'],
@@ -74,7 +82,7 @@ class ProductController extends Controller
             "brand_id" => $request['brand'],
             'price' =>$request['price'],
             'description' =>$request['description'],
-            'file_path' => $newImageName,
+            'file_path' => $imageUrl,
         ]);
   dd($product);
         return redirect()->route('subcategory.show',$request['subcategory']);
