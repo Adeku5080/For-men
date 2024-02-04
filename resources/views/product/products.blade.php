@@ -1,23 +1,33 @@
 <!Doctype html>
 <html>
 <head>
-    <title></title>
+    <title>Products</title>
+    <link rel="stylesheet" href="{{ asset('vendor/css/products.css') }}">
+
 </head>
 <body>
- <h2>All products under ......</h2>
-  @foreach($products as $product)
-      <div>
-          {{$product->name}}
+<Main class="container">
+    <h2>All products under ......</h2>
+    @foreach($products as $product)
+        <div class="image-container">
+            <a href={{route('product.show',$product->id)}}>
+                <img src="{{$product->file_path}}" alt="image"/>
+            </a>
+        </div>
+        <div>
+            {{$product->name}}
 
-      </div>
-      <div>
-          ${{$product->price}}
+        </div>
+        <div>
+            ${{$product->price}}
 
-      </div>
-      <div>
-          {{$product->description}}
+        </div>
+        <div>
+            {{$product->description}}
 
-      </div>
-  @endforeach
+        </div>
+    @endforeach
+</Main>
+
 </body>
 </html>

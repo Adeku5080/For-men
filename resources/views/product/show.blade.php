@@ -14,7 +14,8 @@
 <div class="container">
     <div class="product-detail_section">
         <div class="product-img">
-            <img class="image" src="{{ asset('images/productImgs/'.$product->file_path)}}" alt="">
+            <img src="{{$product->file_path}}" alt="image"/>
+
         </div>
 
         <div class="product-info">

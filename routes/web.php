@@ -87,8 +87,8 @@ Route::get('new-in-Shoes',[NewinController::class,'newShoes'])
 Route::get('/search',[SearchController::class,'search'])
     ->name('search');
 
-Route::get('/show/{product}',[ProductController::class,'show'])
-    ->name('show');
+Route::get('/products/{product}',[ProductController::class,'show'])
+    ->name('product.show');
 
 //Route::post('/{product}/add-to-cart',[CartController::class,'store'])
 //    ->name('cart.store');

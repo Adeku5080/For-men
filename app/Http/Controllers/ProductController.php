@@ -6,7 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
-use Cloudinary\Cloudinary;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -66,25 +66,18 @@ class ProductController extends Controller
         ]);
 
         //upload image to cloudinary
-        $uploadedFile = $request->file('file')->getRealPath();
-        $cloudinaryResponse = Cloudinary::upload($uploadedFile);
-
-        // Get the public ID and URL of the uploaded image
-        $publicId = $cloudinaryResponse->getPublicId();
-        $imageUrl = $cloudinaryResponse->getSecurePath();
+      $uploadedFile=Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
 
 
-
-      $product =  Product::create([
+        Product::create([
 //            'category_id' => $request['category'],
             'subcategory_id' => $request['subcategory'],
             'name' => $request['name'],
             "brand_id" => $request['brand'],
             'price' =>$request['price'],
             'description' =>$request['description'],
-            'file_path' => $imageUrl,
+            'file_path' => $uploadedFile,
         ]);
-  dd($product);
         return redirect()->route('subcategory.show',$request['subcategory']);
     }
 }
