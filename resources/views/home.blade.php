@@ -301,8 +301,7 @@
     }
 </script>
 
-{{--Get total price of cart items--}}
-<script>
+{{--Get total price of cart items--}}<script>
     addTotalToHtml();
 
     const totalValue = document.querySelector('.total_value');
