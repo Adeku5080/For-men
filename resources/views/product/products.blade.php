@@ -25,10 +25,10 @@
                 </div>
                 <div class="price">
                     ${{$product->price}}
-     
+
                 </div>
                 <div class="fav-icon">
-                    <img src="/images/heart.svg" alt="heart" id="fav">
+                    <img src="/images/heart.svg" alt="heart" id="fav"  data-id={{$product->id}}>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
 
 </body>
 
-{{--  
+{{--
 toggle like items --}}
 <script>
 
@@ -48,17 +48,53 @@ toggle like items --}}
 
     // Add click event listeners to each element
     favElements.forEach((fav) => {
+       console.log(fav,'fav')
            let isFav = false;
-        fav.addEventListener('click', () => {
+           const productId = fav.getAttribute('data-id');
+        fav.addEventListener('click', async() => {
             // Toggle the state
             isFav = !isFav;
-            
+
             // Toggle the 'liked' class based on the state
-            fav.classList.toggle('liked', isFav);
-            
+            fav.classList.toggle('liked', isFav)
+
+             if(isFav){
+                 const {data} = await addToFav(productId)
+                 console.log(data,'response')
+             }else{
+                 await removeFav(productId)
+             }
             // Log the current state
             console.log(isFav);
         });
     });
+
+
+    // Add product to Favourites
+    const addToFav = async(data)=>{
+       await fetch('/api/add-to-favourites',{
+        method:"POST",
+            mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+      headers: {
+      "Content-Type": "application/json",
+    },
+        body: JSON.stringify({productId :data}),
+
+       })
+       return response.json()
+    }
+
+    // remove product from favourites
+    const removeFav = async(data)=>{
+        await fetch(`/api/removeFav/${data}`,{
+            method:'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+            },
+
+        })
+    }
 </script>
 </html>

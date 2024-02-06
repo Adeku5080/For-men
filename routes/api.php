@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\SubCategoryController;
 use App\Http\Middleware\Auth;
@@ -38,3 +39,5 @@ Route::get('/sub-categories',[SubCategoryController::class,'index']);
 Route::get('/sub-categories/{subCategory}',[SubCategoryController::class,'show']);
 Route::get('/sub-categories/{subCategory}/products', [SubCategoryController::class, 'products']);
 
+Route::post('/add-to-favourites',[FavouriteController::class,'create']);
+Route::delete('/removeFav/{product}',[FavouriteController::class,'removeFav']);
