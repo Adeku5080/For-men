@@ -36,7 +36,9 @@ class FavouriteController extends Controller
      * remove from favourites
      */
     public function removeFav(Product $product){
-         Favourite::where('product_id',$product->id)->delete();
+         Favourite::where('product_id',$product->id)
+                  ->where('user_id',1)
+                  ->delete();
 
          return new JsonResponse(['msg'=>'product removed from favourites'],200);
     }
