@@ -15,11 +15,10 @@ class FavouriteController extends Controller
      * add to favourties
      */
     public function create(Request $request){
-        $product_id =
-            $user_id = Auth::user();
+            $user= Auth::user();
 
            $Favourite= Favourite::create([
-                'user_id' => 1,
+                'user_id' => $user->id,
                 'product_id' =>$request->productId
             ]);
 
@@ -29,15 +28,14 @@ class FavouriteController extends Controller
     /**
      * get all favourites belonging to a user
      */
-    public function fetchAllfavourties(){
-    }
+ 
 
     /*
      * remove from favourites
      */
     public function removeFav(Product $product){
          Favourite::where('product_id',$product->id)
-                  ->where('user_id',1)
+                  ->where('user_id',Auth::user()->id)
                   ->delete();
 
          return new JsonResponse(['msg'=>'product removed from favourites'],200);

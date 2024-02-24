@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Products</title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="{{ asset('vendor/css/products.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
           integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
@@ -79,6 +81,9 @@ toggle like items --}}
     credentials: "same-origin",
       headers: {
       "Content-Type": "application/json",
+      'X-CSRF-TOKEN': document.querySelector("meta[name='csrf-token']").getAttribute('content')
+
+
     },
         body: JSON.stringify({productId :data}),
 

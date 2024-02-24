@@ -61,4 +61,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Cart::class)->whereNull('checked_out_at');
     }
+
+    public function favourites():HasMany
+    {
+        return $this->hasMany(Favourite::class);
+    }
+
 }

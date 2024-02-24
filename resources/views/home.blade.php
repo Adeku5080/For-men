@@ -23,7 +23,6 @@
             <li class="second-nav_links">
                         <a href="#" class="drop-down_header" data-id="{{$category->id}}">{{$category->name}}</a>
                         <div class="drop-down">
-
                         </div>
                   </li>
 
@@ -360,24 +359,23 @@
 {{--fetch all subCategories on hover on a category--}}
 
 <script>
-    const category = document.querySelectorAll(".drop-down_header")
-    const dropDown = document.querySelector(".drop-down")
-    for(let i = 0 ; i < category.length ; i++){
-        category[i].addEventListener('mouseover' ,async function(){
-                const categoryId = category[i].getAttribute('data-id')
+    const categories = document.querySelectorAll(".drop-down_header")
+    // const dropDown = document.querySelector(".drop-down")
+    for(let i = 0 ; i < categories.length ; i++){
+        categories[i].addEventListener('mouseover' ,async function(){
+                const categoryId = categories[i].getAttribute('data-id')
                 const {data} = await fetchSubCategories(categoryId)
-                console.log(data)
 
                 //fill overlay
                 let overlayItems = data.map((datum)=>{
-                    console.log(datum.name,'item')
                     return `
                  <a  class=drop-down_item href='/subcategories/${datum.id}/products'>
                   ${datum.name}
                  </a>
                 `
                 })
-                dropDown.innerHTML = overlayItems.join("")
+            const dropDown = categories[i].parentNode.querySelector('.drop-down')
+            dropDown.innerHTML = overlayItems.join("")
         })
     }
 

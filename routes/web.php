@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClothingController;
+use App\Http\Controllers\FavouritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewinController;
 use App\Http\Controllers\PaymentController;
@@ -62,7 +63,7 @@ Route::get('/products/create',[ProductController::class,'create'])
 //    ->name('subcategory.show');
 
 Route::get('/subcategories/{subCategory}/products',[ProductController::class, 'getAllProductsForASubcategory'])
-    ->name('product.show');
+    ->name('product.show')->middleware(['auth']);
 
 Route::post('/products/store',[ProductController::class,'store'])
     ->name('product.store');
@@ -90,12 +91,7 @@ Route::get('/search',[SearchController::class,'search'])
 Route::get('/products/{product}',[ProductController::class,'show'])
     ->name('product.show');
 
-//Route::post('/{product}/add-to-cart',[CartController::class,'store'])
-//    ->name('cart.store');
-//
-//Route::post('add-to-cart/{product}',[CartController::class,'addToCart'])
-//    ->name('cart.add');
-
+Route::get('/saved-items',[FavouritesController::class,'fetchAllSavedItems']);
 
 Route::get('/cart',[CartController::class,'getItemsFromCart'])
     ->name('cart.show');
@@ -122,6 +118,11 @@ Route::patch('api/update-cart-item/{cartItem}',[\App\Http\Controllers\Api\CartCo
 Route::delete('api/delete-cart-item/{cartItem}',[\App\Http\Controllers\Api\CartController::class,'deleteCartItem']);
 
 Route::get('api/cart-items',[\App\Http\Controllers\Api\CartController::class,'index']);
+
+Route::post('api/add-to-favourites',[\App\Http\Controllers\Api\FavouriteController::class,'create']);
+Route::delete('/removeFav/{product}',[FavouritesController::class,'removeFav']);
+Route::get('/saved-items',[FavouritesController::class,'fetchAllSavedItems']);
+
 
 require __DIR__.'/auth.php';
 

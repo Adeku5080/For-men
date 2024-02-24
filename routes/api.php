@@ -39,5 +39,5 @@ Route::get('/sub-categories',[SubCategoryController::class,'index']);
 Route::get('/sub-categories/{subCategory}',[SubCategoryController::class,'show']);
 Route::get('/sub-categories/{subCategory}/products', [SubCategoryController::class, 'products']);
 
-Route::post('/add-to-favourites',[FavouriteController::class,'create']);
-Route::delete('/removeFav/{product}',[FavouriteController::class,'removeFav']);
+// Route::middleware('web')->post('/add-to-favourites', [FavouriteController::class, 'create']);
+
