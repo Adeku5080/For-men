@@ -17,12 +17,16 @@ class FavouriteController extends Controller
     public function create(Request $request){
             $user= Auth::user();
 
-           $Favourite= Favourite::create([
+            $data = [
                 'user_id' => $user->id,
                 'product_id' =>$request->productId
-            ]);
+            ];
 
-           return new JsonResponse(['data'=>$Favourite],201);
+           $Favourite= Favourite::firstOrCreate($data);
+
+           $message = $Favourite->wasRecentlyCreated ? 'Item has been saved' : 'Item has been removed from your saved items';
+
+           return new JsonResponse(['data'=>$Favourite,'message'=>$message],201);
     }
 
     /**
