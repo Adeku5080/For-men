@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSizeChartsTable extends Migration
+class CreateProductVariantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateSizeChartsTable extends Migration
      */
     public function up()
     {
-        Schema::create('size_charts', function (Blueprint $table) {
+        Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
-            $table->string("chest_size")->nullable();
-            $table->string("waist_size")->nullable();
-             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id');
+            $table->string('sku');
+            $table->string('quantity');
             $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
-
-
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateSizeChartsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('size_charts');
+        Schema::dropIfExists('product_variants');
     }
 }

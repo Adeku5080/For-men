@@ -18,13 +18,11 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-//        'file_path',
+        //        'file_path',
     ];
 
     /**
      * todo: leave comment
-     *
-     * @return HasMany
      */
     public function subCategories(): HasMany
     {

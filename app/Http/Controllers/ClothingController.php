@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ClothingController extends Controller
 {
@@ -16,7 +15,8 @@ class ClothingController extends Controller
     {
         $joggers = Product::where('subcategory_id', 4)
             ->get();
-        return view('product.joggers',compact('joggers'));
+
+        return view('product.joggers', compact('joggers'));
     }
 
     /**
@@ -26,9 +26,10 @@ class ClothingController extends Controller
      */
     public function showAllTshirts()
     {
-        $tshirts=Product::where('subcategory_id',1)
+        $tshirts = Product::where('subcategory_id', 1)
             ->get();
-        return view('product.t-shirts',compact('tshirts'));
+
+        return view('product.t-shirts', compact('tshirts'));
     }
 
     /**
@@ -38,9 +39,10 @@ class ClothingController extends Controller
      */
     public function showAllShorts()
     {
-        $shorts = Product::where('subcategory_id',2)
+        $shorts = Product::where('subcategory_id', 2)
             ->get();
-        return view('product.shorts',compact('shorts'));
+
+        return view('product.shorts', compact('shorts'));
     }
 
     /**
@@ -50,11 +52,9 @@ class ClothingController extends Controller
      */
     public function showAllShirts()
     {
-        $shirts = Product::where('subcategory_id',3)
+        $shirts = Product::where('subcategory_id', 3)
             ->get();
-        return view('product.shirts',compact('shirts'));
+
+        return view('product.shirts', compact('shirts'));
     }
-
-
-
 }

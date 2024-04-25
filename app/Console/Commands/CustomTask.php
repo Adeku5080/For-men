@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Favourite;
+use Illuminate\Console\Command;
 
 class CustomTask extends Command
 {
@@ -39,7 +39,7 @@ class CustomTask extends Command
     public function handle()
     {
         Favourite::truncate();
-            $this->info('Favourites table has been cleared');
+        $this->info('Favourites table has been cleared');
 
     }
 }

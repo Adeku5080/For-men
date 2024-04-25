@@ -13,13 +13,12 @@ class RedirectIfNotLoggedIn
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure(Request): (Response|RedirectResponse) $next
+     * @param  Closure(Request): (Response|RedirectResponse)  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::user()){
+        if (! Auth::user()) {
             return response()->json([
                 'message' => 'Please login.',
             ], 403);

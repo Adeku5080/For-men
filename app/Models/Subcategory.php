@@ -19,8 +19,6 @@ class Subcategory extends Model
 
     /**
      * Get the category of
-     *
-     * @return BelongsTo
      */
     public function category(): BelongsTo
     {
@@ -29,8 +27,6 @@ class Subcategory extends Model
 
     /**
      * Get all products in this sub-category.
-     *
-     * @return HasMany
      */
     public function products(): HasMany
     {

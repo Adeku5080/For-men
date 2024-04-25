@@ -19,11 +19,8 @@ class CartItem extends Model
         'item_price',
     ];
 
-    /**
-     *
-     *
-     */
-    public function cart(){
+    public function cart()
+    {
         return $this->belongsTo(Cart::class);
     }
 }

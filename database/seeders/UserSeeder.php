@@ -16,10 +16,10 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                "name"=>"onimisi mohammed",
-                "email"=>"adekuonimisi561@gmail.com",
-                "password"=> "#Adeku1997"
-            ]
+                'name' => 'onimisi mohammed',
+                'email' => 'adekuonimisi561@gmail.com',
+                'password' => '#Adeku1997',
+            ],
         ]);
     }
 }

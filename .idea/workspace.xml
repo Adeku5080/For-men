@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e783d954-d3fc-4aa2-991e-b879466a6245" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/FavouritesController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/favourites.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/FavouriteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/FavouriteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Favourite.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Favourite.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/UserSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/UserSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +200,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14015.96" />
+        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14475.35" />
       </set>
     </attachedChunks>
   </component>
@@ -305,6 +297,7 @@
       <workItem from="1707460613490" duration="8672000" />
       <workItem from="1707478113756" duration="773000" />
       <workItem from="1707518642605" duration="3383000" />
+      <workItem from="1709820878607" duration="5000" />
     </task>
     <servers />
   </component>

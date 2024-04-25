@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RenameCategoryNameInCategoriesTable extends Migration
+class DropColumnsFromProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class RenameCategoryNameInCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->renameColumn('category_name', 'name');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn(['price', 'description', 'file_path']);
+
         });
     }
 
@@ -25,8 +26,8 @@ class RenameCategoryNameInCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->renameColumn('category_name', 'name');
+        Schema::table('products', function (Blueprint $table) {
+            //
         });
     }
 }

@@ -72,6 +72,14 @@
             <small>{{$errors->first('description')}}</small>
         @endif
     </div>
+    
+    <div>
+        <p>select sizes for this product</p>
+        @foreach($sizes as $size)
+        <input type='checkbox' name='sizes[]' value='{{$size->size_value}}'/>
+            <label for="subscribeNews">{{$size->size_value}}</label>
+        @endforeach
+    </div>
     <button type="submit">Submit</button>
 </form>
 

@@ -12,8 +12,6 @@ class ProductApiController extends Controller
 {
     /**
      * get all products
-     *
-     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -24,9 +22,6 @@ class ProductApiController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
      */
     public function store(Request $request): Response
     {
@@ -35,24 +30,20 @@ class ProductApiController extends Controller
 
     /**
      * get a product
-     *
-     * @param Product $product
-     * @return JsonResponse
      */
     public function show(Product $product): JsonResponse
     {
-        if(!$product) {
-            return new JsonResponse(['message' => 'Record not found'],404);
+        if (! $product) {
+            return new JsonResponse(['message' => 'Record not found'], 404);
         }
-        return new JsonResponse(['data' => $product],200);
+
+        return new JsonResponse(['data' => $product], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
      * @param  int  $id
-     * @return Response
      */
     public function update(Request $request, $id): Response
     {
@@ -61,16 +52,14 @@ class ProductApiController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param Product $product
-     * @return JsonResponse
      */
     public function destroy(Product $product): JsonResponse
     {
-        if (!$product) {
+        if (! $product) {
             return new JsonResponse(['message' => 'record not found'], 404);
         }
         $product->delete();
-        return new JsonResponse( 200);
+
+        return new JsonResponse(200);
     }
 }

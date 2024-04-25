@@ -10,11 +10,11 @@ class Checkout extends Model
     use HasFactory;
 
     protected $fillable = [
-      'firstname',
-      'lastname'  ,
+        'firstname',
+        'lastname',
         'email',
         'address',
         'country',
-        'phone_no'
+        'phone_no',
     ];
 }

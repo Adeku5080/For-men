@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-
 class SizeChartSeeder extends Seeder
 {
     /**
@@ -16,28 +15,15 @@ class SizeChartSeeder extends Seeder
     public function run()
     {
         DB::table('size_charts')->insert([
-           [
-            'product_id' =>'3',
-            'chest_size' => 'XS-chest 36',
-           ],
             [
-            'product_id' => '3',
-            "chest_size" => "S-chest 38",
-           ],
+                'size_name' => 'waist_size',
+            ],
             [
-            "product_id" => "3",
-            "chest_size" => "M-chest 40",
-           ],
+                'size_name' => 'chest_size',
+            ],
             [
-            "product_id" => "3",
-            "chest_size" => "L-chest 42",
-           ],
-              [
-            "product_id" => "3",
-            "chest_size" => "XL-chest 44",
-           ],
-
-
+                'size_name' => 'shoe_size',
+            ],
         ]);
     }
 }

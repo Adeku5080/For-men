@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -43,28 +42,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * @return HasMany
-     *
-     */
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
     }
 
-    /**
-     *
-     * @return HasOne
-     *
-     */
     public function activeCart(): HasOne
     {
         return $this->hasOne(Cart::class)->whereNull('checked_out_at');
     }
 
-    public function favourites():HasMany
+    public function favourites(): HasMany
     {
         return $this->hasMany(Favourite::class);
     }
-
 }

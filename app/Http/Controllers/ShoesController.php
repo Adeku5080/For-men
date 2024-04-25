@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ShoesController extends Controller
 {
@@ -14,9 +13,10 @@ class ShoesController extends Controller
      */
     public function showAllTrainers()
     {
-         $trainers = Product::where('sub_category_id',5)
-                ->get();
-        return view('product.trainers',compact('trainers'));
+        $trainers = Product::where('sub_category_id', 5)
+            ->get();
+
+        return view('product.trainers', compact('trainers'));
     }
 
     /**
@@ -26,9 +26,10 @@ class ShoesController extends Controller
      */
     public function showAllBoots()
     {
-        $boots = Product::where('sub_category_id',6)
+        $boots = Product::where('sub_category_id', 6)
             ->get();
-        return view('product.boots',compact('boots'));
+
+        return view('product.boots', compact('boots'));
     }
 
     /**
@@ -38,8 +39,9 @@ class ShoesController extends Controller
      */
     public function showAllShoes()
     {
-        $shoes = Product::where('sub_category_id',7)
+        $shoes = Product::where('sub_category_id', 7)
             ->get();
-        return view('product.shoes',compact('shoes'));
+
+        return view('product.shoes', compact('shoes'));
     }
 }

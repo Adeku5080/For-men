@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class   BrandController extends Controller
+class BrandController extends Controller
 {
     public function create()
     {
@@ -15,12 +15,12 @@ class   BrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
 
         ]);
 
         Brand::create([
-            'name' => $request['name']
+            'name' => $request['name'],
         ]);
 
         return redirect()->route('brand.create');

@@ -14,7 +14,7 @@ class RenameSubcategoryNameInSubCategoriesTable extends Migration
     public function up()
     {
         Schema::table('sub_categories', function (Blueprint $table) {
-            $table->renameColumn('subcategory_name','name');
+            $table->renameColumn('subcategory_name', 'name');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameSubcategoryNameInSubCategoriesTable extends Migration
     public function down()
     {
         Schema::table('sub_categories', function (Blueprint $table) {
-            $table->renameColumn('subcategory_name','name');
+            $table->renameColumn('subcategory_name', 'name');
         });
     }
 }

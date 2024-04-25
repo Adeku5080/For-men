@@ -7,18 +7,13 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use function Sodium\increment;
 
 class CartController extends Controller
 {
     /**
      * get all cartItems
-     *
-     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -29,9 +24,6 @@ class CartController extends Controller
 
     /**
      * add item to cart
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function addToCart(Request $request): JsonResponse
     {
@@ -51,10 +43,9 @@ class CartController extends Controller
         $cartItem = CartItem::where('size', $request->size)
             ->where('product_id', $id)->first();
 
-
         if ($cartItem) {
             $cartItem->update([
-                'quantity' => $cartItem->quantity + 1
+                'quantity' => $cartItem->quantity + 1,
             ]);
         } else {
             CartItem::create([
@@ -64,18 +55,17 @@ class CartController extends Controller
                 'item_file_path' => $product->file_path,
                 'item_name' => $product->name,
                 'item_price' => $product->price,
-                'quantity' => 1
+                'quantity' => 1,
             ]);
 
         }
+
         return new JsonResponse(['message' => 'cart item added'], 200);
     }
 
     /**
      * get cart Items count
-     *
      */
-
     public function getCartItemsCount(): JsonResponse
     {
         $user = Auth::user();
@@ -91,7 +81,7 @@ class CartController extends Controller
     {
         $quantity = $request->quantity;
         $cartItem->update([
-            'quantity' => $quantity
+            'quantity' => $quantity,
         ]);
 
         return new JsonResponse(['message' => 'quantity has been updated'], 200);
@@ -99,11 +89,11 @@ class CartController extends Controller
 
     /**
      * delete an item from cart
-     *
      */
     public function deleteCartItem(CartItem $cartItem): JsonResponse
     {
         $cartItem->delete();
+
         return new JsonResponse(['message' => 'cartItem removed from cart'], 200);
     }
 }

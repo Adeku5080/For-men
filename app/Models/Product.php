@@ -12,7 +12,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'name',
         'price',
         'brand_id',
@@ -21,27 +21,26 @@ class Product extends Model
         'subcategory_id',
     ];
 
-    /**
-     *
-     * @return BelongsTo
-     *
-     */
     public function subcategory(): BelongsTo
     {
         return $this->belongsTo(Subcategory::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
     }
 
-    public function favourite():HasMany
+    public function favourite(): HasMany
     {
         return $this->hasMany(Favourite::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function sizechart(): BelongsToMany
+    {
+        return $this->belongsToMany(SizeChart::class);
+    }
 }
