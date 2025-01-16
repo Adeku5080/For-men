@@ -14,6 +14,14 @@ class Favourite extends Model
         'user_id',
     ];
 
+    /**
+     *scope query builder to delete favourites after 24 hours
+     */
+    public function scopeClearFav($query)
+    {
+        return $query->where('created_at', '<', Carbon::now()->subDay())->delete();
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

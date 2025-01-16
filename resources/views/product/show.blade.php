@@ -38,12 +38,7 @@
 {{--                                </ul>--}}
 {{--                            </div>--}}
 {{--                        @endif--}}
-                        <select name="size" id="size" required>
-                            <option value="" selected>--choose a size--</option>
-                            @foreach($sizeCharts as $sizeChart)
-                                  {{$sizeChart->chest_size}}
-                            @endforeach
-                        </select>
+                      
                     </div>
 
                     <button type="submit" id="btn" value="{{ $product->id }}" class="button"> ADD ITEM TO CART</button>

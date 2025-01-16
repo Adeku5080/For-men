@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropColumnsFromProductsTable extends Migration
+class AddProductDetailsToProductVariants extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class DropColumnsFromProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['price', 'description', 'file_path']);
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->string('product_details');
 
         });
     }
@@ -26,8 +26,9 @@ class DropColumnsFromProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->dropColumn('product_details');
+
         });
     }
 }

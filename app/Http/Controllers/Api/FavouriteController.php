@@ -45,4 +45,12 @@ class FavouriteController extends Controller
 
         return new JsonResponse(['msg' => 'product removed from favourites'], 200);
     }
+
+    /**
+     * clear favourites after 24hrs
+     */
+    public function clearfav()
+    {
+        Favourite::clearfav()->get();
+    }
 }

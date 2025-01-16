@@ -16,8 +16,8 @@ class CartSeeder extends Seeder
     {
         DB::table('carts')->insert([
             [
-              'user_id' => '5',             
-            ]
+                'user_id' => '5',
+            ],
         ]);
     }
 }

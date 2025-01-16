@@ -7,9 +7,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FavouritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewinController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaymentController;     
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\SearchController;      
 use App\Http\Controllers\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,10 +58,16 @@ Route::get('/products/create', [ProductController::class, 'create'])
 //    ->name('subcategory.show');
 
 Route::get('/subcategories/{subCategory}/products', [ProductController::class, 'getAllProductsForASubcategory'])
-    ->name('product.show')->middleware(['auth']);
+    ->name('product.show');
 
 Route::post('/products/store', [ProductController::class, 'store'])
     ->name('product.store');
+Route::post('/{product}/variant', [ProductController::class, 'addDefaultVariantsToProduct']);
+
+Route::get('/product-variant', [ProductVariantController::class, 'create']);
+Route::post('/product-variant', [ProductVariantController::class, 'store'])
+    ->name('product-variant.store');
+
 Route::get('/brands', [BrandController::class, 'create'])
     ->name('brand.create');
 Route::post('/brands', [BrandController::class, 'store'])
@@ -96,12 +103,12 @@ Route::get('/payment', [PaymentController::class, 'index'])
     ->name('payment');
 
 Route::post('/api/add-to-cart', [\App\Http\Controllers\Api\CartController::class, 'addToCart'])
-    ->name('api.add-to-cart')->middleware('auth');
+    ->name('api.add-to-cart');
 
 Route::get('api/cart-items-count', [\App\Http\Controllers\Api\CartController::class, 'getCartItemsCount'])
     ->name('api.cart-items-count');
 
-Route::patch('api/update-cart-item/{cartItem}', [\App\Http\Controllers\Api\CartController::class, 'updateCartItem']);
+Route::patch('api/update-cart-item/{cartItem}', [\App\Http\Controllers\Api\CartController::class, 'CartItem']);
 
 Route::delete('api/delete-cart-item/{cartItem}', [\App\Http\Controllers\Api\CartController::class, 'deleteCartItem']);
 

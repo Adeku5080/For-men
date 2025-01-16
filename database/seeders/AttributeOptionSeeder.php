@@ -17,99 +17,50 @@ class AttributeOptionSeeder extends Seeder
         DB::table('attribute_options')->insert([
             [
                 'attribute_id' => '1',
-                'value' => 'XS-Chest 32-34',
+                'value' => '4',
             ],
             [
                 'attribute_id' => '1',
-                'value' => 'S-Chest 35-37',
+                'value' => '6',
             ],
             [
                 'attribute_id' => '1',
-                'value' => 'M-Chest 38-40',
+                'value' => '8',
             ],
             [
                 'attribute_id' => '1',
-                'value' => 'L-Chest 41-43',
+                'value' => '10',
             ],
             [
                 'attribute_id' => '1',
-                'value' => 'XL-Chest 44-46',
+                'value' => '12',
             ],
             [
                 'attribute_id' => '1',
-                'value' => 'UK 6',
+                'value' => '14',
             ],
             [
                 'attribute_id' => '1',
-                'value' => 'UK 7',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'UK 8',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'UK 9',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'UK 10',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'UK 10',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'W27',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'W28',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'W30',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'W32',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'W33',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'W34',
-            ],
-            [
-                'attribute_id' => '1',
-                'value' => 'W36',
+                'value' => '16',
             ],
             [
                 'attribute_id' => '2',
-                'color' => 'red',
+                'value' => 'red',
             ],
             [
                 'attribute_id' => '2',
-                'color' => 'blue',
+                'value' => 'blue',
+            ],
+            [
+                'attribute_id' => '2',
+                'value' => 'yellow',
+            ],
+            [
+                'attribute_id' => '2',
+                'value' => 'green',
             ],
 
-            [
-                'attribute_id' => '2',
-                'color' => 'green',
-            ],
-            [
-                'attribute_id' => '2',
-                'color' => 'black',
-            ],
-            [
-                'attribute_id' => '2',
-                'color' => 'white',
-            ],
 
         ]);
-
     }
 }

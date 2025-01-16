@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDescriptionToProducts extends Migration
+class AddVariantNameToProductVariantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddDescriptionToProducts extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('description');
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->string('variant_name');
         });
     }
 
@@ -25,8 +25,9 @@ class AddDescriptionToProducts extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->dropColumn('variant_name');
+
         });
     }
 }

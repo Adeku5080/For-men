@@ -35,13 +35,13 @@
         @endif
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label>file-Path</label>
         <input type="file" name="file" required>
         @if ($errors->has('file'))
             <small>{{$errors->first('file')}}</small>
         @endif
-    </div>
+    </div> --}}
 
     <div>
         <label for="brands">brand-name</label>
@@ -54,16 +54,16 @@
         </select>
 
     </div>
-
+{{-- 
     <div>
         <label>Price</label>
         <input type="text" name="price">
         @if ($errors->has('price'))
             <small>{{$errors->first('price')}}</small>
         @endif
-    </div>
+    </div> --}}
 
-    <div>
+    {{-- <div>
         <label>Description</label>
         <textarea name="description">
 
@@ -71,16 +71,9 @@
         @if ($errors->has('description'))
             <small>{{$errors->first('description')}}</small>
         @endif
-    </div>
+    </div> --}}
     
-    <div>
-        <p>select sizes for this product</p>
-        @foreach($sizes as $size)
-        <input type='checkbox' name='sizes[]' value='{{$size->size_value}}'/>
-            <label for="subscribeNews">{{$size->size_value}}</label>
-        @endforeach
-    </div>
-    <button type="submit">Submit</button>
+       <button type="submit">Submit</button>
 </form>
 
 <script>

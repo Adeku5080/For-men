@@ -14,7 +14,7 @@
 <Main class="container">
     <h2>All products under ......</h2>
     <div class="products_container">
-        @foreach($products as $product)
+        @foreach($products as $product)`
             <div class="product">
                 <div class="image-container">
                     <a href={{route('product.show',$product->id)}}>

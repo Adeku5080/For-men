@@ -14,10 +14,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'price',
         'brand_id',
-        'description',
-        'file_path',
         'subcategory_id',
     ];
 
@@ -36,11 +33,15 @@ class Product extends Model
         return $this->hasMany(Favourite::class);
     }
 
-    /**
-     * @return HasMany
-     */
-    public function sizechart(): BelongsToMany
+   
+    public function productVariants(): HasMany
     {
-        return $this->belongsToMany(SizeChart::class);
+        return $this->hasMany(ProductVariant::class);
     }
+
+    public function defaultVariant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+    }
+
 }
