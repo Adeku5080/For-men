@@ -35,14 +35,6 @@
         @endif
     </div>
 
-    {{-- <div class="form-group">
-        <label>file-Path</label>
-        <input type="file" name="file" required>
-        @if ($errors->has('file'))
-            <small>{{$errors->first('file')}}</small>
-        @endif
-    </div> --}}
-
     <div>
         <label for="brands">brand-name</label>
         <select id="brand" name="brand">
@@ -54,24 +46,25 @@
         </select>
 
     </div>
-{{-- 
-    <div>
-        <label>Price</label>
-        <input type="text" name="price">
-        @if ($errors->has('price'))
-            <small>{{$errors->first('price')}}</small>
-        @endif
-    </div> --}}
 
-    {{-- <div>
-        <label>Description</label>
-        <textarea name="description">
+        <!-- Product Variants -->
+    <div id="variants-section">
+        <h3>Product Variants</h3>
 
-        </textarea>
-        @if ($errors->has('description'))
-            <small>{{$errors->first('description')}}</small>
-        @endif
-    </div> --}}
+        <div class="variant">
+            <label for="variants[0][name]">Variant Name:</label>
+            <input type="text" name="variants[0][name]" required>
+
+            <label for="variants[0][price]">Variant Price:</label>
+            <input type="number" name="variants[0][price]" step="0.01" required>
+
+            <label for="variants[0][sku]">SKU:</label>
+            <input type="text" name="variants[0][sku]" required>
+        </div>
+    </div>
+
+    <!-- Button to Add More Variants -->
+    <button type="button" id="add-variant">Add Another Variant</button>
     
        <button type="submit">Submit</button>
 </form>
@@ -121,6 +114,34 @@
         subCategoryField.innerHTML = options;
         subCategoryField.removeAttribute('disabled');
     }
+
+    /**
+     * create product variants
+     *
+     * 
+     */
+     document.getElementById('add-variant').addEventListener('click', function () {
+
+    const variantsSection = document.getElementById('variants-section');
+
+    const variantCount = variantsSection.getElementsByClassName('variant').length;
+
+    const newVariant = document.createElement('div');
+    newVariant.className = 'variant';
+
+    newVariant.innerHTML = `
+        <label for="variants[${variantCount}][name]">Variant Name:</label>
+        <input type="text" name="variants[${variantCount}][name]" required>
+
+        <label for="variants[${variantCount}][price]">Variant Price:</label>
+        <input type="number" name="variants[${variantCount}][price]" step="0.01" required>
+
+        <label for="variants[${variantCount}][sku]">SKU:</label>
+        <input type="text" name="variants[${variantCount}][sku]" required>
+    `;
+
+    variantsSection.appendChild(newVariant);
+});
 </script>
 </body>
 </html>

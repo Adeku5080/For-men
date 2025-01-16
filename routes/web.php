@@ -52,7 +52,7 @@ Route::get('/subcategories', [SubcategoryController::class, 'create'])
 Route::post('/subcategories/store', [SubcategoryController::class, 'store'])
     ->name('subcategory.store');
 
-Route::get('/products/create', [ProductController::class, 'create'])
+Route::get('/products', [ProductController::class, 'create'])
     ->name('product.create');
 //Route::get('/subcategories/{subCategory}',[SubcategoryController::class,'show'])
 //    ->name('subcategory.show');

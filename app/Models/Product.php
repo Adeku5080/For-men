@@ -12,11 +12,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'brand_id',
-        'subcategory_id',
-    ];
+    protected $guarded = [];
 
     public function subcategory(): BelongsTo
     {
@@ -33,7 +29,7 @@ class Product extends Model
         return $this->hasMany(Favourite::class);
     }
 
-   
+
     public function productVariants(): HasMany
     {
         return $this->hasMany(ProductVariant::class);
@@ -43,5 +39,4 @@ class Product extends Model
     {
         return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
-
 }

@@ -10,6 +10,8 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductController extends Controller
 {
@@ -51,44 +53,36 @@ class ProductController extends Controller
     /**
      * validate and store products
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
             'subcategory' => 'required',
-            'name' => 'required',
+            'description' => 'nullable|string',
+            'variants' => 'required|array',
+            'variants.*.name' => 'required|string|max:255',
+            'variants.*.price' => 'required|numeric',
+            'variants.*.sku' => 'required|string|unique:product_variants,sku',
             'brand' => 'required',
-            // 'description' => 'required',
+
         ]);
+
+        DB::transaction(function () use ($data) {
+            $product = Product::create([
+                'name' => $data['name'],
+                'subcategory_id' => $data['subcategory'],
+                'brand_id' => $data['brand'],
+            ]);
+
+
+            // Create variants and set the first one as the default
+            $variants = $product->productVariants()->createMany($data['variants']);
+            dd('ali');
+            $product->update(['product_variant_id' => $variants[0]->id]);
+        });
 
         //upload image to cloudinary
         // $uploadedFile = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
-
-        $product = Product::create([
-            'category_id' => $request['category'],
-            'subcategory_id' => $request['subcategory'],
-            'name' => $request['name'],
-            'brand_id' => $request['brand'],
-            // 'description' => $request['description'],
-            // 'file_path' => $uploadedFile,
-        ]);
-
-        return view('product.create');
-        // return redirect()->route('subcategory.show', $request['subcategory']);
-
-    }
-
-    /**
-     * Add default variant
-     */
-    public function addDefaultVariantsToProduct(Request $request, Product $product)
-    {
-        $requet->validate([
-            'product_variant_id' => 'requires | string',
-        ]);
-
-        $product->product_variant_id = 'product_variant_id';
-
-        $product->save();
 
     }
 }
