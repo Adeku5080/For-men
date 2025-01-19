@@ -45,7 +45,6 @@ class ProductController extends Controller
     public function show(Product $product)
     {
 
-        // dd($sizeCharts);
 
         return view('product.show', compact('product'));
     }
@@ -60,12 +59,17 @@ class ProductController extends Controller
             'subcategory' => 'required',
             'description' => 'nullable|string',
             'variants' => 'required|array',
-            'variants.*.name' => 'required|string|max:255',
+            'variants.*.variant_name' => 'required|string|max:255',
             'variants.*.price' => 'required|numeric',
+            'variants.*.quantity' => 'required|numeric',
+            'variants.*.amount' => 'required|numeric',
+            'variants.*.product_details' => 'required',
+            'variants.*.file_path' => 'required|file|mimes:jpg,png,jpeg|max:2048',
             'variants.*.sku' => 'required|string|unique:product_variants,sku',
             'brand' => 'required',
-
         ]);
+
+
 
         DB::transaction(function () use ($data) {
             $product = Product::create([
@@ -74,15 +78,25 @@ class ProductController extends Controller
                 'brand_id' => $data['brand'],
             ]);
 
+            $uploadPaths = $this->uploadImagesToCloudinary($data);
 
-            // Create variants and set the first one as the default
+            foreach ($data['variants'] as $key => $variant) {
+                $variant['file_path'] = $uploadPaths[$key] ?? null;
+            }
+
+
             $variants = $product->productVariants()->createMany($data['variants']);
-            dd('ali');
             $product->update(['product_variant_id' => $variants[0]->id]);
         });
+    }
 
-        //upload image to cloudinary
-        // $uploadedFile = Cloudinary::upload($request->file('file')->getRealPath())->getSecurePath();
-
+    public function uploadImagesToCloudinary($data)
+    {
+        $uploadPaths = [];
+        foreach ($data['variants'] as $variant) {
+            $uploadPath = Cloudinary::upload($variant['file_path']->getRealPath())->getSecurePath();
+            $uploadPaths[] = $uploadPath;
+        }
+        return $uploadPaths;
     }
 }

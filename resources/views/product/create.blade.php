@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
     @csrf
     <div>
@@ -25,6 +36,7 @@
         <select id="subcategory" name="subcategory" disabled>
             <option value="">select a subcategory</option>
         </select>
+        
     </div>
 
     <div>
@@ -52,14 +64,27 @@
         <h3>Product Variants</h3>
 
         <div class="variant">
-            <label for="variants[0][name]">Variant Name:</label>
-            <input type="text" name="variants[0][name]" required>
+            <label for="variants[0][variant_name]">Variant Name:</label>
+            <input type="text" name="variants[0][variant_name]" required>
 
             <label for="variants[0][price]">Variant Price:</label>
             <input type="number" name="variants[0][price]" step="0.01" required>
 
             <label for="variants[0][sku]">SKU:</label>
             <input type="text" name="variants[0][sku]" required>
+
+            <label for="variants[0][quantity]">QTY:</label>
+            <input type="text" name="variants[0][quantity]" required>
+
+            <label for="variants[0][amount]">Amount:</label>
+            <input type="text" name="variants[0][amount]" required>
+
+            <label for="variants[0][product_details]">Description:</label>
+            <input type="text" name="variants[0][product_details]" required>
+
+            <label for="variants[0][file_path]">Image</label>
+            <input type="file" name="variants[0][file_path]" required>
+  
         </div>
     </div>
 
@@ -130,14 +155,26 @@
     newVariant.className = 'variant';
 
     newVariant.innerHTML = `
-        <label for="variants[${variantCount}][name]">Variant Name:</label>
-        <input type="text" name="variants[${variantCount}][name]" required>
+        <label for="variants[${variantCount}][variant_name]">Variant Name:</label>
+        <input type="text" name="variants[${variantCount}][variant_name]" required>
 
         <label for="variants[${variantCount}][price]">Variant Price:</label>
         <input type="number" name="variants[${variantCount}][price]" step="0.01" required>
 
         <label for="variants[${variantCount}][sku]">SKU:</label>
         <input type="text" name="variants[${variantCount}][sku]" required>
+
+        <label for="variants[${variantCount}][quantity]">QTY:</label>
+        <input type="text" name="variants[${variantCount}][quantity]" required>
+
+        <label for="variants[${variantCount}][amount]">Amount:</label>
+        <input type="text" name="variants[${variantCount}][amount]" required>
+
+        <label for="variants[${variantCount}][product_details]">Description:</label>
+        <input type="text" name="variants[${variantCount}][product_details]" required>
+
+        <label for="variants[${variantCount}][file_path]">Image:</label>
+        <input type="file" name="variants[${variantCount}][file_path]" required>
     `;
 
     variantsSection.appendChild(newVariant);
