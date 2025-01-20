@@ -62,7 +62,6 @@ class ProductController extends Controller
             'variants.*.variant_name' => 'required|string|max:255',
             'variants.*.price' => 'required|numeric',
             'variants.*.quantity' => 'required|numeric',
-            'variants.*.amount' => 'required|numeric',
             'variants.*.product_details' => 'required',
             'variants.*.file_path' => 'required|file|mimes:jpg,png,jpeg|max:2048',
             'variants.*.sku' => 'required|string|unique:product_variants,sku',

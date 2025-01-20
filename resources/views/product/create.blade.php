@@ -76,9 +76,6 @@
             <label for="variants[0][quantity]">QTY:</label>
             <input type="text" name="variants[0][quantity]" required>
 
-            <label for="variants[0][amount]">Amount:</label>
-            <input type="text" name="variants[0][amount]" required>
-
             <label for="variants[0][product_details]">Description:</label>
             <input type="text" name="variants[0][product_details]" required>
 
@@ -167,8 +164,6 @@
         <label for="variants[${variantCount}][quantity]">QTY:</label>
         <input type="text" name="variants[${variantCount}][quantity]" required>
 
-        <label for="variants[${variantCount}][amount]">Amount:</label>
-        <input type="text" name="variants[${variantCount}][amount]" required>
 
         <label for="variants[${variantCount}][product_details]">Description:</label>
         <input type="text" name="variants[${variantCount}][product_details]" required>
