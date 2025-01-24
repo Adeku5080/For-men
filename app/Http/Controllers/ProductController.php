@@ -34,9 +34,33 @@ class ProductController extends Controller
      */
     public function getAllProductsForASubcategory(Subcategory $subCategory): View
     {
-        $products = $subCategory->products;
 
-        return view('product.products', ['products' => $products]);
+
+        //     $result = DB::select(
+        //         '
+        // SELECT * 
+        // FROM products 
+        // JOIN subcategories ON subcategories.id = products.subcategory_id 
+        // JOIN product_variants ON products.product_variant_id = product_variants.id 
+        // WHERE products.subcategory_id = :subcategoryId 
+        //   AND products.product_variant_id = product_variants.id',
+        //         ['subcategoryId' => $subCategory->id]
+        //     );
+
+        $result = DB::select(
+            '
+    SELECT * 
+    FROM products 
+    JOIN subcategories ON subcategories.id = products.subcategory_id 
+    JOIN product_variants ON products.product_variant_id = product_variants.id 
+    WHERE products.subcategory_id = :subcategoryId',
+            ['subcategoryId' => $subCategory->id]
+        );
+
+
+        // dd($result);
+
+        return view('product.products', ['products' => $result]);
     }
 
     /**
@@ -63,7 +87,7 @@ class ProductController extends Controller
             'variants.*.price' => 'required|numeric',
             'variants.*.quantity' => 'required|numeric',
             'variants.*.product_details' => 'required',
-            'variants.*.file_path' => 'required|file|mimes:jpg,png,jpeg|max:2048',
+            'variants.*.file_path' => 'required|file|mimes:webp|max:2048',
             'variants.*.sku' => 'required|string|unique:product_variants,sku',
             'brand' => 'required',
         ]);
@@ -79,7 +103,8 @@ class ProductController extends Controller
 
             $uploadPaths = $this->uploadImagesToCloudinary($data);
 
-            foreach ($data['variants'] as $key => $variant) {
+
+            foreach ($data['variants'] as $key => &$variant) {
                 $variant['file_path'] = $uploadPaths[$key] ?? null;
             }
 
@@ -87,6 +112,8 @@ class ProductController extends Controller
             $variants = $product->productVariants()->createMany($data['variants']);
             $product->update(['product_variant_id' => $variants[0]->id]);
         });
+
+        return redirect()->route('product.create')->with('success', 'Product created successfully.');
     }
 
     public function uploadImagesToCloudinary($data)
@@ -94,6 +121,7 @@ class ProductController extends Controller
         $uploadPaths = [];
         foreach ($data['variants'] as $variant) {
             $uploadPath = Cloudinary::upload($variant['file_path']->getRealPath())->getSecurePath();
+
             $uploadPaths[] = $uploadPath;
         }
         return $uploadPaths;

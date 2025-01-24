@@ -22,11 +22,11 @@
                     </a>
                 </div>
                 <div class="name">
-                    {{$product->name}}
+                    {{$product->variant_name}}
 
                 </div>
                 <div class="price">
-                    ${{$product->price}}
+                    {{-- ${{$product->price}} --}}
 
                 </div>
                 <div class="fav-icon">
