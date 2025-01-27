@@ -85,7 +85,7 @@ Route::get('new-in-Shoes', [NewinController::class, 'newShoes'])
 Route::get('/search', [SearchController::class, 'search'])
     ->name('search');
 
-Route::get('/products/{product}', [ProductController::class, 'show'])
+Route::get('/products/{id}', [ProductController::class, 'show'])
     ->name('product.show');
 
 Route::get('/saved-items', [FavouritesController::class, 'fetchAllSavedItems']);

@@ -19,7 +19,7 @@
         </div>
 
         <div class="product-info">
-            <p class="product-name">{{$product->name}}</p>
+            <p class="product-name">{{$product->variant_name}}</p>
             <h2 class="product-price">${{$product->price}}</h2>
 
             <div class="form_section">

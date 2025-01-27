@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\ProductVariant;
+
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
@@ -35,18 +37,6 @@ class ProductController extends Controller
     public function getAllProductsForASubcategory(Subcategory $subCategory): View
     {
 
-
-        //     $result = DB::select(
-        //         '
-        // SELECT * 
-        // FROM products 
-        // JOIN subcategories ON subcategories.id = products.subcategory_id 
-        // JOIN product_variants ON products.product_variant_id = product_variants.id 
-        // WHERE products.subcategory_id = :subcategoryId 
-        //   AND products.product_variant_id = product_variants.id',
-        //         ['subcategoryId' => $subCategory->id]
-        //     );
-
         $result = DB::select(
             '
     SELECT * 
@@ -57,20 +47,23 @@ class ProductController extends Controller
             ['subcategoryId' => $subCategory->id]
         );
 
-
-        // dd($result);
-
         return view('product.products', ['products' => $result]);
     }
 
     /**
      * Show a product
      */
-    public function show(Product $product)
-    {
+    public function show($id)
+    { 
+        $productVariant = ProductVariant::find($id);
+
+        if(!$productVariant){
+
+        }
 
 
-        return view('product.show', compact('product'));
+
+        return view('product.show', ['product' => $productVariant]);
     }
 
     /**
@@ -79,7 +72,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
+            'product_name' => 'required|string|max:255',
             'subcategory' => 'required',
             'description' => 'nullable|string',
             'variants' => 'required|array',
@@ -96,7 +89,7 @@ class ProductController extends Controller
 
         DB::transaction(function () use ($data) {
             $product = Product::create([
-                'name' => $data['name'],
+                'product_name' => $data['product_name'],
                 'subcategory_id' => $data['subcategory'],
                 'brand_id' => $data['brand'],
             ]);

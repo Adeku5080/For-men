@@ -41,7 +41,7 @@
 
     <div>
         <label for="sub">Product-name</label>
-        <input id="sub" type="text" name="name" required>
+        <input id="sub" type="text" name="product_name" required>
         @if ($errors->has('name'))
             <small>{{$errors->first('name')}}</small>
         @endif
