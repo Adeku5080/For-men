@@ -17,7 +17,7 @@
         @foreach($products as $product)
             <div class="product">
                 <div class="image-container">
-                    <a href={{route('product.show',$product->product_variant_id)}}>
+                    <a href={{route('product.show',$product->slug)}}>
                         <img src="{{$product->file_path}}" alt="image"/>
                     </a>
                 </div>
