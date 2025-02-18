@@ -27,7 +27,8 @@ class CartController extends Controller
      */
     public function addToCart(Request $request): JsonResponse
     {
-
+ 
+        dd('ali');
         $request->validate([
             'size' => 'required',
         ]);
@@ -69,6 +70,11 @@ class CartController extends Controller
     public function getCartItemsCount(): JsonResponse
     {
         $user = Auth::user();
+        if (!$user) {
+            
+        }
+        
+        dd($user);
         $count = $user->activeCart->cartItems()->count();
 
         return new JsonResponse(['data' => $count], 200);

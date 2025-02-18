@@ -14,13 +14,13 @@
 <div class="container">
     <div class="product-detail_section">
         <div class="product-img">
-            <img src="{{$product->file_path}}" alt="image"/>
+            <img src="{{$variant->file_path}}" alt="image"/>
 
         </div>
 
         <div class="product-info">
-            <p class="product-name">{{$product->variant_name}}</p>
-            <h2 class="product-price">${{$product->price}}</h2>
+            <p class="product-name">{{$variant->variant_name}}</p>
+            <h2 class="product-price">${{$variant->price}}</h2>
 
             <div class="form_section">
 
@@ -41,7 +41,7 @@
                       
                     </div>
 
-                    <button type="submit" id="btn" value="{{ $product->id }}" class="button"> ADD ITEM TO CART</button>
+                    <button type="submit" id="btn" value="{{ $variant->id }}" class="button"> ADD ITEM TO CART</button>
                 </form>
             </div>
         </div>
@@ -118,8 +118,9 @@
 
         <script>
 
+      console.log("ali");
             fillCartCount();
-
+  
             const cartItemCount = document.querySelector(".cart-item-count")
             addToCart.addEventListener('click',async function(){
                 await fillCartCount();
@@ -132,8 +133,9 @@
 
             async function getCount(){
                     const url = `{{route('api.cart-items-count')}}`
-
+                    
                     const response = await fetch(url);
+                    console.log(response);
 
                     return response.json();
             }
@@ -144,7 +146,9 @@
              * @returns {Promise<void>}
              */
             async function fillCartCount () {
+
                 const {data} = await getCount()
+                console.log(data,'fillcount')
                 cartItemCount.innerText = data;
             }
         </script>

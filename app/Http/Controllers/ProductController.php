@@ -13,6 +13,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 
 class ProductController extends Controller
@@ -53,17 +55,14 @@ class ProductController extends Controller
     /**
      * Show a product
      */
-    public function show($id)
-    { 
-        $productVariant = ProductVariant::find($id);
+    public function show($slug)
+    {
+        $productVariant = ProductVariant::where('slug', $slug)->first();
 
-        if(!$productVariant){
-
+        if (!$productVariant) {
         }
 
-
-
-        return view('product.show', ['product' => $productVariant]);
+        return view('product.show', ['variant' => $productVariant]);
     }
 
     /**
@@ -95,10 +94,11 @@ class ProductController extends Controller
             ]);
 
             $uploadPaths = $this->uploadImagesToCloudinary($data);
-
+            $productSlugs = $this->generateProductSlug($data);
 
             foreach ($data['variants'] as $key => &$variant) {
                 $variant['file_path'] = $uploadPaths[$key] ?? null;
+                $variant['slug'] = $productSlugs[$key] ?? null;
             }
 
 
@@ -118,5 +118,16 @@ class ProductController extends Controller
             $uploadPaths[] = $uploadPath;
         }
         return $uploadPaths;
+    }
+
+    public function generateProductSlug($data)
+    {
+        $variantSlugs = [];
+        foreach ($data['variants'] as $variant) {
+            $slug = Str::slug($variant['variant_name']);
+
+            $variantSlugs[] = $slug;
+        }
+        return $variantSlugs;
     }
 }

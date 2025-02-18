@@ -7,10 +7,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\FavouritesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewinController;
-use App\Http\Controllers\PaymentController;     
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
-use App\Http\Controllers\SearchController;      
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +32,14 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth:sanctum'])->group(
+    function () {
+        Route::post('/api/add-to-cart', [\App\Http\Controllers\Api\CartController::class, 'addToCart'])
+            ->name('api.add-to-cart');
+    }
+);
+
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
@@ -58,6 +66,9 @@ Route::get('/products', [ProductController::class, 'create'])
 //    ->name('subcategory.show');
 
 Route::get('/subcategories/{subCategory}/products', [ProductController::class, 'getAllProductsForASubcategory'])
+    ->name('products.show');
+
+Route::get('/products/{slug}', [ProductController::class, 'show'])
     ->name('product.show');
 
 Route::post('/products/store', [ProductController::class, 'store'])
@@ -85,9 +96,6 @@ Route::get('new-in-Shoes', [NewinController::class, 'newShoes'])
 Route::get('/search', [SearchController::class, 'search'])
     ->name('search');
 
-Route::get('/products/{id}', [ProductController::class, 'show'])
-    ->name('product.show');
-
 Route::get('/saved-items', [FavouritesController::class, 'fetchAllSavedItems']);
 
 Route::get('/cart', [CartController::class, 'getItemsFromCart'])
@@ -103,7 +111,7 @@ Route::get('/payment', [PaymentController::class, 'index'])
     ->name('payment');
 
 Route::post('/api/add-to-cart', [\App\Http\Controllers\Api\CartController::class, 'addToCart'])
-    ->name('api.add-to-cart');
+    ->name('api.add-to-cart')->middleware('auth');
 
 Route::get('api/cart-items-count', [\App\Http\Controllers\Api\CartController::class, 'getCartItemsCount'])
     ->name('api.cart-items-count');
@@ -118,4 +126,4 @@ Route::post('api/add-to-favourites', [\App\Http\Controllers\Api\FavouriteControl
 Route::delete('/removeFav/{product}', [FavouritesController::class, 'removeFav']);
 Route::get('/saved-items', [FavouritesController::class, 'fetchAllSavedItems']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
