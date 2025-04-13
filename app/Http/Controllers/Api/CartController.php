@@ -25,13 +25,11 @@ class CartController extends Controller
     /**
      * add item to cart
      */
-    public function addToCart(Request $request): JsonResponse
+    public function addToCart(Request $request)
     {
- 
-        dd('ali');
-        $request->validate([
-            'size' => 'required',
-        ]);
+        if (!Auth::user()) {
+            return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
+        }
 
         $id = $request->productId;
         $product = Product::find($id);
@@ -40,6 +38,7 @@ class CartController extends Controller
             'user_id' => Auth::id(),
             'checked_out_at' => null,
         ]);
+
 
         $cartItem = CartItem::where('size', $request->size)
             ->where('product_id', $id)->first();
@@ -58,7 +57,6 @@ class CartController extends Controller
                 'item_price' => $product->price,
                 'quantity' => 1,
             ]);
-
         }
 
         return new JsonResponse(['message' => 'cart item added'], 200);
@@ -67,15 +65,16 @@ class CartController extends Controller
     /**
      * get cart Items count
      */
-    public function getCartItemsCount(): JsonResponse
+    public function getCartItemsCount()
     {
         $user = Auth::user();
-        if (!$user) {
-            
-        }
-        
-        dd($user);
+
+        // if (!$user) {
+        //     return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
+        // }
+
         $count = $user->activeCart->cartItems()->count();
+
 
         return new JsonResponse(['data' => $count], 200);
     }

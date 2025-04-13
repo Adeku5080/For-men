@@ -89,6 +89,25 @@
     <button type="button" id="add-variant">Add Another Variant</button>
     
        <button type="submit">Submit</button>
+
+
+         <label> Stock Unit </label>
+       <input type="number" name='stock_unit' required/>
+
+@foreach($attributes as $attribute)
+    <div>
+        <p>{{ $attribute->name }}</p>
+        
+        @foreach($attribute->attributeOptions as $option)
+            <label>
+                <input type="checkbox" name="attributes[{{ $attribute->id }}][]" value="{{ $option->id }}">
+                {{ $option->value }}
+            </label><br>
+        @endforeach
+    </div>
+@endforeach
+
+
 </form>
 
 <script>

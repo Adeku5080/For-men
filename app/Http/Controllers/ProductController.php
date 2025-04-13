@@ -7,6 +7,7 @@ use App\Models\ProductVariant;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Attribute;
 use App\Models\Subcategory;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\RedirectResponse;
@@ -29,6 +30,7 @@ class ProductController extends Controller
             [
                 'categories' => Category::all(),
                 'brands' => Brand::all(),
+                'attributes' => Attribute::with('attributeOptions')->get()
             ]
         );
     }
@@ -81,6 +83,7 @@ class ProductController extends Controller
             'variants.*.product_details' => 'required',
             'variants.*.file_path' => 'required|file|mimes:webp|max:2048',
             'variants.*.sku' => 'required|string|unique:product_variants,sku',
+            'variants.*.stock_unit' => 'required|numeric',
             'brand' => 'required',
         ]);
 

@@ -111,7 +111,7 @@ Route::get('/payment', [PaymentController::class, 'index'])
     ->name('payment');
 
 Route::post('/api/add-to-cart', [\App\Http\Controllers\Api\CartController::class, 'addToCart'])
-    ->name('api.add-to-cart')->middleware('auth');
+    ->name('api.add-to-cart');
 
 Route::get('api/cart-items-count', [\App\Http\Controllers\Api\CartController::class, 'getCartItemsCount'])
     ->name('api.cart-items-count');

@@ -51,14 +51,13 @@
 
             addToCart.addEventListener('click', async function (e) {
                 e.preventDefault();
-
+          
                 const data = {
-                    size: document.querySelector("[name='size']").value,
+                    size: 22,
                     // quantity: document.querySelector('.count').innerText,
                     productId: e.target.value,
                     _token: '{{ csrf_token() }}',
                 };
-
                 await addProductToCart(data);
             })
 
@@ -69,7 +68,9 @@
              * @returns {Promise<any>}
              */
             async function addProductToCart(data) {
+
                 try {
+
                     const url = `{{route('api.add-to-cart')}}`
                     const response = await fetch(url, {
                         method: 'POST',
@@ -79,7 +80,6 @@
                         },
                         body: JSON.stringify(data)
                     });
-
                     if (!response.ok) {
                         const error = new Error();
                         error.body = response;
@@ -88,7 +88,7 @@
 
                     return response.text();
                 } catch (error) {
-                    if (error.body && error.body.status === 401) {
+                    if (error.body && error.body.status === 403) {
                         window.location.href = '{{ route('login') }}';
                     }
                 }
@@ -118,24 +118,24 @@
 
         <script>
 
-      console.log("ali");
-            fillCartCount();
-  
-            const cartItemCount = document.querySelector(".cart-item-count")
-            addToCart.addEventListener('click',async function(){
-                await fillCartCount();
-            })
+            // fillCartCount();
+            // const cartItemCount = document.querySelector(".cart-item-count")
+            // addToCart.addEventListener('click',async function(){
+            //     await fillCartCount();
+            // })
 
             /**
-             * get all cartItems
+             * get all cartItems count
              *
              */
 
             async function getCount(){
                     const url = `{{route('api.cart-items-count')}}`
+
                     
                     const response = await fetch(url);
                     console.log(response);
+                 
 
                     return response.json();
             }
@@ -148,7 +148,7 @@
             async function fillCartCount () {
 
                 const {data} = await getCount()
-                console.log(data,'fillcount')
+
                 cartItemCount.innerText = data;
             }
         </script>

@@ -47,10 +47,6 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
-    public function activeCart(): HasOne
-    {
-        return $this->hasOne(Cart::class)->whereNull('checked_out_at');
-    }
 
     public function favourites(): HasMany
     {
