@@ -72,6 +72,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $data = $request->validate([
             'product_name' => 'required|string|max:255',
             'subcategory' => 'required',
@@ -82,8 +83,6 @@ class ProductController extends Controller
             'variants.*.quantity' => 'required|numeric',
             'variants.*.product_details' => 'required',
             'variants.*.file_path' => 'required|file|mimes:webp|max:2048',
-            'variants.*.sku' => 'required|string|unique:product_variants,sku',
-            'variants.*.stock_unit' => 'required|numeric',
             'brand' => 'required',
         ]);
 
@@ -102,11 +101,15 @@ class ProductController extends Controller
             foreach ($data['variants'] as $key => &$variant) {
                 $variant['file_path'] = $uploadPaths[$key] ?? null;
                 $variant['slug'] = $productSlugs[$key] ?? null;
+                $variant['sku'] = generateSku($data['product_name'], $size = 3, $color = 'red');
             }
 
 
             $variants = $product->productVariants()->createMany($data['variants']);
             $product->update(['product_variant_id' => $variants[0]->id]);
+            foreach($data['attributes'] as $attributes) {
+                
+            }
         });
 
         return redirect()->route('product.create')->with('success', 'Product created successfully.');

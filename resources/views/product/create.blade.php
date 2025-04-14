@@ -70,8 +70,8 @@
             <label for="variants[0][price]">Variant Price:</label>
             <input type="number" name="variants[0][price]" step="0.01" required>
 
-            <label for="variants[0][sku]">SKU:</label>
-            <input type="text" name="variants[0][sku]" required>
+            {{-- <label for="variants[0][sku]">SKU:</label>
+            <input type="text" name="variants[0][sku]" required> --}}
 
             <label for="variants[0][quantity]">QTY:</label>
             <input type="text" name="variants[0][quantity]" required>
@@ -81,20 +81,18 @@
 
             <label for="variants[0][file_path]">Image</label>
             <input type="file" name="variants[0][file_path]" required>
+
+            {{-- <label> Stock Unit </label>
+           <input type="number" name='stock_unit' required/> --}}
   
         </div>
+
     </div>
 
     <!-- Button to Add More Variants -->
-    <button type="button" id="add-variant">Add Another Variant</button>
-    
-       <button type="submit">Submit</button>
+    {{-- <button type="button" id="add-variant">Add Another Variant</button> --}}
 
-
-         <label> Stock Unit </label>
-       <input type="number" name='stock_unit' required/>
-
-@foreach($attributes as $attribute)
+    @foreach($attributes as $attribute)
     <div>
         <p>{{ $attribute->name }}</p>
         
@@ -106,8 +104,8 @@
         @endforeach
     </div>
 @endforeach
-
-
+    
+       <button type="submit">Submit</button>
 </form>
 
 <script>
@@ -161,38 +159,35 @@
      *
      * 
      */
-     document.getElementById('add-variant').addEventListener('click', function () {
+     //
+    //  document.getElementById('add-variant').addEventListener('click', function () {
 
-    const variantsSection = document.getElementById('variants-section');
+    // const variantsSection = document.getElementById('variants-section');
 
-    const variantCount = variantsSection.getElementsByClassName('variant').length;
+    // const variantCount = variantsSection.getElementsByClassName('variant').length;
 
-    const newVariant = document.createElement('div');
-    newVariant.className = 'variant';
+    // const newVariant = document.createElement('div');
+    // newVariant.className = 'variant';
 
-    newVariant.innerHTML = `
-        <label for="variants[${variantCount}][variant_name]">Variant Name:</label>
-        <input type="text" name="variants[${variantCount}][variant_name]" required>
+    // newVariant.innerHTML = `
+        // <label for="variants[${variantCount}][variant_name]">Variant Name:</label>
+        // <input type="text" name="variants[${variantCount}][variant_name]" required>
 
-        <label for="variants[${variantCount}][price]">Variant Price:</label>
-        <input type="number" name="variants[${variantCount}][price]" step="0.01" required>
+        // <label for="variants[${variantCount}][price]">Variant Price:</label>
+        // <input type="number" name="variants[${variantCount}][price]" step="0.01" required>
 
-        <label for="variants[${variantCount}][sku]">SKU:</label>
-        <input type="text" name="variants[${variantCount}][sku]" required>
+        // <label for="variants[${variantCount}][quantity]">QTY:</label>
+        // <input type="text" name="variants[${variantCount}][quantity]" required>
 
-        <label for="variants[${variantCount}][quantity]">QTY:</label>
-        <input type="text" name="variants[${variantCount}][quantity]" required>
+        // <label for="variants[${variantCount}][product_details]">Description:</label>
+        // <input type="text" name="variants[${variantCount}][product_details]" required>
 
+        // <label for="variants[${variantCount}][file_path]">Image:</label>
+        // <input type="file" name="variants[${variantCount}][file_path]" required>
+    // `;
 
-        <label for="variants[${variantCount}][product_details]">Description:</label>
-        <input type="text" name="variants[${variantCount}][product_details]" required>
-
-        <label for="variants[${variantCount}][file_path]">Image:</label>
-        <input type="file" name="variants[${variantCount}][file_path]" required>
-    `;
-
-    variantsSection.appendChild(newVariant);
-});
+    // variantsSection.appendChild(newVariant);
+// });
 </script>
 </body>
 </html>
