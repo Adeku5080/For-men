@@ -88,29 +88,32 @@ class ProductController extends Controller
 
 
 
-        DB::transaction(function () use ($data) {
-            $product = Product::create([
-                'product_name' => $data['product_name'],
-                'subcategory_id' => $data['subcategory'],
-                'brand_id' => $data['brand'],
-            ]);
+        DB::transaction(
+            function () use ($data) {
+                $product = Product::create([
+                    'product_name' => $data['product_name'],
+                    'subcategory_id' => $data['subcategory'],
+                    'brand_id' => $data['brand'],
+                ]);
 
-            $uploadPaths = $this->uploadImagesToCloudinary($data);
-            $productSlugs = $this->generateProductSlug($data);
+                $uploadPaths = $this->uploadImagesToCloudinary($data);
+                $productSlugs = $this->generateProductSlug($data);
 
-            foreach ($data['variants'] as $key => &$variant) {
-                $variant['file_path'] = $uploadPaths[$key] ?? null;
-                $variant['slug'] = $productSlugs[$key] ?? null;
-                $variant['sku'] = generateSku($data['product_name'], $size = 3, $color = 'red');
+                foreach ($data['variants'] as $key => &$variant) {
+                    $variant['file_path'] = $uploadPaths[$key] ?? null;
+                    $variant['slug'] = $productSlugs[$key] ?? null;
+                    $variant['sku'] = generateSku($data['product_name'], $size = 3, $color = 'red');
+                }
+
+
+                $variants = $product->productVariants()->createMany($data['variants']);
+                $product->update(['product_variant_id' => $variants[0]->id]);
+                dd($data['attributes']);
+                foreach ($data['attributes'] as $attribute) {
+
+                }
             }
-
-
-            $variants = $product->productVariants()->createMany($data['variants']);
-            $product->update(['product_variant_id' => $variants[0]->id]);
-            foreach($data['attributes'] as $attributes) {
-                
-            }
-        });
+        );
 
         return redirect()->route('product.create')->with('success', 'Product created successfully.');
     }

@@ -59,51 +59,44 @@
 
     </div>
 
-        <!-- Product Variants -->
-    <div id="variants-section">
+   
+<div id="variants-section">
         <h3>Product Variants</h3>
 
-        <div class="variant">
-            <label for="variants[0][variant_name]">Variant Name:</label>
+        <div class="variant" data-index="0">
+            <label>Variant Name:</label>
             <input type="text" name="variants[0][variant_name]" required>
 
-            <label for="variants[0][price]">Variant Price:</label>
+            <label>Price:</label>
             <input type="number" name="variants[0][price]" step="0.01" required>
 
-            {{-- <label for="variants[0][sku]">SKU:</label>
-            <input type="text" name="variants[0][sku]" required> --}}
+            <label>Quantity:</label>
+            <input type="number" name="variants[0][quantity]" required>
 
-            <label for="variants[0][quantity]">QTY:</label>
-            <input type="text" name="variants[0][quantity]" required>
-
-            <label for="variants[0][product_details]">Description:</label>
+            <label>Description:</label>
             <input type="text" name="variants[0][product_details]" required>
 
-            <label for="variants[0][file_path]">Image</label>
+            <label>Image:</label>
             <input type="file" name="variants[0][file_path]" required>
 
-            {{-- <label> Stock Unit </label>
-           <input type="number" name='stock_unit' required/> --}}
-  
+            <h4>Attributes</h4>
+            @foreach($attributes as $attribute)
+                <div>
+                    <label>{{ $attribute->name }}</label>
+                    <select name="variants[0][attributes][{{ $attribute->id }}]" required>
+                        <option value="">Select {{ $attribute->name }}</option>
+                        @foreach($attribute->attributeOptions as $option)
+                            <option value="{{ $option->id }}">{{ $option->value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endforeach
         </div>
-
     </div>
 
-    <!-- Button to Add More Variants -->
-    {{-- <button type="button" id="add-variant">Add Another Variant</button> --}}
 
-    @foreach($attributes as $attribute)
-    <div>
-        <p>{{ $attribute->name }}</p>
-        
-        @foreach($attribute->attributeOptions as $option)
-            <label>
-                <input type="checkbox" name="attributes[{{ $attribute->id }}][]" value="{{ $option->id }}">
-                {{ $option->value }}
-            </label><br>
-        @endforeach
-    </div>
-@endforeach
+    <br>
+    <button type="button" id="add-variant">Add Another Variant</button>
     
        <button type="submit">Submit</button>
 </form>
@@ -188,6 +181,8 @@
 
     // variantsSection.appendChild(newVariant);
 // });
+
+
 </script>
 </body>
 </html>
