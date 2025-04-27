@@ -6,8 +6,6 @@ if (!function_exists('generateSku')) {
     {
         $nameArray = explode(" ", $product_name);
 
-        $nameArray = ['el1','ele2', 'ele3' ];
-
        $substrArray = [];
 
         foreach($nameArray as $ele) 

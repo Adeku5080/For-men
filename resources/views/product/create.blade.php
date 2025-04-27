@@ -102,6 +102,10 @@
 </form>
 
 <script>
+    const attributes = @json($attributes);
+</script>
+
+<script>
     const subCategoryField = document.querySelector('#subcategory');
     const defaultSubCategoryOption = '<option value="">select a subcategory</option>';
 
@@ -153,34 +157,55 @@
      * 
      */
      //
-    //  document.getElementById('add-variant').addEventListener('click', function () {
+ document.getElementById('add-variant').addEventListener('click', function () {
+    const variantsSection = document.getElementById('variants-section');
+    const variantCount = variantsSection.getElementsByClassName('variant').length;
 
-    // const variantsSection = document.getElementById('variants-section');
+    const newVariant = document.createElement('div');
+    newVariant.className = 'variant';
+    newVariant.setAttribute('data-index', variantCount);
 
-    // const variantCount = variantsSection.getElementsByClassName('variant').length;
+    let variantHTML = `
+        <label>Variant Name:</label>
+        <input type="text" name="variants[${variantCount}][variant_name]" required>
 
-    // const newVariant = document.createElement('div');
-    // newVariant.className = 'variant';
+        <label>Price:</label>
+        <input type="number" name="variants[${variantCount}][price]" step="0.01" required>
 
-    // newVariant.innerHTML = `
-        // <label for="variants[${variantCount}][variant_name]">Variant Name:</label>
-        // <input type="text" name="variants[${variantCount}][variant_name]" required>
+        <label>Quantity:</label>
+        <input type="number" name="variants[${variantCount}][quantity]" required>
 
-        // <label for="variants[${variantCount}][price]">Variant Price:</label>
-        // <input type="number" name="variants[${variantCount}][price]" step="0.01" required>
+        <label>Description:</label>
+        <input type="text" name="variants[${variantCount}][product_details]" required>
 
-        // <label for="variants[${variantCount}][quantity]">QTY:</label>
-        // <input type="text" name="variants[${variantCount}][quantity]" required>
+        <label>Image:</label>
+        <input type="file" name="variants[${variantCount}][file_path]" required>
 
-        // <label for="variants[${variantCount}][product_details]">Description:</label>
-        // <input type="text" name="variants[${variantCount}][product_details]" required>
+        <h4>Attributes</h4>
+    `;
 
-        // <label for="variants[${variantCount}][file_path]">Image:</label>
-        // <input type="file" name="variants[${variantCount}][file_path]" required>
-    // `;
+    // loop over attributes from the global JS variable
+    attributes.forEach(attribute => {
+        variantHTML += `
+            <div>
+                <label>${attribute.name}</label>
+                <select name="variants[${variantCount}][attributes][${attribute.id}]" required>
+                    <option value="">Select ${attribute.name}</option>
+        `;
 
-    // variantsSection.appendChild(newVariant);
-// });
+        attribute.attribute_options.forEach(option => {
+            variantHTML += `<option value="${option.id}">${option.value}</option>`;
+        });
+
+        variantHTML += `
+                </select>
+            </div>
+        `;
+    });
+
+    newVariant.innerHTML = variantHTML;
+    variantsSection.appendChild(newVariant);
+});
 
 
 </script>

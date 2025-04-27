@@ -13,4 +13,9 @@ class AttributeOption extends Model
     {
        return $this->belongsTo(Attribute::class);
     }
+
+    public function productVariants()
+    {
+        return $this->belongsToMany(ProductVariant::class);
+    }
 }

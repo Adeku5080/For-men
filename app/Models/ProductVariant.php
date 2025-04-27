@@ -24,4 +24,9 @@ class ProductVariant extends Model
     {
         return $this->hasOne(Product::class, 'default_variant_id');
     }
+
+    public function atrributeOptions()
+    {
+        return $this->belongsToMany(AttributeOption::class);
+    }
 }
