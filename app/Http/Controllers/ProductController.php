@@ -97,9 +97,10 @@ class ProductController extends Controller
                 $uploadPaths = $this->uploadImagesToCloudinary($data);
                 $productSlugs = $this->generateProductSlug($data);
 
-                foreach ($data['variants'] as $key => &$variant) {
-                    $variant['file_path'] = $uploadPaths[$key] ?? null;
-                    $variant['slug'] = $productSlugs[$key] ?? null;
+                foreach ($data['variants'] as $key => $variant) {
+                    $variantCopy = $variant;
+                    $variantCopy['file_path'] = $uploadPaths[$key] ?? null;
+                    $variantCopy['slug'] = $productSlugs[$key] ?? null;
 
                     $attributeOptions = AttributeOption::whereIn('id', $variant['attributes'])
                         ->with('attribute')
@@ -117,9 +118,9 @@ class ProductController extends Controller
                         }
                     }
 
-                    $variant['sku'] = generateSku($data['product_name'], $size, $color);
+                    $variantCopy['sku'] = generateSku($data['product_name'], $size, $color);
+                    $data['variants'][$key] = $variantCopy; 
                 }
-
 
                 $variantsInserted = $product->productVariants()->createMany($data['variants']);
                 $product->update(['product_variant_id' => $variantsInserted[0]->id]);
