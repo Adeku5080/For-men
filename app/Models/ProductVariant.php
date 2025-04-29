@@ -20,7 +20,7 @@ class ProductVariant extends Model
         'price'
     ];
 
-    public function Product()
+    public function defaltProduct()
     {
         return $this->hasOne(Product::class, 'default_variant_id');
     }
@@ -28,5 +28,10 @@ class ProductVariant extends Model
     public function attributeOptions()
     {
         return $this->belongsToMany(AttributeOption::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

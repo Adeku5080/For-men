@@ -41,6 +41,20 @@
                       
                     </div>
 
+                    <div>
+                        {{count($color)}} colors available
+                         @foreach($color as $color)
+                              <p> {{$color}} </p>
+                         @endforeach
+                      <p> Select your size</p>
+                        @php
+                          sort($size); 
+                        @endphp
+                         @foreach($size as $size)
+                               <p>{{$size}}</p>
+                         @endforeach
+                    </div>
+
                     <button type="submit" id="btn" value="{{ $variant->id }}" class="button"> ADD ITEM TO CART</button>
                 </form>
             </div>
@@ -151,6 +165,10 @@
 
                 cartItemCount.innerText = data;
             }
+        </script>
+        
+        <script>
+
         </script>
 
 </body>

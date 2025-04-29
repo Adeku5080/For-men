@@ -61,11 +61,27 @@ class ProductController extends Controller
     public function show($slug)
     {
         $productVariant = ProductVariant::where('slug', $slug)->first();
+        $product = $productVariant->product;
+
+        $variantsForThisProduct = $product->productVariants;
+        $size = [];
+        $color = [];
+
+        foreach ($variantsForThisProduct as $variant) {
+            foreach ($variant->attributeOptions as $option) {
+                if (strtolower($option->attribute->name) === 'size') {
+                    $size[] = $option->value;
+                }
+                if (strtolower($option->attribute->name) === 'color') {
+                    $color[] = $option->value;
+                }
+            }
+        }
 
         if (!$productVariant) {
         }
 
-        return view('product.show', ['variant' => $productVariant]);
+        return view('product.show', ['variant' => $productVariant, 'size' => $size, 'color' => $color]);
     }
 
     /**
@@ -119,7 +135,7 @@ class ProductController extends Controller
                     }
 
                     $variantCopy['sku'] = generateSku($data['product_name'], $size, $color);
-                    $data['variants'][$key] = $variantCopy; 
+                    $data['variants'][$key] = $variantCopy;
                 }
 
                 $variantsInserted = $product->productVariants()->createMany($data['variants']);
