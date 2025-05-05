@@ -62,4 +62,14 @@ class ProductApiController extends Controller
 
         return new JsonResponse(200);
     }
+
+    public function fetchVariant($color,$product)
+    {
+        $result = DB::select(
+            '
+            SELECT * from products where id = $product join product_variants on product_variants.id = products.product_variant_id
+            join attribute_options on product
+            '
+        )
+    }
 }

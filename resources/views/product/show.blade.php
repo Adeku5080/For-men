@@ -21,7 +21,7 @@
         <div class="product-info">
             <p class="product-name">{{$variant->variant_name}}</p>
             <h2 class="product-price">${{$variant->price}}</h2>
-
+                   {{dd($variant->product->id)}}
             <div class="form_section">
 
 
@@ -41,10 +41,15 @@
                       
                     </div>
 
-                    <div>
-                        {{count($color)}} colors available
-                         @foreach($color as $color)
-                              <p> {{$color}} </p>
+                    //i know the variant->and its attribute and its attribute option->value that I am showing
+                    //if i click on color,I can 
+                    <div class="color-circle">
+                        <div> 
+                         {{count($color)}} colors available
+                        </div>
+                         @foreach($color as $c)
+                             <div class='variant_color' style="width: 20px; height: 20px; background-color: {{ $c }}; border-radius: 50%; display:inline-block; margin-right: 5px;" title="{{ ($c) }}"   data-color="{{ $c }}" data-product_id="{{$variant->product->id}}"></div>
+
                          @endforeach
                       <p> Select your size</p>
                         @php
@@ -167,8 +172,29 @@
             }
         </script>
         
+        {{-- fetch product variant --}}
         <script>
+        const variantColors = document.querySelectorAll('.variant_color');
 
+     variantColors.forEach((variantColor) => {
+    variantColor.addEventListener('click', async function(e) {
+      e.preventDefault();
+            let colorValue = e.target.getAttribute('data-color');
+                        const product = e.target.getAttribute('data-product_id');
+
+
+      await fetchProdVariantBasedOnAttributeValue(colorValue,product);
+    });
+  });
+
+  async function fetchProdVariantBasedOnAttributeValue() {
+     fetch(`/product/variant/fetchVariant/${colorValue}/${product}`)
+        .then(response=>response.json())
+        .then(data=>{
+
+        })
+  }
+          
         </script>
 
 </body>

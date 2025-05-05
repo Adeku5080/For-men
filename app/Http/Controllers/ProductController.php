@@ -60,29 +60,34 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $productVariant = ProductVariant::where('slug', $slug)->first();
+        $productVariant = ProductVariant::with(['product', 'attributeOptions.attribute'])->where('slug', $slug)->firstOrFail();
+
         $product = $productVariant->product;
 
-        $variantsForThisProduct = $product->productVariants;
-        $size = [];
-        $color = [];
+        $variants = $product->productVariants()->with('attributeOptions.attribute')->get();
 
-        foreach ($variantsForThisProduct as $variant) {
+        $sizes = collect();
+        $colors = collect();
+
+        foreach ($variants as $variant) {
             foreach ($variant->attributeOptions as $option) {
-                if (strtolower($option->attribute->name) === 'size') {
-                    $size[] = $option->value;
-                }
-                if (strtolower($option->attribute->name) === 'color') {
-                    $color[] = $option->value;
+                $name = strtolower($option->attribute->name);
+
+                if ($name === 'size') {
+                    $sizes->push($option->value);
+                } elseif ($name === 'color') {
+                    $colors->push($option->value);
                 }
             }
         }
 
-        if (!$productVariant) {
-        }
-
-        return view('product.show', ['variant' => $productVariant, 'size' => $size, 'color' => $color]);
+        return view('product.show', [
+        'variant' => $productVariant,
+            'size' => $sizes->unique()->values()->all(),
+            'color' => $colors->unique()->values()->all(),
+        ]);
     }
+
 
     /**
      * validate and store products
