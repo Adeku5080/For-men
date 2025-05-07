@@ -67,9 +67,15 @@ class ProductApiController extends Controller
     {
         $result = DB::select(
             '
-            SELECT * from products where id = $product join product_variants on product_variants.id = products.product_variant_id
-            join attribute_options on product
-            '
-        )
+    SELECT * 
+    FROM products 
+    JOIN product_variants ON products.id = product_variants.product_id
+    JOIN attribute_option_product_variant aopv ON product_variants.id = aopv.product_variant_id
+    JOIN attribute_options on attribute_options.id = aopv.attribute_option_id 
+    JOIN attributes on attributes.id = attribute_options.atrribute_id 
+    WHERE products.id = :product
+    ',
+            ['product' => $product]
+        );
     }
 }
