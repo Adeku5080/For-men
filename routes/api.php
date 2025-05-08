@@ -28,6 +28,8 @@ Route::get('/categories/{category}/subcategories', [CategoryController::class, '
 Route::get('/products', [ProductApiController::class, 'index']);
 Route::get('/products/{product}', [ProductApiController::class, 'show']);
 Route::get('/products/variant/fetchVariant/{color}/{product}', [ProductApiController::class, 'fetchVariant']);
+Route::get('/products/variant/bySlug/{slug}', [ProductApiController::class, 'fetchVariant']);
+
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{category}', [CategoryController::class, 'show']);

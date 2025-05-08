@@ -14,35 +14,21 @@
 <div class="container">
     <div class="product-detail_section">
         <div class="product-img">
-            <img src="{{$variant->file_path}}" alt="image"/>
+            <img id="product-image" src="{{$variant->file_path}}" alt="image"/>
 
         </div>
 
         <div class="product-info">
-            <p class="product-name">{{$variant->variant_name}}</p>
-            <h2 class="product-price">${{$variant->price}}</h2>
-                   {{dd($variant->product->id)}}
+            <p id="product-name" class="product-name">{{$variant->variant_name}}</p>
+            <h2 id="product-price" class="product-price">${{$variant->price}}</h2>
+                   {{$variant->product->id}}
             <div class="form_section">
 
 
                 <form>
                     @csrf
 
-                    <div>
-{{--                        @if ($errors->any())--}}
-{{--                            <div class="error-msg">--}}
-{{--                                <ul>--}}
-{{--                                    @foreach ($errors->all() as $error)--}}
-{{--                                        <li class="error-msg">{{ $error }}</li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
-                      
-                    </div>
-
-                    //i know the variant->and its attribute and its attribute option->value that I am showing
-                    //if i click on color,I can 
+                   
                     <div class="color-circle">
                         <div> 
                          {{count($color)}} colors available
@@ -182,20 +168,42 @@
             let colorValue = e.target.getAttribute('data-color');
                         const product = e.target.getAttribute('data-product_id');
 
-
       await fetchProdVariantBasedOnAttributeValue(colorValue,product);
     });
   });
 
-  async function fetchProdVariantBasedOnAttributeValue() {
-     fetch(`/product/variant/fetchVariant/${colorValue}/${product}`)
-        .then(response=>response.json())
-        .then(data=>{
-
-        })
+  async function fetchProdVariantBasedOnAttributeValue(colorValue,product) {
+    try {
+    const response = await fetch(`/api/products/variant/fetchVariant/${colorValue}/${product}`);
+    const data = await response.json();
+    // Update HTML elements with data
+    document.getElementById('product-name').textContent = data.product[0].product_name;
+    // document.getElementById('product-description').textContent = data.product_details;
+    document.getElementById('product-price').textContent = `$${data.product[0].price}`;
+    document.getElementById('product-image').src = data.product[0].file_path;
+    // document.getElementById('product-quantity').textContent = `In stock: ${data.quantity}`;
+        const newUrl = `/products/${data.product[0].slug}`;
+      window.history.pushState({}, '', newUrl);
+  } catch (error) {
+    console.error('Error fetching product variant:', error);
   }
-          
-        </script>
+  }
+
+  
+window.addEventListener('DOMContentLoaded', async () => {
+  const slugFromUrl = window.location.pathname.split('/').pop();
+
+  if (slugFromUrl) {
+    const response = await fetch(`/api/products/variant/bySlug/${slugFromUrl}`);
+    const data = await response.json();
+
+    const variant = data.product[0];
+    document.getElementById('product-name').textContent = variant.product_name;
+    document.getElementById('product-price').textContent = `$${variant.price}`;
+    document.getElementById('product-image').src = variant.file_path;
+  }
+});        
+</script>
 
 </body>
 </html>

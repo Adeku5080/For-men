@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+
 
 class ProductApiController extends Controller
 {
@@ -72,10 +75,20 @@ class ProductApiController extends Controller
     JOIN product_variants ON products.id = product_variants.product_id
     JOIN attribute_option_product_variant aopv ON product_variants.id = aopv.product_variant_id
     JOIN attribute_options on attribute_options.id = aopv.attribute_option_id 
-    JOIN attributes on attributes.id = attribute_options.atrribute_id 
-    WHERE products.id = :product
+    JOIN attributes on attributes.id = attribute_options.attribute_id 
+    WHERE products.id = :product and attribute_options.value = :color
     ',
-            ['product' => $product]
+            ['product' => $product, 'color' => $color]
         );
+
+        return new JsonResponse(['product' =>$result],200);
     }
+
+    public function fetchVariantBySlug($slug) 
+    {
+        $productVariant = ProductVariant::with(['product', 'attributeOptions.attribute'])->where('slug', $slug)->firstOrFail();
+
+        return new JsonResponse(['product' => $productVariant], 200);
+    }
+
 }
