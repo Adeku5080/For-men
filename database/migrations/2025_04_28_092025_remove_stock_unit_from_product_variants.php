@@ -26,7 +26,7 @@ class RemoveStockUnitFromProductVariants extends Migration
     public function down()
     {
         Schema::table('product_variants', function (Blueprint $table) {
-            $table->integer('stock_unit')->nullable(); 
+            $table->integer('stock_unit')->nullable();
 
         });
     }

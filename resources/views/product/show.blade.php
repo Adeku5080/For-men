@@ -21,7 +21,6 @@
         <div class="product-info">
             <p id="product-name" class="product-name">{{$variant->variant_name}}</p>
             <h2 id="product-price" class="product-price">${{$variant->price}}</h2>
-                   {{$variant->product->id}}
             <div class="form_section">
 
 
@@ -34,7 +33,8 @@
                          {{count($color)}} colors available
                         </div>
                          @foreach($color as $c)
-                             <div class='variant_color' style="width: 20px; height: 20px; background-color: {{ $c }}; border-radius: 50%; display:inline-block; margin-right: 5px;" title="{{ ($c) }}"   data-color="{{ $c }}" data-product_id="{{$variant->product->id}}"></div>
+                             <div class='variant_color' style="width: 20px; height: 20px; background-color: {{ $c }}; border-radius: 50%; display:inline-block; margin-right: 5px;" 
+                             title="{{ ($c) }}"   data-color="{{ $c }}" data-product_id="{{$variant->product->id}}"></div>
 
                          @endforeach
                       <p> Select your size</p>
@@ -168,16 +168,17 @@
             let colorValue = e.target.getAttribute('data-color');
                         const product = e.target.getAttribute('data-product_id');
 
-      await fetchProdVariantBasedOnAttributeValue(colorValue,product);
+      await fetchProdVariantBasedOnColorValue(colorValue,product);
     });
   });
 
-  async function fetchProdVariantBasedOnAttributeValue(colorValue,product) {
+  async function fetchProdVariantBasedOnColorValue(colorValue,product) {
     try {
     const response = await fetch(`/api/products/variant/fetchVariant/${colorValue}/${product}`);
     const data = await response.json();
+    console.log(data,'variant');
     // Update HTML elements with data
-    document.getElementById('product-name').textContent = data.product[0].product_name;
+    document.getElementById('product-name').textContent = data.product[0].variant_name;
     // document.getElementById('product-description').textContent = data.product_details;
     document.getElementById('product-price').textContent = `$${data.product[0].price}`;
     document.getElementById('product-image').src = data.product[0].file_path;
@@ -198,7 +199,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const data = await response.json();
 
     const variant = data.product[0];
-    document.getElementById('product-name').textContent = variant.product_name;
+    document.getElementById('product-name').textContent = variant.variant_name;
     document.getElementById('product-price').textContent = `$${variant.price}`;
     document.getElementById('product-image').src = variant.file_path;
   }

@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\ProductVariant;
-
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\AttributeOption;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\Subcategory;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
-
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
@@ -31,7 +27,7 @@ class ProductController extends Controller
             [
                 'categories' => Category::all(),
                 'brands' => Brand::all(),
-                'attributes' => Attribute::with('attributeOptions')->get()
+                'attributes' => Attribute::with('attributeOptions')->get(),
             ]
         );
     }
@@ -73,21 +69,26 @@ class ProductController extends Controller
             foreach ($variant->attributeOptions as $option) {
                 $name = strtolower($option->attribute->name);
 
-                if ($name === 'size') {
-                    $sizes->push($option->value);
-                } elseif ($name === 'color') {
+                if ($name === 'color') {
                     $colors->push($option->value);
                 }
             }
         }
 
+        foreach ($productVariant->attributeOptions as $option) {
+            $name = strtolower($option->attribute->name);
+
+            if ($name === 'size') {
+                $sizes->push($option->value);
+            }
+        }
+
         return view('product.show', [
-        'variant' => $productVariant,
+            'variant' => $productVariant,
             'size' => $sizes->unique()->values()->all(),
             'color' => $colors->unique()->values()->all(),
         ]);
     }
-
 
     /**
      * validate and store products
@@ -147,8 +148,8 @@ class ProductController extends Controller
                 $product->update(['product_variant_id' => $variantsInserted[0]->id]);
 
                 foreach ($variantsInserted as $index => $variant) {
-                    $attributeOptionIds  = $data['variants'][$index]['attributes'] ?? [];
-                    if (!empty($attributeOptionIds)) {
+                    $attributeOptionIds = $data['variants'][$index]['attributes'] ?? [];
+                    if (! empty($attributeOptionIds)) {
                         $variant->attributeOptions()->attach($attributeOptionIds);
                     }
                 }
@@ -166,6 +167,7 @@ class ProductController extends Controller
 
             $uploadPaths[] = $uploadPath;
         }
+
         return $uploadPaths;
     }
 
@@ -177,6 +179,7 @@ class ProductController extends Controller
 
             $variantSlugs[] = $slug;
         }
+
         return $variantSlugs;
     }
 }

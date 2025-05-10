@@ -1,24 +1,23 @@
 <?php
 
-if (!function_exists('generateSku')) {
+if (! function_exists('generateSku')) {
 
     function generateSku($product_name, $color, $size)
     {
-        $nameArray = explode(" ", $product_name);
+        $nameArray = explode(' ', $product_name);
 
-       $substrArray = [];
+        $substrArray = [];
 
-        foreach($nameArray as $ele) 
-        {
-         $substrArray[] = substr($ele, 0 ,3);
+        foreach ($nameArray as $ele) {
+            $substrArray[] = substr($ele, 0, 3);
         }
-        
-        $sku = implode("-" ,$substrArray);
+
+        $sku = implode('-', $substrArray);
 
         $color = strtoupper(trim($color));
         $size = strtoupper(trim($size));
 
-        $finalSku = strtoupper($sku . "-" . $color . "-" . $size);
+        $finalSku = strtoupper($sku.'-'.$color.'-'.$size);
 
         return $finalSku;
     }

@@ -9,8 +9,8 @@ class Attribute extends Model
 {
     use HasFactory;
 
-    public function attributeOptions() 
+    public function attributeOptions()
     {
-       return $this->hasMany(AttributeOption::class);
+        return $this->hasMany(AttributeOption::class);
     }
 }

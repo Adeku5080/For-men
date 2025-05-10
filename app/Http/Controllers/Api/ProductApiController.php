@@ -7,9 +7,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-
 
 class ProductApiController extends Controller
 {
@@ -26,9 +24,8 @@ class ProductApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
-
     }
 
     /**
@@ -48,9 +45,8 @@ class ProductApiController extends Controller
      *
      * @param  int  $id
      */
-    public function update(Request $request, $id): Response
+    public function update(Request $request, $id)
     {
-
     }
 
     /**
@@ -66,29 +62,63 @@ class ProductApiController extends Controller
         return new JsonResponse(200);
     }
 
-    public function fetchVariant($color,$product)
+    public function fetchVariant($color, $product)
     {
         $result = DB::select(
-            '
-    SELECT * 
-    FROM products 
-    JOIN product_variants ON products.id = product_variants.product_id
-    JOIN attribute_option_product_variant aopv ON product_variants.id = aopv.product_variant_id
-    JOIN attribute_options on attribute_options.id = aopv.attribute_option_id 
-    JOIN attributes on attributes.id = attribute_options.attribute_id 
-    WHERE products.id = :product and attribute_options.value = :color
-    ',
+            "
+    SELECT 
+        pv.id AS product_variant_id,
+        p.id AS product_id,
+        ao_size.value AS size,
+        pv.sku,
+        pv.price,
+        pv.slug,
+        pv.product_id,
+        pv.quantity,
+        pv.file_path,
+        pv.variant_name,
+        pv.product_details
+    FROM products p
+    JOIN product_variants pv ON p.id = pv.product_id
+
+    -- Filter to only variants that match the given color
+    JOIN attribute_option_product_variant aopv_color ON pv.id = aopv_color.product_variant_id
+    JOIN attribute_options ao_color ON ao_color.id = aopv_color.attribute_option_id
+    JOIN attributes attr_color ON attr_color.id = ao_color.attribute_id
+
+    -- Get all size values for those same variants
+    JOIN attribute_option_product_variant aopv_size ON pv.id = aopv_size.product_variant_id
+    JOIN attribute_options ao_size ON ao_size.id = aopv_size.attribute_option_id
+    JOIN attributes attr_size ON attr_size.id = ao_size.attribute_id
+
+    WHERE p.id = :product
+      AND ao_color.value = :color
+      AND attr_color.name = 'Color' 
+      AND attr_size.name = 'Size'
+    ",
             ['product' => $product, 'color' => $color]
         );
 
-        return new JsonResponse(['product' =>$result],200);
+        return new JsonResponse(['product' => $result], 200);
     }
 
-    public function fetchVariantBySlug($slug) 
+    public function fetchVariantBySlug($slug)
     {
         $productVariant = ProductVariant::with(['product', 'attributeOptions.attribute'])->where('slug', $slug)->firstOrFail();
 
-        return new JsonResponse(['product' => $productVariant], 200);
-    }
+        // foreach ($productVariant->attributeOptions as $option) {
+        //     $name = strtolower($option->attribute->name);
 
+        //     dd($name,'name in apic');
+
+        //     if ($name === 'size') {
+        //         $sizes->push($option->value);
+        //     }
+        // }
+        // dd($sizes,'sizesss');
+
+        return new JsonResponse([
+            'product' => $productVariant,
+        ], 200);
+    }
 }

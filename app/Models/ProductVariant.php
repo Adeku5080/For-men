@@ -17,7 +17,7 @@ class ProductVariant extends Model
         'product_id',
         'variant_name',
         'slug',
-        'price'
+        'price',
     ];
 
     public function defaltProduct()

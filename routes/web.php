@@ -40,7 +40,6 @@ Route::middleware(['auth:sanctum'])->group(
     }
 );
 
-
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
@@ -126,4 +125,4 @@ Route::post('api/add-to-favourites', [\App\Http\Controllers\Api\FavouriteControl
 Route::delete('/removeFav/{product}', [FavouritesController::class, 'removeFav']);
 Route::get('/saved-items', [FavouritesController::class, 'fetchAllSavedItems']);
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

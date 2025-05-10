@@ -27,7 +27,7 @@ class CartController extends Controller
      */
     public function addToCart(Request $request)
     {
-        if (!Auth::user()) {
+        if (! Auth::user()) {
             return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
         }
 
@@ -38,7 +38,6 @@ class CartController extends Controller
             'user_id' => Auth::id(),
             'checked_out_at' => null,
         ]);
-
 
         $cartItem = CartItem::where('size', $request->size)
             ->where('product_id', $id)->first();
@@ -74,7 +73,6 @@ class CartController extends Controller
         // }
 
         $count = $user->activeCart->cartItems()->count();
-
 
         return new JsonResponse(['data' => $count], 200);
     }

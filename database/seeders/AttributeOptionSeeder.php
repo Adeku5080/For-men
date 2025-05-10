@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\AttributeOption;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use  App\Models\AttributeOption;
-
 
 class AttributeOptionSeeder extends Seeder
 {
