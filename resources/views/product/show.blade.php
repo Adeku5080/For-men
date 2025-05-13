@@ -41,9 +41,12 @@
                         @php
                           sort($size); 
                         @endphp
-                         @foreach($size as $size)
-                               <p>{{$size}}</p>
+                    <div id="product-size">
+                        @foreach($size as $size)
+                               <p class="size-option">{{$size}}</p>
                          @endforeach
+                    </div>
+                     
                     </div>
 
                     <button type="submit" id="btn" value="{{ $variant->id }}" class="button"> ADD ITEM TO CART</button>
@@ -176,14 +179,28 @@
     try {
     const response = await fetch(`/api/products/variant/fetchVariant/${colorValue}/${product}`);
     const data = await response.json();
-    console.log(data,'variant');
     // Update HTML elements with data
     document.getElementById('product-name').textContent = data.product[0].variant_name;
-    // document.getElementById('product-description').textContent = data.product_details;
     document.getElementById('product-price').textContent = `$${data.product[0].price}`;
     document.getElementById('product-image').src = data.product[0].file_path;
-    // document.getElementById('product-quantity').textContent = `In stock: ${data.quantity}`;
+
+        // Handle sizes
+       const sizeContainer = document.getElementById('product-size');
+      sizeContainer.innerHTML = ''; // Clear previous sizes
+
+const sizes = data.product[0].sizes.split(',').map(s => s.trim());
+
+sizes.sort((a,b)=>a-b);
+console.log(sizes,'sizesssss');
+sizes.forEach(size => {
+    const p = document.createElement('p');
+    p.classList.add('size-option'); 
+    p.textContent = size;
+    sizeContainer.appendChild(p);
+});
+
         const newUrl = `/products/${data.product[0].slug}`;
+        console.log(newUrl,'new url');
       window.history.pushState({}, '', newUrl);
   } catch (error) {
     console.error('Error fetching product variant:', error);
@@ -191,19 +208,36 @@
   }
 
   
-window.addEventListener('DOMContentLoaded', async () => {
+ window.addEventListener('DOMContentLoaded', async () => {
   const slugFromUrl = window.location.pathname.split('/').pop();
 
-  if (slugFromUrl) {
-    const response = await fetch(`/api/products/variant/bySlug/${slugFromUrl}`);
-    const data = await response.json();
+   if (slugFromUrl) {
+     const response = await fetch(`/api/products/variant/bySlug/${slugFromUrl}`);
+     const data = await response.json();
+     console.log(data,'dataonload')
 
-    const variant = data.product[0];
-    document.getElementById('product-name').textContent = variant.variant_name;
-    document.getElementById('product-price').textContent = `$${variant.price}`;
-    document.getElementById('product-image').src = variant.file_path;
-  }
-});        
+     const variant = data.product;
+     console.log(variant.variant_name ,'variant on load')
+     document.getElementById('product-name').textContent = variant.variant_name;
+     document.getElementById('product-price').textContent = `$${variant.price}`;
+     document.getElementById('product-image').src = variant.file_path;
+
+       // Handle sizes
+        const sizeContainer = document.getElementById('product-size');
+    //    sizeContainer.innerHTML = ''; // Clear previous sizes
+
+ const sizes = data.product[0].sizes.split(',').map(s => s.trim());
+
+ sizes.sort(); 
+
+ sizes.forEach(size => {
+     const p = document.createElement('p');
+     p.classList.add('size-option'); 
+     p.textContent = size;
+     sizeContainer.appendChild(p);
+ });
+   }
+ });        
 </script>
 
 </body>

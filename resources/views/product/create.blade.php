@@ -80,17 +80,32 @@
             <input type="file" name="variants[0][file_path]" required>
 
             <h4>Attributes</h4>
-            @foreach($attributes as $attribute)
+           @foreach($attributes as $attribute)
+    <div>
+        <label>{{ $attribute->name }}</label>
+
+        @if(strtolower($attribute->name) === 'size')
+            @foreach($attribute->attributeOptions as $option)
                 <div>
-                    <label>{{ $attribute->name }}</label>
-                    <select name="variants[0][attributes][{{ $attribute->id }}]" required>
-                        <option value="">Select {{ $attribute->name }}</option>
-                        @foreach($attribute->attributeOptions as $option)
-                            <option value="{{ $option->id }}">{{ $option->value }}</option>
-                        @endforeach
-                    </select>
+                    <input 
+                        type="checkbox" 
+                        name="variants[0][attributes][{{ $attribute->id }}][]" 
+                        value="{{ $option->id }}" 
+                        id="size_{{ $option->id }}"
+                    >
+                    <label for="size_{{ $option->id }}">{{ $option->value }}</label>
                 </div>
             @endforeach
+        @else
+            <select name="variants[0][attributes][{{ $attribute->id }}]" required>
+                <option value="">Select {{ $attribute->name }}</option>
+                @foreach($attribute->attributeOptions as $option)
+                    <option value="{{ $option->id }}">{{ $option->value }}</option>
+                @endforeach
+            </select>
+        @endif
+    </div>
+@endforeach
         </div>
     </div>
 
@@ -185,7 +200,29 @@
     `;
 
     // loop over attributes from the global JS variable
-    attributes.forEach(attribute => {
+ attributes.forEach(attribute => {
+    if (attribute.name.toLowerCase() === 'size') {
+        variantHTML += `
+            <div>
+                <label>${attribute.name}</label>
+        `;
+
+        attribute.attribute_options.forEach(option => {
+            variantHTML += `
+                <div>
+                    <input 
+                        type="checkbox" 
+                        name="variants[${variantCount}][attributes][${attribute.id}][]" 
+                        value="${option.id}" 
+                        id="size_${option.id}_${variantCount}"
+                    >
+                    <label for="size_${option.id}_${variantCount}">${option.value}</label>
+                </div>
+            `;
+        });
+
+        variantHTML += `</div>`; // close size div
+    } else {
         variantHTML += `
             <div>
                 <label>${attribute.name}</label>
@@ -201,7 +238,9 @@
                 </select>
             </div>
         `;
-    });
+    }
+});
+
 
     newVariant.innerHTML = variantHTML;
     variantsSection.appendChild(newVariant);

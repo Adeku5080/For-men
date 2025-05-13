@@ -2,7 +2,7 @@
 
 if (! function_exists('generateSku')) {
 
-    function generateSku($product_name, $color, $size)
+    function generateSku($product_name, $color)
     {
         $nameArray = explode(' ', $product_name);
 
@@ -15,9 +15,8 @@ if (! function_exists('generateSku')) {
         $sku = implode('-', $substrArray);
 
         $color = strtoupper(trim($color));
-        $size = strtoupper(trim($size));
 
-        $finalSku = strtoupper($sku.'-'.$color.'-'.$size);
+        $finalSku = strtoupper($sku.'-'.$color);
 
         return $finalSku;
     }

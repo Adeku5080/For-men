@@ -124,23 +124,26 @@ class ProductController extends Controller
                     $variantCopy['file_path'] = $uploadPaths[$key] ?? null;
                     $variantCopy['slug'] = $productSlugs[$key] ?? null;
 
-                    $attributeOptions = AttributeOption::whereIn('id', $variant['attributes'])
+                    //flatten variants attributes
+                    $flattenedAttributes = collect($variant['attributes'])->flatten()->toArray();
+
+                    $attributeOptions = AttributeOption::whereIn('id', $flattenedAttributes)
                         ->with('attribute')
                         ->get();
 
-                    $size = null;
+                    $size = [];
                     $color = null;
 
                     foreach ($attributeOptions as $option) {
                         if (strtolower($option->attribute->name) === 'size') {
-                            $size = $option->value;
+                            $size[] = $option->value;
                         }
                         if (strtolower($option->attribute->name) === 'color') {
                             $color = $option->value;
                         }
                     }
 
-                    $variantCopy['sku'] = generateSku($data['product_name'], $size, $color);
+                    $variantCopy['sku'] = generateSku($data['product_name'], $color);
                     $data['variants'][$key] = $variantCopy;
                 }
 
@@ -150,7 +153,8 @@ class ProductController extends Controller
                 foreach ($variantsInserted as $index => $variant) {
                     $attributeOptionIds = $data['variants'][$index]['attributes'] ?? [];
                     if (! empty($attributeOptionIds)) {
-                        $variant->attributeOptions()->attach($attributeOptionIds);
+                        $flattenedAttributeOptions = collect($attributeOptionIds)->flatten()->toArray();
+                        $variant->attributeOptions()->attach($flattenedAttributeOptions);
                     }
                 }
             }
