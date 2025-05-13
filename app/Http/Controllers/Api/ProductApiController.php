@@ -99,43 +99,44 @@ GROUP BY pv.id
     ",
             ['product' => $product, 'color' => $color]
         );
+
         return new JsonResponse(['product' => $result], 200);
     }
 
-    public function fetchVariantBySlug($slug)
-    {
-        $productVariant = ProductVariant::with(['product', 'attributeOptions.attribute'])->where('slug', $slug)->firstOrFail();
+    // public function fetchVariantBySlug($slug)
+    // {
+    //     $productVariant = ProductVariant::with(['product', 'attributeOptions.attribute'])->where('slug', $slug)->firstOrFail();
 
-        $product = $productVariant->product;
+    //     $product = $productVariant->product;
 
-        $variants = $product->productVariants()->with('attributeOptions.attribute')->get();
+    //     $variants = $product->productVariants()->with('attributeOptions.attribute')->get();
 
-        $sizes = collect();
-        $colors = collect();
+    //     $sizes = collect();
+    //     $colors = collect();
 
-        foreach ($variants as $variant) {
-            foreach ($variant->attributeOptions as $option) {
-                $name = strtolower($option->attribute->name);
+    //     foreach ($variants as $variant) {
+    //         foreach ($variant->attributeOptions as $option) {
+    //             $name = strtolower($option->attribute->name);
 
-                if ($name === 'color') {
-                    $colors->push($option->value);
-                }
-            }
-        }
+    //             if ($name === 'color') {
+    //                 $colors->push($option->value);
+    //             }
+    //         }
+    //     }
 
-        foreach ($productVariant->attributeOptions as $option) {
-            $name = strtolower($option->attribute->name);
+    //     foreach ($productVariant->attributeOptions as $option) {
+    //         $name = strtolower($option->attribute->name);
 
-            if ($name === 'size') {
-                $sizes->push($option->value);
-            }
-        }
-        dd('aseku');
+    //         if ($name === 'size') {
+    //             $sizes->push($option->value);
+    //         }
+    //     }
+    //     dd('aseku');
 
-        return new JsonResponse([
-            'product' => $productVariant,
-            'size' => dd($sizes->sort()->unique()->values()->all()),
-            'color' => $colors->unique()->values()->all(),
-        ], 200);
-    }
+    //     return new JsonResponse([
+    //         'product' => $productVariant,
+    //         'size' => dd($sizes->sort()->unique()->values()->all()),
+    //         'color' => $colors->unique()->values()->all(),
+    //     ], 200);
+    // }
 }

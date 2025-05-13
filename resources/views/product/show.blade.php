@@ -43,7 +43,7 @@
                         @endphp
                     <div id="product-size">
                         @foreach($size as $size)
-                               <p class="size-option">{{$size}}</p>
+                               <p class="size-option" >{{$size}}</p>
                          @endforeach
                     </div>
                      
@@ -191,16 +191,24 @@
 const sizes = data.product[0].sizes.split(',').map(s => s.trim());
 
 sizes.sort((a,b)=>a-b);
-console.log(sizes,'sizesssss');
 sizes.forEach(size => {
     const p = document.createElement('p');
     p.classList.add('size-option'); 
     p.textContent = size;
+
+     p.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        document.querySelectorAll('.size-option').forEach(el => {
+            el.classList.remove('selected');
+        });
+
+        p.classList.add('selected');
+    });
     sizeContainer.appendChild(p);
 });
 
         const newUrl = `/products/${data.product[0].slug}`;
-        console.log(newUrl,'new url');
       window.history.pushState({}, '', newUrl);
   } catch (error) {
     console.error('Error fetching product variant:', error);
@@ -208,37 +216,51 @@ sizes.forEach(size => {
   }
 
   
- window.addEventListener('DOMContentLoaded', async () => {
-  const slugFromUrl = window.location.pathname.split('/').pop();
+//  window.addEventListener('DOMContentLoaded', async () => {
+//   const slugFromUrl = window.location.pathname.split('/').pop();
 
-   if (slugFromUrl) {
-     const response = await fetch(`/api/products/variant/bySlug/${slugFromUrl}`);
-     const data = await response.json();
-     console.log(data,'dataonload')
+//    if (slugFromUrl) {
+//      const response = await fetch(`/api/products/variant/bySlug/${slugFromUrl}`);
+//      const data = await response.json();
 
-     const variant = data.product;
-     console.log(variant.variant_name ,'variant on load')
-     document.getElementById('product-name').textContent = variant.variant_name;
-     document.getElementById('product-price').textContent = `$${variant.price}`;
-     document.getElementById('product-image').src = variant.file_path;
+//      const variant = data.product;
+//      document.getElementById('product-name').textContent = variant.variant_name;
+//      document.getElementById('product-price').textContent = `$${variant.price}`;
+//      document.getElementById('product-image').src = variant.file_path;
 
-       // Handle sizes
-        const sizeContainer = document.getElementById('product-size');
-    //    sizeContainer.innerHTML = ''; // Clear previous sizes
+//        // Handle sizes
+//         const sizeContainer = document.getElementById('product-size');
 
- const sizes = data.product[0].sizes.split(',').map(s => s.trim());
+//  const sizes = data.product[0].sizes.split(',').map(s => s.trim());
 
- sizes.sort(); 
+//  sizes.sort(); 
 
- sizes.forEach(size => {
-     const p = document.createElement('p');
-     p.classList.add('size-option'); 
-     p.textContent = size;
-     sizeContainer.appendChild(p);
- });
-   }
- });        
+//  sizes.forEach(size => {
+//      const p = document.createElement('p');
+//      p.classList.add('size-option'); 
+//      p.textContent = size;
+//      sizeContainer.appendChild(p);
+//  });
+//    }
+//  });        
 </script>
+
+<script>
+ let sizeOptions = document.querySelectorAll('.size-option');
+
+sizeOptions.forEach((sizeOption) => {
+  sizeOption.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('adeku');
+
+    sizeOptions.forEach((el) => el.classList.remove('selected'));
+
+    sizeOption.classList.add('selected');
+  });
+});
+</script>
+
+
 
 </body>
 </html>
