@@ -43,7 +43,7 @@
                         @endphp
                     <div id="product-size">
                         @foreach($size as $size)
-                               <p class="size-option" >{{$size}}</p>
+                               <p class="size-option" data-size="{{$size}}">{{$size}}</p>
                          @endforeach
                     </div>
                      
@@ -54,54 +54,6 @@
             </div>
         </div>
 
-        <script>
-            let addToCart = document.querySelector('#btn');
-
-            addToCart.addEventListener('click', async function (e) {
-                e.preventDefault();
-          
-                const data = {
-                    size: 22,
-                    // quantity: document.querySelector('.count').innerText,
-                    productId: e.target.value,
-                    _token: '{{ csrf_token() }}',
-                };
-                await addProductToCart(data);
-            })
-
-
-            /**
-             * add product to cart
-             *
-             * @returns {Promise<any>}
-             */
-            async function addProductToCart(data) {
-
-                try {
-
-                    const url = `{{route('api.add-to-cart')}}`
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    if (!response.ok) {
-                        const error = new Error();
-                        error.body = response;
-                        throw error;
-                    }
-
-                    return response.text();
-                } catch (error) {
-                    if (error.body && error.body.status === 403) {
-                        window.location.href = '{{ route('login') }}';
-                    }
-                }
-            }
-        </script>
 
         <script>
             const increase = document.querySelector('.increment');
@@ -251,7 +203,6 @@ sizes.forEach(size => {
 sizeOptions.forEach((sizeOption) => {
   sizeOption.addEventListener('click', function(e) {
     e.preventDefault();
-    console.log('adeku');
 
     sizeOptions.forEach((el) => el.classList.remove('selected'));
 
@@ -261,6 +212,64 @@ sizeOptions.forEach((sizeOption) => {
 </script>
 
 
+        <script>
+            let addToCart = document.querySelector('#btn');
+
+
+            addToCart.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+    const selectedSizeEl = document.querySelector('.size-option.selected');
+
+    const size = selectedSizeEl ? selectedSizeEl.getAttribute('data-size') : null;
+
+
+    if (!size) {
+        alert('Please select a size before adding to cart.');
+        return;
+    }
+
+                const data = {
+                    size:size,
+                    variant: e.target.value,
+                    _token: '{{ csrf_token() }}',
+                };
+                await addProductToCart(data);
+            })
+
+
+            /**
+             * add product to cart
+             *
+             * @returns {Promise<any>}
+             */
+            async function addProductToCart(data) {
+
+                try {
+
+                    const url = `{{route('api.add-to-cart')}}`
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    if (!response.ok) {
+                        const error = new Error();
+                        error.body = response;
+                        throw error;
+                    }
+
+                    return response.text();
+                } catch (error) {
+                    if (error.body && error.body.status === 403) {
+                        window.location.href = '{{ route('login') }}';
+                    }
+                }
+            }
+        </script>
 
 </body>
 </html>

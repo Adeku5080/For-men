@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,13 @@ class CartController extends Controller
             return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
         }
 
-        $id = $request->productId;
-        $product = Product::find($id);
+        $id = $request->variant;
+        $productVariant = ProductVariant::find($id);
+
+        if(!$productVariant) {
+            return new JsonResponse(['message' => 'Product variant does not exsist'], 404);
+        }
+
 
         $cart = Cart::firstOrCreate([
             'user_id' => Auth::id(),
@@ -40,7 +46,7 @@ class CartController extends Controller
         ]);
 
         $cartItem = CartItem::where('size', $request->size)
-            ->where('product_id', $id)->first();
+            ->where('product_variant_id', $id)->first();
 
         if ($cartItem) {
             $cartItem->update([
@@ -48,12 +54,12 @@ class CartController extends Controller
             ]);
         } else {
             CartItem::create([
-                'product_id' => $product->id,
+                'product_variant_id' => $productVariant->id,
                 'size' => $request->size,
                 'cart_id' => $cart->id,
-                'item_file_path' => $product->file_path,
-                'item_name' => $product->name,
-                'item_price' => $product->price,
+                'item_file_path' => $productVariant->file_path,
+                'item_name' => $productVariant->variant_name,
+                'item_price' => $productVariant->price,
                 'quantity' => 1,
             ]);
         }
