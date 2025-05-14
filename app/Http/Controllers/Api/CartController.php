@@ -10,6 +10,8 @@ use App\Models\ProductVariant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class CartController extends Controller
 {
@@ -35,8 +37,8 @@ class CartController extends Controller
         $id = $request->variant;
         $productVariant = ProductVariant::find($id);
 
-        if(!$productVariant) {
-            return new JsonResponse(['message' => 'Product variant does not exsist'], 404);
+        if (!$productVariant) {
+            return new JsonResponse(['message' => 'Product variant does not exist'], 404);
         }
 
 
@@ -61,6 +63,7 @@ class CartController extends Controller
                 'item_name' => $productVariant->variant_name,
                 'item_price' => $productVariant->price,
                 'quantity' => 1,
+
             ]);
         }
 
@@ -78,9 +81,17 @@ class CartController extends Controller
         //     return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
         // }
 
-        $count = $user->activeCart->cartItems()->count();
 
-        return new JsonResponse(['data' => $count], 200);
+        $cartItemsCount = DB::Select(
+            "
+             select count(*) from cartItems join carts on carts.id = cart_items.cart_id where carts.user_id = :userId
+
+            ",
+            ['userId' => $user]
+        );
+
+
+        return new JsonResponse(['data' => $cartItemsCount], 200);
     }
 
     /**
