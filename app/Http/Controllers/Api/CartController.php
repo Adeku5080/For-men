@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 
 class CartController extends Controller
 {
@@ -20,7 +18,13 @@ class CartController extends Controller
      */
     public function index(): JsonResponse
     {
-        $cartItems = CartItem::all();
+        $user = Auth::user();
+
+        $cartItems = DB::table('cart_items')
+            ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
+            ->where('carts.user_id', $user->id)
+            ->where('carts.status', 'active')
+            ->get();
 
         return new JsonResponse(['data' => $cartItems], 200);
     }
@@ -37,10 +41,9 @@ class CartController extends Controller
         $id = $request->variant;
         $productVariant = ProductVariant::find($id);
 
-        if (!$productVariant) {
+        if (! $productVariant) {
             return new JsonResponse(['message' => 'Product variant does not exist'], 404);
         }
-
 
         $cart = Cart::firstOrCreate([
             'user_id' => Auth::id(),
@@ -77,18 +80,16 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
+
         // if (!$user) {
         //     return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
         // }
 
-
-        $cartItemsCount = DB::Select(
-            "
-             select count(*) from cartItems join carts on carts.id = cart_items.cart_id where carts.user_id = :userId
-
-            ",
-            ['userId' => $user]
-        );
+        $cartItemsCount = DB::table('cart_items')
+            ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
+            ->where('carts.user_id', $user->id)
+            ->where('carts.status', 'active')
+            ->count();
 
 
         return new JsonResponse(['data' => $cartItemsCount], 200);

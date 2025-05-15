@@ -273,7 +273,7 @@
             return `
             <div class="main-content">
               <div class="dropdown-image">
-                  <img class="image" src="/images/productImgs/${item.item_file_path}" alt="image"/>
+                  <img class="image" src=${item.item_file_path} alt="image"/>
               </div>
 
                 <div class="item-description">

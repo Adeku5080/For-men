@@ -78,39 +78,10 @@
 
         <script>
 
-            // fillCartCount();
-            // const cartItemCount = document.querySelector(".cart-item-count")
-            // addToCart.addEventListener('click',async function(){
-            //     await fillCartCount();
-            // })
+        
 
-            /**
-             * get all cartItems count
-             *
-             */
 
-            async function getCount(){
-                    const url = `{{route('api.cart-items-count')}}`
-
-                    
-                    const response = await fetch(url);
-                    console.log(response);
-                 
-
-                    return response.json();
-            }
-
-            /**
-             * destructures response and pass data into html
-             *
-             * @returns {Promise<void>}
-             */
-            async function fillCartCount () {
-
-                const {data} = await getCount()
-
-                cartItemCount.innerText = data;
-            }
+    
         </script>
         
         {{-- fetch product variant --}}
@@ -121,7 +92,7 @@
     variantColor.addEventListener('click', async function(e) {
       e.preventDefault();
             let colorValue = e.target.getAttribute('data-color');
-                        const product = e.target.getAttribute('data-product_id');
+            const product = e.target.getAttribute('data-product_id');
 
       await fetchProdVariantBasedOnColorValue(colorValue,product);
     });
@@ -269,6 +240,13 @@ sizeOptions.forEach((sizeOption) => {
                     }
                 }
             }
+
+
+                fillCartCount();
+            const cartItemCount = document.querySelector(".cart-item-count")
+            addToCart.addEventListener('click',async function(){
+                await fillCartCount();
+            })
         </script>
 
 </body>

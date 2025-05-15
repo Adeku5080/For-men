@@ -16,7 +16,7 @@
             <div class="container">
 
                 <div class="image-container">
-                    <img class="image" src="{{ asset('images/productImgs/'.$cartItem->item_file_path)}}" alt="">
+                    <img class="image" src="{{$cartItem->item_file_path}}" alt="product_img">
                 </div>
                 <section class="name_size_quantity">
                     <p>{{$cartItem->item_name}}</p>
