@@ -23,11 +23,7 @@
                     <div class="size_and_quantity">
                         <select name="size" id="size">
                             <option value="" selected>{{$cartItem->size}}</option>
-                            <option value="Uk-6">Uk 6</option>
-                            <option value="Uk-7">Uk 7</option>
-                            <option value="Uk-8">UK 8</option>
-                            <option value="Uk-9">UK 9</option>
-                            <option value="Uk-10">UK 10</option>
+                            
                         </select>
 
                         <div class="quantity-bar">

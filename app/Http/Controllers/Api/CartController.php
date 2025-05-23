@@ -80,7 +80,6 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-
         // if (!$user) {
         //     return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
         // }
@@ -90,7 +89,6 @@ class CartController extends Controller
             ->where('carts.user_id', $user->id)
             ->where('carts.status', 'active')
             ->count();
-
 
         return new JsonResponse(['data' => $cartItemsCount], 200);
     }

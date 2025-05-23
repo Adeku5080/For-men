@@ -119,7 +119,8 @@ Route::patch('api/update-cart-item/{cartItem}', [\App\Http\Controllers\Api\CartC
 
 Route::delete('api/delete-cart-item/{cartItem}', [\App\Http\Controllers\Api\CartController::class, 'deleteCartItem']);
 
-Route::get('api/cart-items', [\App\Http\Controllers\Api\CartController::class, 'index']);
+Route::get('api/cart-items', [\App\Http\Controllers\Api\CartController::class, 'index'])
+    ->name('api.cart-items');
 
 Route::post('api/add-to-favourites', [\App\Http\Controllers\Api\FavouriteController::class, 'create']);
 Route::delete('/removeFav/{product}', [FavouritesController::class, 'removeFav']);

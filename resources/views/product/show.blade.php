@@ -1,4 +1,4 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>show-product</title>
@@ -53,7 +53,7 @@
                 </form>
             </div>
         </div>
-
+        @stack('scripts') 
 
         <script>
             const increase = document.querySelector('.increment');
@@ -74,14 +74,6 @@
                 document.querySelector('.count').innerText = value;
             })
 
-        </script>
-
-        <script>
-
-        
-
-
-    
         </script>
         
         {{-- fetch product variant --}}
@@ -138,34 +130,6 @@ sizes.forEach(size => {
   }
   }
 
-  
-//  window.addEventListener('DOMContentLoaded', async () => {
-//   const slugFromUrl = window.location.pathname.split('/').pop();
-
-//    if (slugFromUrl) {
-//      const response = await fetch(`/api/products/variant/bySlug/${slugFromUrl}`);
-//      const data = await response.json();
-
-//      const variant = data.product;
-//      document.getElementById('product-name').textContent = variant.variant_name;
-//      document.getElementById('product-price').textContent = `$${variant.price}`;
-//      document.getElementById('product-image').src = variant.file_path;
-
-//        // Handle sizes
-//         const sizeContainer = document.getElementById('product-size');
-
-//  const sizes = data.product[0].sizes.split(',').map(s => s.trim());
-
-//  sizes.sort(); 
-
-//  sizes.forEach(size => {
-//      const p = document.createElement('p');
-//      p.classList.add('size-option'); 
-//      p.textContent = size;
-//      sizeContainer.appendChild(p);
-//  });
-//    }
-//  });        
 </script>
 
 <script>
@@ -231,6 +195,8 @@ sizeOptions.forEach((sizeOption) => {
                         const error = new Error();
                         error.body = response;
                         throw error;
+                    }else{
+                        alert('Item added to cart')
                     }
 
                     return response.text();
@@ -241,14 +207,8 @@ sizeOptions.forEach((sizeOption) => {
                 }
             }
 
-
-                fillCartCount();
-            const cartItemCount = document.querySelector(".cart-item-count")
-            addToCart.addEventListener('click',async function(){
-                await fillCartCount();
-            })
         </script>
 
-</body>
+    </body>
 </html>
 

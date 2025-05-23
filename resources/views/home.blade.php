@@ -156,7 +156,10 @@
     </section>
 
 </footer>
+@stack('scripts') 
 </body>
+
+
 <script>
 
 
@@ -187,7 +190,7 @@
 </script>
 
 {{--get cartCount--}}
-<script>
+{{-- <script>
 
     destructureResponse();
 
@@ -218,14 +221,16 @@
         const {data} = await getCount()
         cartItemCount.innerText = data;
     }
-</script>
+</script> --}}
 
 {{--toggle cart dropdown--}}
-<script>
+ {{-- <script>
     const dropdown = document.querySelector('.cart-dropdown');
     const cartIcon = document.querySelector('.cart-icon')
     const cartIconDiv = document.querySelector('.cartIcon_div')
     cartIconDiv.addEventListener('mouseout', function () {
+        console.log(dropdown,'dropdown in home')
+
         dropdown.style.display = "none";
     });
 
@@ -249,11 +254,11 @@
     })
 
 
-</script>
+</script>  --}}
 
 {{--get cartItems and fill cart-dropdown--}}
 
-<script>
+{{-- <script>
     fillCartDropDown();
     const itemsSection = document.querySelector(".dropdown-cartItems");
 
@@ -298,15 +303,16 @@
         displayItems = displayItems.join("");
         itemsSection.innerHTML = displayItems
     }
-</script>
+</script> --}}
 
-{{--Get total price of cart items--}}<script>
+{{--Get total price of cart items--}}
+{{-- <script>
     addTotalToHtml();
 
     const totalValue = document.querySelector('.total_value');
 
     //calculate total price for cart items
-    async function total() {
+   async function total() {
         const {data} = await getCartItems();
 
         let sum = 0;
@@ -325,11 +331,11 @@
     }
 
 
-</script>
+</script> --}}
 
 {{--toggle authentication dropdown--}}
 
-<script>
+ {{-- <script>
     const authDropdownDiv = document.querySelector('.auth-dropdown');
     const userIconDiv = document.querySelector('.user-icon-container');
     const close = document.querySelector('.close-dropdown-icon');
@@ -353,7 +359,7 @@
         authDropdownDiv.style.display = 'none';
     })
 
-</script>
+</script>  --}}
 
 
 {{--fetch all subCategories on hover on a category--}}
