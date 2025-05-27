@@ -29,7 +29,7 @@
                         <div class="quantity-bar">
 
                             Qty
-                            <select name="quantity" id="quantity">
+                            <select name="quantity" id="quantity"  data-cart_id="{{$cartItem->id}}">
                                 <option value=" " selected>{{ $cartItem->quantity }}</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -76,12 +76,14 @@
 <script>
     const selectQuantity = document.querySelector('#quantity');
     selectQuantity.addEventListener('change', async function (e) {
+        const cartItemId = e.target.getAttribute('data-cart_id');
 
         const data = {
             quantity: document.querySelector("[name = 'quantity']").value
         }
+        console.log(cartItemId,'id of item');
 
-        const cartItemId = {{$cartItem->id}};
+
         await updateProduct(data, cartItemId)
     })
 

@@ -94,6 +94,7 @@
     try {
     const response = await fetch(`/api/products/variant/fetchVariant/${colorValue}/${product}`);
     const data = await response.json();
+
     // Update HTML elements with data
     document.getElementById('product-name').textContent = data.product[0].variant_name;
     document.getElementById('product-price').textContent = `$${data.product[0].price}`;
@@ -109,6 +110,8 @@ sizes.sort((a,b)=>a-b);
 sizes.forEach(size => {
     const p = document.createElement('p');
     p.classList.add('size-option'); 
+    p.setAttribute('data-size', size); 
+
     p.textContent = size;
 
      p.addEventListener('click', function(e) {
@@ -123,18 +126,19 @@ sizes.forEach(size => {
     sizeContainer.appendChild(p);
 });
 
-        const newUrl = `/products/${data.product[0].slug}`;
+
+const newUrl = `/products/${data.product[0].slug}`;
       window.history.pushState({}, '', newUrl);
   } catch (error) {
     console.error('Error fetching product variant:', error);
   }
+
   }
 
 </script>
 
 <script>
  let sizeOptions = document.querySelectorAll('.size-option');
-
 sizeOptions.forEach((sizeOption) => {
   sizeOption.addEventListener('click', function(e) {
     e.preventDefault();
@@ -147,68 +151,72 @@ sizeOptions.forEach((sizeOption) => {
 </script>
 
 
-        <script>
-            let addToCart = document.querySelector('#btn');
-
-
-            addToCart.addEventListener('click', async function (e) {
-                e.preventDefault();
-
-    const selectedSizeEl = document.querySelector('.size-option.selected');
-
-    const size = selectedSizeEl ? selectedSizeEl.getAttribute('data-size') : null;
-
-
-    if (!size) {
-        alert('Please select a size before adding to cart.');
-        return;
-    }
-
-                const data = {
-                    size:size,
-                    variant: e.target.value,
-                    _token: '{{ csrf_token() }}',
-                };
-                await addProductToCart(data);
-            })
-
-
-            /**
-             * add product to cart
-             *
-             * @returns {Promise<any>}
-             */
-            async function addProductToCart(data) {
-
-                try {
-
-                    const url = `{{route('api.add-to-cart')}}`
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    if (!response.ok) {
-                        const error = new Error();
-                        error.body = response;
-                        throw error;
-                    }else{
-                        alert('Item added to cart')
-                    }
-
-                    return response.text();
-                } catch (error) {
-                    if (error.body && error.body.status === 403) {
-                        window.location.href = '{{ route('login') }}';
-                    }
-                }
-            }
-
-        </script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    
+      let sizeOptions = document.querySelectorAll('.size-option');
+    
+      sizeOptions.forEach((sizeOption) => {
+        sizeOption.addEventListener('click', function (e) {
+          e.preventDefault();
+          sizeOptions.forEach((el) => el.classList.remove('selected'));
+          sizeOption.classList.add('selected');
+        });
+      });
+    
+      let addToCart = document.querySelector('#btn');
+    
+      addToCart.addEventListener('click', async function (e) {
+        e.preventDefault();
+    
+        const selectedSizeEl = document.querySelector('.size-option.selected');
+    
+        const size = selectedSizeEl ? selectedSizeEl.getAttribute('data-size') : null;
+    
+        if (!size) {
+          alert('Please select a size before adding to cart.');
+          return;
+        }
+    
+        const data = {
+          size: size,
+          variant: e.target.value,
+          _token: '{{ csrf_token() }}',
+        };
+    
+        await addProductToCart(data);
+      });
+    
+      async function addProductToCart(data) {
+        try {
+          const url = `{{route('api.add-to-cart')}}`;
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+            },
+            body: JSON.stringify(data)
+          });
+    
+          if (!response.ok) {
+            const error = new Error();
+            error.body = response;
+            throw error;
+          } else {
+            alert('Item added to cart');
+          }
+    
+          return response.text();
+        } catch (error) {
+          if (error.body && error.body.status === 403) {
+            window.location.href = '{{ route('login') }}';
+          }
+        }
+      }
+    
+    });
+    </script>
     </body>
 </html>
 

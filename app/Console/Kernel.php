@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('custom:task')->daily();
+        $schedule->command('clearCart:task')->everyTenMinutes();
     }
 
     /**

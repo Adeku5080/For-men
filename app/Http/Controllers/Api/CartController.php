@@ -109,10 +109,16 @@ class CartController extends Controller
     /**
      * delete an item from cart
      */
-    public function deleteCartItem(CartItem $cartItem): JsonResponse
-    {
+    public function deleteCartItem($cartItemId): JsonResponse
+    { 
+        $cartItem = CartItem::find($cartItemId);
+       
+        if (!$cartItem) {
+            return new JsonResponse(['message' => 'The cart item with this Id does not exist'], 404);
+        }
+
         $cartItem->delete();
 
-        return new JsonResponse(['message' => 'cartItem removed from cart'], 200);
+        return new JsonResponse(['message' => 'cartItem removed from cart'], 204);
     }
 }
