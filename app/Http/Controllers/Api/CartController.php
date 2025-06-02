@@ -83,10 +83,7 @@ class CartController extends Controller
 
         // Save updated cart to Redis (optional TTL: 2 hours)
         Redis::setex($cartKey, 7200, json_encode($cachedCart));
-        dd($cachedCart[$itemKey]['quantity']);
 
-
-        // Sync to DB
         $cartItem = CartItem::where('cart_id', $cart->id)
             ->where('product_variant_id', $variantId)
             ->where('size', $size)
