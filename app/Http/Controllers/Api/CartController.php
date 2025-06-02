@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class CartController extends Controller
 {
@@ -34,43 +35,78 @@ class CartController extends Controller
      */
     public function addToCart(Request $request)
     {
-        if (! Auth::user()) {
-            return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
+        $user = Auth::user();
+
+        if (! $user) {
+            return new JsonResponse(['message' => 'Please login to perform this action'], 403);
         }
 
-        $id = $request->variant;
-        $productVariant = ProductVariant::find($id);
+        $variantId = $request->variant;
+        $size = $request->size;
 
+        $productVariant = ProductVariant::find($variantId);
         if (! $productVariant) {
             return new JsonResponse(['message' => 'Product variant does not exist'], 404);
         }
 
         $cart = Cart::firstOrCreate([
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'checked_out_at' => null,
         ]);
 
-        $cartItem = CartItem::where('size', $request->size)
-            ->where('product_variant_id', $id)->first();
+        // Redis key for the cart
+        $cartKey = "cart:{$user->id}";
 
-        if ($cartItem) {
-            $cartItem->update([
-                'quantity' => $cartItem->quantity + 1,
-            ]);
+        // Unique key per item (e.g., "42_M" = variant 42, size M)
+        $itemKey = "{$variantId}_{$size}";
+
+        // Load existing cart from Redis
+        $cachedCart = Redis::get($cartKey);
+
+        $cachedCart = $cachedCart ? json_decode($cachedCart, true) : [];
+
+        // If item already in cache, increase quantity
+        if (isset($cachedCart[$itemKey])) {
+            $cachedCart[$itemKey]['quantity'] += 1;
+            dd($cachedCart[$itemKey]['quantity']);
         } else {
-            CartItem::create([
-                'product_variant_id' => $productVariant->id,
-                'size' => $request->size,
+            $cachedCart[$itemKey] = [
+                'product_variant_id' => $variantId,
+                'size' => $size,
                 'cart_id' => $cart->id,
                 'item_file_path' => $productVariant->file_path,
                 'item_name' => $productVariant->variant_name,
                 'item_price' => $productVariant->price,
                 'quantity' => 1,
+            ];
+        }
 
+        // Save updated cart to Redis (optional TTL: 2 hours)
+        Redis::setex($cartKey, 7200, json_encode($cachedCart));
+        dd($cachedCart[$itemKey]['quantity']);
+
+
+        // Sync to DB
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_variant_id', $variantId)
+            ->where('size', $size)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->increment('quantity');
+        } else {
+            CartItem::create([
+                'product_variant_id' => $variantId,
+                'size' => $size,
+                'cart_id' => $cart->id,
+                'item_file_path' => $productVariant->file_path,
+                'item_name' => $productVariant->variant_name,
+                'item_price' => $productVariant->price,
+                'quantity' => 1,
             ]);
         }
 
-        return new JsonResponse(['message' => 'cart item added'], 200);
+        return new JsonResponse(['message' => 'Cart item added'], 200);
     }
 
     /**
@@ -110,9 +146,9 @@ class CartController extends Controller
      * delete an item from cart
      */
     public function deleteCartItem($cartItemId): JsonResponse
-    { 
+    {
         $cartItem = CartItem::find($cartItemId);
-       
+
         if (!$cartItem) {
             return new JsonResponse(['message' => 'The cart item with this Id does not exist'], 404);
         }
