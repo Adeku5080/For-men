@@ -68,8 +68,7 @@ class CartController extends Controller
         // If item already in cache, increase quantity
         if (isset($cachedCart[$itemKey])) {
             $cachedCart[$itemKey]['quantity'] += 1;
-            dd($cachedCart[$itemKey]['quantity']);
-        } else {
+     } else {
             $cachedCart[$itemKey] = [
                 'product_variant_id' => $variantId,
                 'size' => $size,
