@@ -21,11 +21,23 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-        $cartItems = DB::table('cart_items')
-            ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
-            ->where('carts.user_id', $user->id)
-            ->where('carts.status', 'active')
-            ->get();
+        //get cart items from redis
+        $cartKey = "cart:{$user->id}";
+
+        $cachedCart = Redis::get($cartKey);
+
+        if (!$cachedCart) {
+            $cartItems = DB::table('cart_items')
+                ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
+                ->where('carts.user_id', $user->id)
+                ->where('carts.status', 'active')
+                ->get();
+
+            Redis::setex($cartKey, 3600, json_encode($cartItems->toArray())); 
+
+        }else{
+            $cartItems = json_decode($cachedCart,true);
+        }
 
         return new JsonResponse(['data' => $cartItems], 200);
     }
@@ -68,7 +80,7 @@ class CartController extends Controller
         // If item already in cache, increase quantity
         if (isset($cachedCart[$itemKey])) {
             $cachedCart[$itemKey]['quantity'] += 1;
-     } else {
+        } else {
             $cachedCart[$itemKey] = [
                 'product_variant_id' => $variantId,
                 'size' => $size,

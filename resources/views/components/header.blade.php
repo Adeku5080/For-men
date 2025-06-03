@@ -156,7 +156,6 @@
 
 
     async function getCartItems() {
-        console.log('this api fetches cart items')
         const response = await fetch('/api/cart-items');
 
         return response.json()
