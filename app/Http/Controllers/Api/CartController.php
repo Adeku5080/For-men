@@ -124,15 +124,23 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-        // if (!$user) {
-        //     return new JsonResponse(['message' => 'Please login to be able to perform this action'], 403);
-        // }
+        //get cart items from redis
+        $cartKey = "cart:{$user->id}";
 
-        $cartItemsCount = DB::table('cart_items')
-            ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
-            ->where('carts.user_id', $user->id)
-            ->where('carts.status', 'active')
-            ->count();
+        $cachedCart = Redis::get($cartKey);
+
+        if($cachedCart) {
+            $cartItems = json_decode($cachedCart, true);
+            $cartItemsCount = count($cartItems);
+        }else {
+            $cartItemsCount = DB::table('cart_items')
+                ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
+                ->where('carts.user_id', $user->id)
+                ->where('carts.status', 'active')
+                ->count();
+        }
+       
+     
 
         return new JsonResponse(['data' => $cartItemsCount], 200);
     }
