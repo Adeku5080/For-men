@@ -58,43 +58,59 @@
     </div>
 
     <div class="delivery-options_section">
-      <p> Delivery Options</p>
-    </div>
+      <p class="delivery-title"> Delivery Options</p>
+
+      <div class="delivery">
         <div class="delivery_price">
-            <p> $27.63</p>    
+             $27.63    
         </div>
-
-        <div class="delivery_type">
-            <p>Standard Delivery: </p>
-            <p> </p>
-
+    
+        <div class="delivery-type_section">
+            <p class="delivery-type">Standard Delivery: </p>
+            <p class="delivery-timeline">Delivered on or before wednesday </p>
+    
             <p> No delivery on Public Holidays. All orders are subject to Customs and Duty charges, payable by the recipient of the order.</p>
-
-        </div>
-    <div>
+    
+        </div>    
     </div>
+     
+    <div class="payment-section">
+        <h4>PAYMENT</h4>
 
-
-    <div>
-        <h4>Payment</h4>
-
-        <div>
+        <div class="address-section">
             <div class="address-details">
+              <p>
+                Ali Adeku
+              </p>
+
+              <p>No 8 Araba </p>
+
+              <p>Lagos </p>
 
 
             </div>
         
         
-            <div class="billing_change">
+            <div class="billing-change">
               Change
             </div>    
+
         </div>  
 
-        <div> 
+        <div class="divider">
 
-            <p> PAYMENT TYPE</p>
+        </div>
 
-            
+        <div class="payment-type_section"> 
+
+            <p class="title"> PAYMENT TYPE</p>
+
+            <div class="card-holder">
+              <p> card icon </p>
+
+              <p>ADD CREDIT/DEBIT CARD </p>
+            </div>
+
         </div>
     </div>
 
