@@ -155,14 +155,27 @@
     //calculate total price for cart items
     async function total() {
         const {data} = await getCartItems();
+        console.log(data);
+
 
         let sum = 0;
 
-        for (let i = 0; i < data.length; i++) {
+        if(Array.isArray(data)) {
+            for (let i = 0; i < data.length; i++) {
             let item_total = data[i].item_price * data[i].quantity
             sum += item_total;
         }
         return sum;
+        }else{
+            let dataArray = Object.values(data)
+            for (let i = 0; i < dataArray.length; i++) {
+            let item_total = dataArray[i].item_price * dataArray[i].quantity
+            sum += item_total;
+        }
+        return sum;
+
+        }
+      
     }
 
     async function addTotalToHtml() {

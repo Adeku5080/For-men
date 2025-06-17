@@ -33,10 +33,9 @@ class CartController extends Controller
                 ->where('carts.status', 'active')
                 ->get();
 
-            Redis::setex($cartKey, 3600, json_encode($cartItems->toArray())); 
-
-        }else{
-            $cartItems = json_decode($cachedCart,true);
+            Redis::setex($cartKey, 3600, json_encode($cartItems->toArray()));
+        } else {
+            $cartItems = json_decode($cachedCart, true);
         }
 
         return new JsonResponse(['data' => $cartItems], 200);
@@ -129,18 +128,16 @@ class CartController extends Controller
 
         $cachedCart = Redis::get($cartKey);
 
-        if($cachedCart) {
+        if ($cachedCart) {
             $cartItems = json_decode($cachedCart, true);
             $cartItemsCount = count($cartItems);
-        }else {
+        } else {
             $cartItemsCount = DB::table('cart_items')
                 ->join('carts', 'carts.id', '=', 'cart_items.cart_id')
                 ->where('carts.user_id', $user->id)
                 ->where('carts.status', 'active')
                 ->count();
         }
-       
-     
 
         return new JsonResponse(['data' => $cartItemsCount], 200);
     }

@@ -165,9 +165,10 @@
 
     async function fillCartDropDown() {
         const {data} = await getCartItems();
-        console.log(data,'data from fetch')
 
-        let displayItems = data.map((item) => {
+        const itemsArray = Array.isArray(data) ? data : Object.values(data);
+
+        let displayItems = itemsArray.map((item) => {
             return `
             <div class="main-content">
               <div class="dropdown-image">
