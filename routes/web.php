@@ -126,4 +126,5 @@ Route::post('api/add-to-favourites', [\App\Http\Controllers\Api\FavouriteControl
 Route::delete('/removeFav/{product}', [FavouritesController::class, 'removeFav']);
 Route::get('/saved-items', [FavouritesController::class, 'fetchAllSavedItems']);
 
+Route::post('api/create-checkout-address',[\App\Http\Controllers\Api\CheckoutController::class, 'create']);
 require __DIR__.'/auth.php';

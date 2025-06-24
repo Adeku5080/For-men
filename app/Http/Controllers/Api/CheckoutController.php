@@ -1,31 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Checkout;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class CheckoutController extends Controller
 {
-    /**
-     * show checkout page
-     *
-     * @return View
-     */
-    public function index()
+    public function createUserAddress(Request $request)
     {
-        return view('checkout.checkout');
-    }
-
-    /**
-     * validate and store details
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        dd($request->input());
-
+        
         $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -39,7 +25,7 @@ class CheckoutController extends Controller
 
         ]);
 
-        Checkout::create([
+        $data = Checkout::create([
             'firstname' => $request['first_name'],
             'lastname' => $request['last_name'],
             'email' => $request['email'],
@@ -48,6 +34,8 @@ class CheckoutController extends Controller
             'country' => $request['country'],
         ]);
 
-        return redirect()->route('payment');
+        return new JsonResponse(['data' => $data],200);
     }
+
+
 }

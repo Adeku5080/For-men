@@ -7,12 +7,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/css/checkout.css') }}">
 </head>
 <body>
-    <div class="main-container">
-
-
-
-
-<div class = "checkout-container">
+<div class="main-container">
 
 
 <Section class="checkout-section">
@@ -28,13 +23,16 @@
                 </ul>
             </div>
         @endif
-        <form method="Post" action="{{route('checkout.store')}}">
-            @csrf
-            <input name="firstname" type="text" placeholder="firstname"/>
-            <input name="lastname" type="text" placeholder="lastname"/>
-            <input name="email" type="email" placeholder="Email"/>
-            <input name="address" placeholder="Address 1"/>
-            <input name="phone" placeholder="Phone"/>
+        <form >
+            <input name="first_name" placeholder="First name" id="first_name"/>
+            <input name="last_name" placeholder="Last name" id="last_name"/>
+            <input name="mobile" placeholder="Mobile" id="mobile"/>
+            <input name="address" placeholder="Address" id="address"/>
+            <input name="phone" placeholder="Phone" id="phone"/>
+            <input name="city" placeholder="City" id="city"/>
+            <input name="state" placeholder="State" id="state"/>
+            <input name="postal_code" placeholder="Postal Code" id="post_code"/>
+            <input name="country" placeholder="Country" id="country"/>
 
             <select name="country" id="country">
               <option value="nigeria">
@@ -117,16 +115,13 @@
 
 </Section>
 
-<div class="total-section">
-    
-    
+<div class="total-section">    
 </div>
 
-</div>
 </div>
 </body>
 
-{{--get cartItems and fill cart-dropdown--}}
+{{--get cartItems and fill checkout-product-card--}}
 
 <script>
     fillCheckoutPreview();
@@ -176,4 +171,47 @@
         itemsSection.innerHTML = displayItems
     }
 </script>
+
+{{-- create user checkout address --}}
+<script>
+ const checkoutBtn = document.querySelector('.checkout-btn')
+ checkoutBtn.addEventListener('click',async function(e) {
+    e.preventDefault();
+
+    let data = {
+       first_name:document.getElementById('first_name').value,
+       last_name:document.getElementById('last_name').value,
+       phone:document.getElementById('phone').value,
+       country:document.getElementById('country').value,
+       post_code:document.getElementById('post_code').value,
+       address:document.getElementById('address').value,
+       city:document.getElementById('city').value,
+       state:document.getElementById('state').value,
+    }
+
+   await createCheckoutAddress(data);
+ })
+
+ async function createCheckoutAddress(data) {
+    try{
+        const url = `{{route('api.create-checkout-address')}}`
+
+        const response = await fetch (url, {
+            method:'POST',
+            headers:{
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        if (!response.ok) {
+            const error = new Error();
+            error.body = response;
+            throw error;
+          } else {
+            alert('checkout address created');
+          }
+    }
+ }
+    </script>
 </html>

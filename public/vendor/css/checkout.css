@@ -15,7 +15,7 @@ body{
     width: 60%;
     margin: 40px auto;
     display: flex;
-    gap: 20px;
+    gap: 40px;
 }
 .checkout-section{
     border: 1px solid green;
@@ -186,5 +186,11 @@ h4{
     border: 1px solid grey;
     display: flex;
     gap: 40px;
+    width:50%;
+}
+
+.checkout-container{
+    display: flex;
+    flex-direction: column;
 }
 
